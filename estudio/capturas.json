@@ -1,5 +1,5 @@
 {
-  "comentario": "O que o capturar.mjs tira do site (tolive.app), em 3x e fundo transparente. Os seletores são (de preferência pelo texto, que sobrevive a cartão novo no meio) do HTML do site (tolive/backend/paginas/*.mjs); quando o site muda e um some, o capturar diz qual. 'cliques' aperta botões antes (o palco do Como funciona tem três estados).",
+  "comentario": "O que o capturar.mjs tira do site (tolive.app), em 3x e fundo transparente. Os seletores são (de preferência pelo texto, que sobrevive a cartão novo no meio) do HTML do site (tolive/backend/paginas/*.mjs); quando o site muda e um some, o capturar diz qual. 'cliques' aperta botões antes (o palco do Como funciona tem três estados). 'pecas' (um seletor dentro do elemento) desmonta o elemento em camadas, como as telas do app.",
   "largura": 420,
   "escala": 3,
   "capturas": [
@@ -85,7 +85,9 @@
       "nome": "faz-projecao",
       "pagina": "/",
       "seletor": ".cartao--pagina:has(.rotulo:text-is(\"Projeção de 12 meses\"))",
-      "o_que": "Cartão: Projeção de 12 meses, 'Chega a R$ 46 mil em setembro.'"
+      "o_que": "Cartão: Projeção de 12 meses, 'Chega a R$ 46 mil em setembro.'",
+      "pecas": ".colunas-proj > span",
+      "tipoPeca": "barra"
     },
     {
       "nome": "faz-vazamentos",

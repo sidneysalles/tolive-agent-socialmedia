@@ -4,6 +4,16 @@
   "altura": 844,
   "escala": 3,
   "fundo": "fundo.png",
+  "uso": {
+    "tocar": "Rafael",
+    "alvo": {
+      "x": 66,
+      "y": 285.7,
+      "w": 82.2,
+      "h": 44
+    },
+    "depois": "app-contas-depois"
+  },
   "pecas": [
     {
       "i": 0,
@@ -13,6 +23,7 @@
       "w": 390,
       "h": 8,
       "texto": "",
+      "conteudo": "",
       "arquivo": "00-topo.png"
     },
     {
@@ -23,6 +34,7 @@
       "w": 390,
       "h": 64,
       "texto": "FINANÇAS",
+      "conteudo": "FINANÇAS CONTAS E BANCOS",
       "arquivo": "01-topo.png"
     },
     {
@@ -33,6 +45,7 @@
       "w": 342,
       "h": 43.7,
       "texto": "Tudo lido",
+      "conteudo": "Tudo lido",
       "arquivo": "02-veredito.png"
     },
     {
@@ -42,7 +55,8 @@
       "y": 149.7,
       "w": 342,
       "h": 44.8,
-      "texto": "Cinco bancos, lidos hoje às 16:19. A próxima leitura é amanh",
+      "texto": "Cinco bancos, lidos hoje às 17:19. A próxima leitura é amanh",
+      "conteudo": "Cinco bancos, lidos hoje às 17:19. A próxima leitura é amanhã às 08:30. Ler agora",
       "arquivo": "03-texto.png"
     },
     {
@@ -53,6 +67,7 @@
       "w": 342,
       "h": 133.2,
       "texto": "Chegou uma conta nova: Conta Corrente Exemplo. De quem ela é",
+      "conteudo": "Chegou uma conta nova: Conta Corrente Exemplo. De quem ela é? Rafael Ana",
       "arquivo": "04-bloco.png"
     },
     {
@@ -63,6 +78,7 @@
       "w": 342,
       "h": 37,
       "texto": "CARTÕES · FATURA ABERTA",
+      "conteudo": "CARTÕES · FATURA ABERTA R$ 3.525",
       "arquivo": "05-bloco.png"
     },
     {
@@ -73,6 +89,7 @@
       "w": 342,
       "h": 54,
       "texto": "CE",
+      "conteudo": "CE Cartão Exemplo Visa 4821 Rafael · 7730 Ana · vence dia 22 R$ 3.525",
       "arquivo": "06-linha.png"
     },
     {
@@ -83,6 +100,7 @@
       "w": 342,
       "h": 25.4,
       "texto": "CONEXÕES DO OPEN FINANCE",
+      "conteudo": "CONEXÕES DO OPEN FINANCE",
       "arquivo": "07-bloco.png"
     },
     {
@@ -93,6 +111,7 @@
       "w": 342,
       "h": 100,
       "texto": "CE",
+      "conteudo": "CE CE CC Cartão Exemplo Master, Cartão Exemplo Visa, Conta Corrente Exemplo, Poupança Exemplo em dia",
       "arquivo": "08-linha.png"
     },
     {
@@ -103,6 +122,7 @@
       "w": 342,
       "h": 46,
       "texto": "BS",
+      "conteudo": "BS Banco Simulado autorização até fev/2027",
       "arquivo": "09-linha.png"
     },
     {
@@ -113,6 +133,7 @@
       "w": 342,
       "h": 124,
       "texto": "Conectar banco",
+      "conteudo": "Conectar banco Configuração do Open Finance",
       "arquivo": "10-bloco.png"
     }
   ]

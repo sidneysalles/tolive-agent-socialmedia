@@ -253,37 +253,141 @@ function corpoDoCelular(cam, fundo, w, cor) {
   return r;
 }
 
+// a tela do aparelho num canvas do tamanho do corpo (o recorte e a tela apagada)
+const telas = new Map();
+function telaDoCelular(corpo, cor) {
+  const chave = `${corpo.canvas.width}x${corpo.canvas.height}:${cor}`;
+  if (telas.has(chave)) return telas.get(chave);
+  const c = document.createElement('canvas'); c.width = corpo.canvas.width; c.height = corpo.canvas.height;
+  const k = c.getContext('2d'), wt = corpo.w - 2 * corpo.borda, ht = corpo.h - 2 * corpo.borda;
+  retangulo(k, corpo.borda, corpo.borda, wt, ht, corpo.w * 0.11); k.fillStyle = cor; k.fill();
+  telas.set(chave, c);
+  return c;
+}
+
+// o toque: um círculo cinza com aro claro (aparece sobre botão escuro e sobre botão claro), desenhado uma vez
+let marcaDoToque = null;
+function toqueCanvas() {
+  if (marcaDoToque) return marcaDoToque;
+  const c = document.createElement('canvas'); c.width = c.height = 160;
+  const k = c.getContext('2d');
+  k.beginPath(); k.arc(80, 80, 72, 0, Math.PI * 2); k.fillStyle = COR.tinta2; k.globalAlpha = 0.55; k.fill();
+  k.globalAlpha = 1; k.lineWidth = 7; k.strokeStyle = COR.papel; k.stroke();
+  return (marcaDoToque = c);
+}
+
+// como cada tipo de peça troca num toque: a frase troca no lugar (sai subindo, a nova vem de baixo); o cartão e a
+// linha deslizam (sai pela esquerda, o novo vem da direita, como no app); o aviso do app sobe da borda de baixo
+const TROCA_NO_LUGAR = new Set(['topo', 'veredito', 'texto', 'rotulo']);
+
+/** Pareia as peças do antes com as do depois de um toque: o mesmo tipo e o mesmo texto ficam (e só andam). */
+export function parear(antes, depois) {
+  const livres = [...depois.pecas];
+  const par = new Map();
+  for (const p of antes.pecas) {
+    const j = livres.findIndex(q => q.tipo === p.tipo && (q.conteudo ?? q.texto) === (p.conteudo ?? p.texto));
+    if (j >= 0) { par.set(p.i, livres[j]); livres.splice(j, 1); }
+  }
+  return { par, novas: livres };
+}
+
 /**
- * A tela do app se construindo em 3D (a referência da ElevenLabs): o celular é um plano inclinado no espaço; cada peça
- * da tela começa flutuando à frente dele (mais perto de quem olha, cada uma numa profundidade) e pousa no lugar exato,
- * na ordem da leitura, enquanto o aparelho endireita até a pose de descanso. No fim, a tela é idêntica à do app, vista
- * com uma leve inclinação. cx = centro horizontal; topo = onde começa o aparelho; w = largura; t = tempo da montagem.
- * pose: { rx, ry } no começo e no fim (graus). Devolve { w, h }.
+ * O app em uso, em 3D (os pedidos do Sidney, out/2026: a tela construída peça por peça como no vídeo da ElevenLabs,
+ * a câmera em ângulos diferentes, o app inteiro e o foco num detalhe, o botão apertado e a confirmação do app depois).
+ * O aparelho é um plano no espaço; as peças da tela (as camadas do capturar-app.mjs) chegam voando de perto de quem
+ * olha e pousam no lugar, na ordem da leitura; tudo dentro da tela fica recortado por ela.
+ *
+ * - cam, img, apelido: a tela desmontada e o prefixo dos assets dela. Com cam.semAparelho (um cartão do site), o plano
+ *   é o próprio cartão, sem o celular.
+ * - w: a largura do aparelho (px do quadro, na escala 1); t: o tempo desde o começo da montagem.
+ * - pose: { rx, ry (graus), escala, fx, fy (o ponto da tela do app, em px do app, que a câmera olha), x, y (onde esse
+ *   ponto cai no quadro) }. Anime com m.poses (a câmera anda e para; nunca flutua).
+ * - montagem: { passo, dur, profundidade }: o ritmo das peças chegando.
+ * - toque: { em }: o dedo aperta o botão de cam.uso.alvo nessa hora. depois: { cam, apelido, em }: a tela depois do toque
+ *   (o que é igual fica e anda até o lugar novo; o que mudou sai e o novo entra; o aviso sobe de baixo).
+ * - graficos: { em, dur }: quando o gráfico se desenha (da esquerda pra direita); barras: { em, passo, dur }: cada
+ *   barra cresce da base, uma depois da outra. Sem eles, o gráfico se desenha na montagem.
+ * - apaga: 0 → 1, a tela apaga (a noite cobre a tela, como o celular desligando).
  */
-export function telaMontada3d(g, L, cam, img, apelido, cx, topo, w, t, { passo = 0.055, dur = 0.6, inicio = { rx: 22, ry: -30 }, fim = { rx: 8, ry: -12 }, profundidade = 520, cor = COR.tinta, distancia = 2600 } = {}) {
-  const corpo = corpoDoCelular(cam, img[`${apelido}:fundo`], w, cor);
-  const pg = anima(t, -0.05, passo * cam.pecas.length + dur, CURVA.forte);
-  const rx = inicio.rx + (fim.rx - inicio.rx) * pg, ry = inicio.ry + (fim.ry - inicio.ry) * pg;
-  const planos = [{ fonte: corpo.canvas, x: 0, y: 0, w: corpo.w, h: corpo.h, z: 0, alfa: anima(t, -0.1, 0.18, CURVA.forte) }];
+export function app3d(g, L, { cam, img, apelido, w, t, pose, montagem = {}, toque, depois, graficos, barras, apaga = 0, cor = COR.tinta, distancia = 2600 }) {
+  const { passo = 0.055, dur = 0.6, profundidade = 520 } = montagem;
+  const fundo = img[`${apelido}:fundo`];
+  const corpo = cam.semAparelho
+    ? { canvas: fundo, w, h: (w * cam.altura) / cam.largura, borda: 0, s: w / cam.largura }
+    : corpoDoCelular(cam, fundo, w, cor);
+  const mascara = cam.semAparelho ? fundo : telaDoCelular(corpo, cor);
+  const noApp = (x, y) => [corpo.borda + x * corpo.s, corpo.borda + y * corpo.s];
+  const planos = [
+    { fonte: corpo.canvas, x: 0, y: 0, w: corpo.w, h: corpo.h, z: 0, alfa: anima(t, -0.1, 0.18, CURVA.forte) },
+    { fonte: mascara, x: 0, y: 0, w: corpo.w, h: corpo.h, mascara: true },
+  ];
   const ordem = ordemDeChegada(cam), meio = cam.altura / 2;
+  const troca = depois && t >= depois.em ? parear(cam, depois.cam) : null;
+  const larguraApp = cam.largura;
+  let saindo = 0;
   for (const p of cam.pecas) {
     const fonte = img[`${apelido}:${p.i}`];
-    const k = ordem.get(p.i), pr = anima(t, k * passo, dur, CURVA.forte);
+    const k = ordem.get(p.i), pr = p.tipo === 'barra' ? 1 : anima(t, k * passo, dur, CURVA.forte);
     if (!fonte || pr <= 0) continue;
-    const linha = p.tipo === 'linha';
-    const vem = 1 - pr;
-    planos.push({
-      fonte,
-      x: corpo.borda + p.x * corpo.s + vem * (linha ? 140 : (k % 2 ? -40 : 40)),
-      y: corpo.borda + p.y * corpo.s + vem * (linha ? 10 : 60 + (p.y + p.h / 2 - meio) * 0.15),
-      w: p.w * corpo.s, h: p.h * corpo.s,
-      z: 1 + vem * (profundidade + (k % 3) * 160),
-      alfa: clamp(pr * 2.5),
-      corte: p.tipo === 'grafico' ? clamp(pr * 1.2) : 1,
+    const linha = p.tipo === 'linha', vem = 1 - pr;
+    let [x, y] = noApp(p.x, p.y), alfa = clamp(pr * 2.5);
+    x += vem * (linha ? 140 : (k % 2 ? -40 : 40));
+    y += vem * (linha ? 10 : 60 + (p.y + p.h / 2 - meio) * 0.15);
+    let pw = p.w * corpo.s, ph = p.h * corpo.s;
+    if (troca) {
+      const alvo = troca.par.get(p.i);
+      if (alvo) { // fica: anda até o lugar novo
+        const q = anima(t, depois.em + 0.08, 0.45, CURVA.forte);
+        const [x2, y2] = noApp(alvo.x, alvo.y);
+        x += (x2 - x) * q; y += (y2 - y) * q;
+      } else { // sai: no lugar (sobe e some) ou deslizando pra esquerda, recortado pela tela
+        const q = anima(t, depois.em + 0.03 * saindo++, 0.32, CURVA.empurra);
+        if (TROCA_NO_LUGAR.has(p.tipo)) { y -= q * 18 * corpo.s; alfa *= 1 - clamp(q * 1.6); } else x -= q * larguraApp * corpo.s;
+      }
+    }
+    const corte = p.tipo === 'grafico' ? (graficos ? anima(t, graficos.em, graficos.dur, CURVA.forte) : clamp(pr * 1.2)) : 1;
+    const sobe = p.tipo === 'barra' ? (barras ? anima(t, barras.em + p.i * (barras.passo ?? 0.06), barras.dur ?? 0.5, CURVA.forte) : 1) : 1;
+    planos.push({ fonte, x, y, w: pw, h: ph, z: 1 + vem * (profundidade + (k % 3) * 160), alfa, corte, sobe, recorta: true });
+  }
+  if (troca) { // o que só existe depois do toque: entra (a frase no lugar, o cartão pela direita, o aviso por baixo)
+    troca.novas.forEach((p, n) => {
+      const fonte = img[`${depois.apelido}:${p.i}`];
+      if (!fonte) return;
+      let [x, y] = noApp(p.x, p.y), alfa = 1;
+      if (p.tipo === 'aviso') {
+        y += (1 - anima(t, depois.em + 0.3, 0.5, CURVA.forte)) * (cam.altura - p.y) * corpo.s;
+      } else if (TROCA_NO_LUGAR.has(p.tipo)) {
+        const q = anima(t, depois.em + 0.14 + 0.04 * n, 0.4, CURVA.forte);
+        y += (1 - q) * 18 * corpo.s; alfa = clamp(q * 2);
+      } else {
+        x += (1 - anima(t, depois.em + 0.12 + 0.04 * n, 0.5, CURVA.forte)) * larguraApp * corpo.s;
+      }
+      planos.push({ fonte, x, y, w: p.w * corpo.s, h: p.h * corpo.s, z: p.tipo === 'aviso' ? 2 : 1, alfa, recorta: true });
     });
   }
-  pintar3d(g, L.W, L.H, planos, { largura: corpo.w, altura: corpo.h, cx, cy: topo + corpo.h / 2, rx, ry, distancia });
+  if (toque && cam.uso?.alvo) { // o dedo: aparece no botão, fica um instante e some
+    const a = cam.uso.alvo, r = 30 * corpo.s;
+    const cresce = anima(t, toque.em - 0.1, 0.12, CURVA.forte), some = anima(t, toque.em + 0.14, 0.28, CURVA.chegada);
+    if (cresce > 0 && some < 1) {
+      const [x, y] = noApp(a.x + a.w / 2, a.y + a.h / 2), rr = r * (0.7 + 0.3 * cresce);
+      planos.push({ fonte: toqueCanvas(), x: x - rr, y: y - rr, w: rr * 2, h: rr * 2, z: 3, alfa: cresce * (1 - some), recorta: true });
+    }
+  }
+  if (apaga > 0) planos.push({ fonte: telaDoCelular(corpo, COR.noite), x: 0, y: 0, w: corpo.w, h: corpo.h, z: 4, alfa: clamp(apaga), recorta: true });
+  const [fx, fy] = noApp(pose.fx ?? cam.largura / 2, pose.fy ?? cam.altura / 2);
+  pintar3d(g, L.W, L.H, planos, { largura: corpo.w, altura: corpo.h, foco: [fx, fy], cx: pose.x, cy: pose.y, rx: pose.rx ?? 0, ry: pose.ry ?? 0, escala: pose.escala ?? 1, distancia });
   return { w: corpo.w, h: corpo.h };
+}
+
+/**
+ * A montagem em 3D com a pose de antes (a primeira versão, mantida pra quem já usa): o aparelho endireita de `inicio`
+ * até `fim` enquanto as peças pousam. cx = centro horizontal; topo = onde começa o aparelho.
+ */
+export function telaMontada3d(g, L, cam, img, apelido, cx, topo, w, t, { passo = 0.055, dur = 0.6, inicio = { rx: 22, ry: -30 }, fim = { rx: 8, ry: -12 }, profundidade = 520, cor = COR.tinta, distancia = 2600 } = {}) {
+  const pg = anima(t, -0.05, passo * cam.pecas.length + dur, CURVA.forte);
+  const h = (w - 2 * w * 0.035) * (cam.altura / cam.largura) + 2 * w * 0.035;
+  const pose = { rx: inicio.rx + (fim.rx - inicio.rx) * pg, ry: inicio.ry + (fim.ry - inicio.ry) * pg, x: cx, y: topo + h / 2 };
+  return app3d(g, L, { cam, img, apelido, w, t, pose, montagem: { passo, dur, profundidade }, cor, distancia });
 }
 
 /** O logo (um dos SVGs de marca/logo) com altura h; x pela esquerda (ou centro). Área de proteção é sua. */

@@ -1,0 +1,152 @@
+{
+  "tela": "app-contas-depois",
+  "largura": 390,
+  "altura": 844,
+  "escala": 3,
+  "fundo": "fundo.png",
+  "pecas": [
+    {
+      "i": 0,
+      "tipo": "topo",
+      "x": 0,
+      "y": 0,
+      "w": 390,
+      "h": 8,
+      "texto": "",
+      "conteudo": "",
+      "arquivo": "00-topo.png"
+    },
+    {
+      "i": 1,
+      "tipo": "topo",
+      "x": 0,
+      "y": 8,
+      "w": 390,
+      "h": 64,
+      "texto": "FINANÇAS",
+      "conteudo": "FINANÇAS CONTAS E BANCOS",
+      "arquivo": "01-topo.png"
+    },
+    {
+      "i": 2,
+      "tipo": "veredito",
+      "x": 24,
+      "y": 96,
+      "w": 342,
+      "h": 43.7,
+      "texto": "Tudo lido",
+      "conteudo": "Tudo lido",
+      "arquivo": "02-veredito.png"
+    },
+    {
+      "i": 3,
+      "tipo": "texto",
+      "x": 24,
+      "y": 149.7,
+      "w": 342,
+      "h": 44.8,
+      "texto": "Cinco bancos, lidos hoje às 17:19. A próxima leitura é amanh",
+      "conteudo": "Cinco bancos, lidos hoje às 17:19. A próxima leitura é amanhã às 08:30. Ler agora",
+      "arquivo": "03-texto.png"
+    },
+    {
+      "i": 4,
+      "tipo": "bloco",
+      "x": 24,
+      "y": 216.5,
+      "w": 342,
+      "h": 37,
+      "texto": "EM CONTA",
+      "conteudo": "EM CONTA R$ 2.400",
+      "arquivo": "04-bloco.png"
+    },
+    {
+      "i": 5,
+      "tipo": "linha",
+      "x": 24,
+      "y": 253.5,
+      "w": 342,
+      "h": 54,
+      "texto": "CC",
+      "conteudo": "CC Conta Corrente Exemplo Rafael R$ 2.400",
+      "arquivo": "05-linha.png"
+    },
+    {
+      "i": 6,
+      "tipo": "bloco",
+      "x": 24,
+      "y": 325.5,
+      "w": 342,
+      "h": 37,
+      "texto": "CARTÕES · FATURA ABERTA",
+      "conteudo": "CARTÕES · FATURA ABERTA R$ 3.525",
+      "arquivo": "06-bloco.png"
+    },
+    {
+      "i": 7,
+      "tipo": "linha",
+      "x": 24,
+      "y": 362.5,
+      "w": 342,
+      "h": 54,
+      "texto": "CE",
+      "conteudo": "CE Cartão Exemplo Visa 4821 Rafael · 7730 Ana · vence dia 22 R$ 3.525",
+      "arquivo": "07-linha.png"
+    },
+    {
+      "i": 8,
+      "tipo": "bloco",
+      "x": 24,
+      "y": 434.5,
+      "w": 342,
+      "h": 25.4,
+      "texto": "CONEXÕES DO OPEN FINANCE",
+      "conteudo": "CONEXÕES DO OPEN FINANCE",
+      "arquivo": "08-bloco.png"
+    },
+    {
+      "i": 9,
+      "tipo": "linha",
+      "x": 24,
+      "y": 459.9,
+      "w": 342,
+      "h": 100,
+      "texto": "CE",
+      "conteudo": "CE CE CC Cartão Exemplo Master, Cartão Exemplo Visa, Conta Corrente Exemplo, Poupança Exemplo em dia",
+      "arquivo": "09-linha.png"
+    },
+    {
+      "i": 10,
+      "tipo": "linha",
+      "x": 24,
+      "y": 559.9,
+      "w": 342,
+      "h": 46,
+      "texto": "BS",
+      "conteudo": "BS Banco Simulado autorização até fev/2027",
+      "arquivo": "10-linha.png"
+    },
+    {
+      "i": 11,
+      "tipo": "bloco",
+      "x": 24,
+      "y": 688,
+      "w": 342,
+      "h": 124,
+      "texto": "Conectar banco",
+      "conteudo": "Conectar banco Configuração do Open Finance",
+      "arquivo": "11-bloco.png"
+    },
+    {
+      "i": 12,
+      "tipo": "aviso",
+      "x": 16,
+      "y": 764,
+      "w": 358,
+      "h": 56,
+      "texto": "Dono: Rafael · Conta Corrente Exemplo",
+      "conteudo": "Dono: Rafael · Conta Corrente Exemplo Trocar",
+      "arquivo": "12-aviso.png"
+    }
+  ]
+}

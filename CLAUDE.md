@@ -93,7 +93,7 @@ estudio/
   musicas.mjs       as músicas candidatas (catálogo do Incompetech, medidas e cortadas no trecho do vídeo) e a escolhida
   aprovacao.mjs     a aprovação antes do render: quadros-chave, prévia do movimento e a página (Artifact com db)
   camadas.mjs       as telas desmontadas no filme (os assets e a ordem de chegada das peças)
-  cena3d.mjs        perspectiva 3D pelo WebGL (planos com textura, câmera): o celular inclinado e as peças em profundidade
+  cena3d.mjs        perspectiva 3D pelo WebGL (planos com textura, câmera com foco, a tela recortando): o app em uso
 conhecimento/       curso-motion.md, marca-em-video.md, produtos.json (features e ângulos com id), site/, planos.json
 assets/capturas/    as telas do site em 3x, fundo transparente, e indice.json
 assets/musicas/     música licenciada (CC0 ou CC BY; a licença e o crédito em LICENCAS.md; o teste confere)
@@ -140,6 +140,13 @@ node estudio/historico.mjs                            # a memória
   como dica (`estimarBatidas(…, { bpmPerto })`), a busca fica a 6% dele. (out/2026)
 - O pedido "quero outras 5" fica guardado na página, mas quem busca é o Claude: a página diz que está esperando, e a
   pessoa precisa avisar no chat (o Sidney pediu e não viu nada, out/2026).
+- Peça "sumindo" no 3D: com o aparelho inclinado, ordenar os planos pela profundidade projetada põe a peça pousada na
+  metade de trás atrás do corpo do celular. Os planos são paralelos: ordene pelo z no aparelho (`cena3d.ordemDePintura`).
+  E a peça voando passava por cima da borda: a tela vai pro stencil e as peças só aparecem dentro dela. (out/2026)
+- Tela "sendo usada": o toque de verdade (`uso` em capturas-app.json) muda o app em memória (a conta ganha dono, o
+  lançamento é aprovado). Uma sonda à mão estraga a captura seguinte: reinicie o `npm run local` antes de capturar. (out/2026)
+- A projeção de 12 meses do app, com os dados simulados, fecha no vermelho em qualquer data: o gráfico que sobe é o
+  cartão do site (`capturar.mjs` com `pecas`). (out/2026)
 - Chave de API nunca no chat: a sessão recusa usar a que foi colada (vazada no histórico). Vai nas configurações do
   ambiente. (out/2026)
 - O preço de exemplo do site ("Streaming parado, R$ 39,90 por mês") não é preço da toLive; o `texto.mjs` só reprova os

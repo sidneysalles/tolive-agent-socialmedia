@@ -13,6 +13,7 @@
       "w": 390,
       "h": 8,
       "texto": "",
+      "conteudo": "",
       "arquivo": "00-topo.png"
     },
     {
@@ -23,6 +24,7 @@
       "w": 390,
       "h": 64,
       "texto": "FINANÇAS",
+      "conteudo": "FINANÇAS OUTUBRO dia 13 de 31",
       "arquivo": "01-topo.png"
     },
     {
@@ -33,6 +35,7 @@
       "w": 342,
       "h": 47.8,
       "texto": "Vai passar",
+      "conteudo": "Vai passar",
       "arquivo": "02-veredito.png"
     },
     {
@@ -43,6 +46,7 @@
       "w": 342,
       "h": 71.4,
       "texto": "Passou 42% do mês e você usou 55% do orçamento. Deve fechar ",
+      "conteudo": "Passou 42% do mês e você usou 55% do orçamento. Deve fechar em R$ 2.544, R$ 654 acima.",
       "arquivo": "03-texto.png"
     },
     {
@@ -53,6 +57,7 @@
       "w": 342,
       "h": 206.8,
       "texto": "Quatro categorias vão passar do limite. Ajusto os limites ou",
+      "conteudo": "Quatro categorias vão passar do limite. Ajusto os limites ou seguro os próximos? Resolver uma por uma Agora não",
       "arquivo": "04-alerta.png"
     },
     {
@@ -63,6 +68,7 @@
       "w": 342,
       "h": 43.5,
       "texto": "R$ 1.045",
+      "conteudo": "R$ 1.045 de R$ 1.890",
       "arquivo": "05-bloco.png"
     },
     {
@@ -73,6 +79,7 @@
       "w": 342,
       "h": 45.4,
       "texto": "gasto 55%",
+      "conteudo": "gasto 55% traço = hoje, 42% do mês",
       "arquivo": "06-grafico.png"
     },
     {
@@ -83,6 +90,7 @@
       "w": 342,
       "h": 60,
       "texto": "já lançado para depois",
+      "conteudo": "já lançado para depois R$ 190 ainda deve vir R$ 1.308 fecha em R$ 2.544",
       "arquivo": "07-bloco.png"
     },
     {
@@ -93,6 +101,7 @@
       "w": 342,
       "h": 25.4,
       "texto": "PEDEM UM OLHAR",
+      "conteudo": "PEDEM UM OLHAR",
       "arquivo": "08-rotulo.png"
     },
     {
@@ -103,6 +112,7 @@
       "w": 320,
       "h": 85.8,
       "texto": "Supermercado",
+      "conteudo": "Supermercado vai passar R$ 225 R$ 595 de R$ 950 · o pontilhado é o que deve vir",
       "arquivo": "09-linha.png"
     },
     {
@@ -113,6 +123,7 @@
       "w": 320,
       "h": 85.8,
       "texto": "Combustível",
+      "conteudo": "Combustível vai passar R$ 75 R$ 0 de R$ 270",
       "arquivo": "10-linha.png"
     }
   ]

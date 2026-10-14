@@ -215,5 +215,8 @@
       ]
     }
   ],
-  "escolhida": null
+  "escolhida": {
+    "id": "inspired",
+    "em": "2026-10-14T22:05:07.227Z"
+  }
 }

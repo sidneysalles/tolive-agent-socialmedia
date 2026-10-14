@@ -8,8 +8,8 @@
   "mensagens": [
     "Boleto, fatura, extrato, planilha, lembrete, susto no dia 30: cada um pede um pedaço de você.",
     "Tecnologia feita para não ser usada (o sol nascendo).",
-    "Conecta, organiza, avisa antes, projeta o ano, soma tudo, nas telas do app.",
-    "O melhor elogio: esqueci que tinha o app."
+    "Conecta, organiza, avisa antes, projeta o ano, soma tudo, nas telas do app sendo usadas.",
+    "Pode fechar o app (a tela apaga)."
   ],
   "features": [
     "open-finance",
@@ -23,10 +23,10 @@
     "teste"
   ],
   "cta": "Comece em tolive.app (com o teste grátis do catálogo)",
-  "duracao": 24.5,
+  "duracao": 37.98,
   "status": "rascunho",
   "publicado": [],
-  "notas": "Versão 3 (14/10/2026): a música licenciada no lugar da trilha sintetizada, cortada pela análise (virada da música na primeira feature, o fim dela no logo), e as telas do app de verdade (npm run local do tolive-financas, dados simulados, nomes trocados). As versões 1 e 2 (trilha sintetizada, cartões do site) ficaram no histórico do git. Versão 4 (14/10/2026): as telas do app se constroem peça por peça (as camadas), a música lida de musica.json, e a primeira aprovação antes do render (a página).",
+  "notas": "Versão 3 (14/10/2026): a música licenciada no lugar da trilha sintetizada, cortada pela análise (virada da música na primeira feature, o fim dela no logo), e as telas do app de verdade (npm run local do tolive-financas, dados simulados, nomes trocados). As versões 1 e 2 (trilha sintetizada, cartões do site) ficaram no histórico do git. Versão 4 (14/10/2026): as telas do app se constroem peça por peça (as camadas), a música lida de musica.json, e a primeira aprovação antes do render (a página). Versão 5 (14/10/2026): a música Inspired (aprovada na página), dois compassos por feature com plano de câmera (ângulo de entrada, app inteiro, foco), o toque e a confirmação do app (capturas de antes e depois), a projeção subindo (o cartão do site), a tela que apaga no lugar do manifesto reprovado, os dias grátis em destaque; o conserto das peças que sumiam e das que passavam por cima da borda do celular.",
   "catalogo": {
     "lido_em": "2026-10-14T21:28:45.625Z",
     "menorPreco": "R$ 14,90 por mês",
@@ -38,15 +38,15 @@
   ],
   "renderizado_em": "2026-10-14T21:33:27.577Z",
   "musica": {
-    "arquivo": "assets/musicas/kevin-macleod-our-story-begins.mp3",
+    "arquivo": "assets/musicas/kevin-macleod-inspired.mp3",
     "licenca": "CC BY 4.0",
-    "credito": "Música: \"Our Story Begins\", Kevin MacLeod (incompetech.com), licença CC BY 4.0"
+    "credito": "Música: \"Inspired\", Kevin MacLeod (incompetech.com), licença CC BY 4.0"
   },
   "apelido": "Propósito",
   "aprovacao": {
     "pagina": "https://claude.ai/artifact/2zyzdwkMXiu3Th7C3ZkVqE",
     "aberta_em": "2026-10-14",
-    "musica": null,
+    "musica": "inspired",
     "quadros": null
   }
 }

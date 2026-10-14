@@ -21,7 +21,9 @@ test('o catálogo diz o que a conta diz (mesma regra do site)', () => {
   assert.equal(d.teste, '30 dias grátis com até duas conexões');
   assert.equal(oQueDizer({ planos: CONTA.planos.map(p => ({ ...p, teste_dias: 30 })) }).teste, '30 dias grátis em qualquer plano');
   assert.equal(oQueDizer({ planos: CONTA.planos.map(p => ({ ...p, teste_dias: 0 })) }).teste, null);
-  assert.deepEqual(oQueDizer(null), { planos: [], menorPreco: null, teste: null });
+  assert.deepEqual(oQueDizer(null), { planos: [], menorPreco: null, teste: null, testeDestaque: null });
+  // o fim do vídeo põe os dias em letra grande e o resto embaixo
+  assert.deepEqual(d.testeDestaque, { grande: '30 dias grátis', resto: 'com até duas conexões' });
   assert.equal(reais(123456), 'R$ 1.234,56');
 });
 

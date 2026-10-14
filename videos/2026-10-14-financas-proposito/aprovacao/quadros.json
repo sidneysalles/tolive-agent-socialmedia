@@ -1,5 +1,5 @@
 {
-  "em": "2026-10-14T21:58:01.432Z",
+  "em": "2026-10-14T22:27:33.186Z",
   "formatos": [
     "stories"
   ],
@@ -14,7 +14,7 @@
     },
     {
       "id": "frase",
-      "t": 4.44,
+      "t": 4.9,
       "nome": "A frase",
       "texto": "Cada um pede um pedaço de você",
       "formato": "stories",
@@ -22,67 +22,107 @@
     },
     {
       "id": "promessa",
-      "t": 9.03,
+      "t": 9.96,
       "nome": "O sol nasce: a promessa",
       "texto": "Tecnologia feita para não ser usada",
       "formato": "stories",
       "arquivo": "quadros/stories-promessa.jpg"
     },
     {
-      "id": "feature-1",
-      "t": 10.78,
-      "nome": "Feature: Conecta",
+      "id": "f1-inteiro",
+      "t": 11.71,
+      "nome": "Conecta: o app inteiro",
       "texto": "Conecta. Seus bancos pelo Open Finance. Só para ler.",
       "formato": "stories",
-      "arquivo": "quadros/stories-feature-1.jpg"
+      "arquivo": "quadros/stories-f1-inteiro.jpg"
     },
     {
-      "id": "feature-2",
-      "t": 12.64,
-      "nome": "Feature: Organiza",
+      "id": "f1-foco",
+      "t": 13.99,
+      "nome": "Conecta: o toque e a confirmação do app",
+      "texto": "Toque em \"Rafael\"",
+      "formato": "stories",
+      "arquivo": "quadros/stories-f1-foco.jpg"
+    },
+    {
+      "id": "f2-inteiro",
+      "t": 15.79,
+      "nome": "Organiza: o app inteiro",
       "texto": "Organiza. Um lançamento por vez. Você só diz “certo”.",
       "formato": "stories",
-      "arquivo": "quadros/stories-feature-2.jpg"
+      "arquivo": "quadros/stories-f2-inteiro.jpg"
     },
     {
-      "id": "feature-3",
-      "t": 14.5,
-      "nome": "Feature: Avisa antes",
+      "id": "f2-foco",
+      "t": 18.08,
+      "nome": "Organiza: o toque e a confirmação do app",
+      "texto": "Toque em \"Certo\"",
+      "formato": "stories",
+      "arquivo": "quadros/stories-f2-foco.jpg"
+    },
+    {
+      "id": "f3-inteiro",
+      "t": 19.88,
+      "nome": "Avisa antes: o app inteiro",
       "texto": "Avisa antes. Quando o mês vai passar do limite, não depois.",
       "formato": "stories",
-      "arquivo": "quadros/stories-feature-3.jpg"
+      "arquivo": "quadros/stories-f3-inteiro.jpg"
     },
     {
-      "id": "feature-4",
-      "t": 16.35,
-      "nome": "Feature: Projeta o ano",
-      "texto": "Projeta o ano. Doze meses à vista, numa frase.",
+      "id": "f3-foco",
+      "t": 22.16,
+      "nome": "Avisa antes: o detalhe",
+      "texto": "",
       "formato": "stories",
-      "arquivo": "quadros/stories-feature-4.jpg"
+      "arquivo": "quadros/stories-f3-foco.jpg"
     },
     {
-      "id": "feature-5",
-      "t": 18.21,
-      "nome": "Feature: Soma tudo",
+      "id": "f4-inteiro",
+      "t": 23.96,
+      "nome": "Projeta o ano: o app inteiro",
+      "texto": "Projeta o ano. Doze meses à vista, mantendo o seu ritmo.",
+      "formato": "stories",
+      "arquivo": "quadros/stories-f4-inteiro.jpg"
+    },
+    {
+      "id": "f4-foco",
+      "t": 26.24,
+      "nome": "Projeta o ano: o gráfico subindo",
+      "texto": "",
+      "formato": "stories",
+      "arquivo": "quadros/stories-f4-foco.jpg"
+    },
+    {
+      "id": "f5-inteiro",
+      "t": 28.04,
+      "nome": "Soma tudo: o app inteiro",
       "texto": "Soma tudo. Contas e investimentos num número só.",
       "formato": "stories",
-      "arquivo": "quadros/stories-feature-5.jpg"
+      "arquivo": "quadros/stories-f5-inteiro.jpg"
     },
     {
-      "id": "manifesto",
-      "t": 20.18,
-      "nome": "O manifesto",
-      "texto": "O melhor elogio que podemos receber: “Esqueci que tinha o app”",
+      "id": "f5-foco",
+      "t": 30.33,
+      "nome": "Soma tudo: o detalhe",
+      "texto": "",
       "formato": "stories",
-      "arquivo": "quadros/stories-manifesto.jpg"
+      "arquivo": "quadros/stories-f5-foco.jpg"
     },
     {
-      "id": "fim",
-      "t": 24.33,
-      "nome": "O fim: o logo e o convite",
-      "texto": "toLive Finanças · Tecnologia feita para não ser usada · o teste grátis do catálogo · Comece em tolive.app",
+      "id": "fecha",
+      "t": 32.16,
+      "nome": "A tela apaga: pode fechar o app",
+      "texto": "Pode fechar o app",
       "formato": "stories",
-      "arquivo": "quadros/stories-fim.jpg"
+      "arquivo": "quadros/stories-fecha.jpg"
+    },
+    {
+      "id": "fim-2",
+      "t": 37.78,
+      "nome": "O fim: o logo, os dias grátis em destaque e o convite",
+      "texto": "toLive Finanças · Tecnologia feita para não ser usada · o teste grátis do catálogo, grande · Comece em tolive.app",
+      "formato": "stories",
+      "arquivo": "quadros/stories-fim-2.jpg"
     }
   ]
 }

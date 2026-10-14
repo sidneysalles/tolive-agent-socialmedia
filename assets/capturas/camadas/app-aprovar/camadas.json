@@ -4,6 +4,16 @@
   "altura": 844,
   "escala": 3,
   "fundo": "fundo.png",
+  "uso": {
+    "tocar": "Certo",
+    "alvo": {
+      "x": 24,
+      "y": 678,
+      "w": 342,
+      "h": 52
+    },
+    "depois": "app-aprovar-depois"
+  },
   "pecas": [
     {
       "i": 0,
@@ -13,6 +23,7 @@
       "w": 390,
       "h": 8,
       "texto": "",
+      "conteudo": "",
       "arquivo": "00-topo.png"
     },
     {
@@ -23,6 +34,7 @@
       "w": 390,
       "h": 64,
       "texto": "FINANÇAS",
+      "conteudo": "FINANÇAS APROVAR 1 de 10",
       "arquivo": "01-topo.png"
     },
     {
@@ -33,6 +45,7 @@
       "w": 342,
       "h": 47.8,
       "texto": "Faltam dez",
+      "conteudo": "Faltam dez",
       "arquivo": "02-veredito.png"
     },
     {
@@ -43,6 +56,7 @@
       "w": 342,
       "h": 47.6,
       "texto": "Cerca de cinco minutos. Os outros três de outubro já estão c",
+      "conteudo": "Cerca de cinco minutos. Os outros três de outubro já estão classificados.",
       "arquivo": "03-texto.png"
     },
     {
@@ -53,6 +67,7 @@
       "w": 342,
       "h": 308.7,
       "texto": "MAGAZINE ELETRO GELADEIRA 08/10",
+      "conteudo": "MAGAZINE ELETRO GELADEIRA 08/10 CE 4 dez, 12:00 · Cartão Exemplo Visa · você R$ 450,00 e mais 1 parcela desta compra VAI PARA Compras › Eletrodomésticos Outra parcela da mesma compra",
       "arquivo": "04-bloco.png"
     },
     {
@@ -63,6 +78,7 @@
       "w": 342,
       "h": 138,
       "texto": "Certo",
+      "conteudo": "Certo Outra categoria Agora não",
       "arquivo": "05-bloco.png"
     }
   ]

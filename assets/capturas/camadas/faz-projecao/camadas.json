@@ -1,0 +1,142 @@
+{
+  "tela": "faz-projecao",
+  "largura": 372,
+  "altura": 282,
+  "escala": 3,
+  "fundo": "fundo.png",
+  "semAparelho": true,
+  "pecas": [
+    {
+      "i": 0,
+      "tipo": "barra",
+      "arquivo": "00-barra.png",
+      "x": 28,
+      "y": 197.3,
+      "w": 20.8,
+      "h": 21.2,
+      "texto": "",
+      "conteudo": ""
+    },
+    {
+      "i": 1,
+      "tipo": "barra",
+      "arquivo": "01-barra.png",
+      "x": 54.8,
+      "y": 190.2,
+      "w": 20.8,
+      "h": 28.3,
+      "texto": "",
+      "conteudo": ""
+    },
+    {
+      "i": 2,
+      "tipo": "barra",
+      "arquivo": "02-barra.png",
+      "x": 81.7,
+      "y": 184.3,
+      "w": 20.8,
+      "h": 34.2,
+      "texto": "",
+      "conteudo": ""
+    },
+    {
+      "i": 3,
+      "tipo": "barra",
+      "arquivo": "03-barra.png",
+      "x": 108.5,
+      "y": 176,
+      "w": 20.8,
+      "h": 42.5,
+      "texto": "",
+      "conteudo": ""
+    },
+    {
+      "i": 4,
+      "tipo": "barra",
+      "arquivo": "04-barra.png",
+      "x": 135.3,
+      "y": 170.1,
+      "w": 20.8,
+      "h": 48.4,
+      "texto": "",
+      "conteudo": ""
+    },
+    {
+      "i": 5,
+      "tipo": "barra",
+      "arquivo": "05-barra.png",
+      "x": 162.1,
+      "y": 163,
+      "w": 20.8,
+      "h": 55.5,
+      "texto": "",
+      "conteudo": ""
+    },
+    {
+      "i": 6,
+      "tipo": "barra",
+      "arquivo": "06-barra.png",
+      "x": 189,
+      "y": 154.8,
+      "w": 20.8,
+      "h": 63.7,
+      "texto": "",
+      "conteudo": ""
+    },
+    {
+      "i": 7,
+      "tipo": "barra",
+      "arquivo": "07-barra.png",
+      "x": 215.8,
+      "y": 147.7,
+      "w": 20.8,
+      "h": 70.8,
+      "texto": "",
+      "conteudo": ""
+    },
+    {
+      "i": 8,
+      "tipo": "barra",
+      "arquivo": "08-barra.png",
+      "x": 242.6,
+      "y": 139.5,
+      "w": 20.8,
+      "h": 79,
+      "texto": "",
+      "conteudo": ""
+    },
+    {
+      "i": 9,
+      "tipo": "barra",
+      "arquivo": "09-barra.png",
+      "x": 269.5,
+      "y": 131.2,
+      "w": 20.8,
+      "h": 87.3,
+      "texto": "",
+      "conteudo": ""
+    },
+    {
+      "i": 10,
+      "tipo": "barra",
+      "arquivo": "10-barra.png",
+      "x": 296.3,
+      "y": 122.9,
+      "w": 20.8,
+      "h": 95.6,
+      "texto": "",
+      "conteudo": ""
+    },
+    {
+      "i": 11,
+      "tipo": "barra",
+      "arquivo": "11-barra.png",
+      "x": 323.1,
+      "y": 112.3,
+      "w": 20.8,
+      "h": 106.2,
+      "texto": "",
+      "conteudo": ""
+    }
+  ]
+}

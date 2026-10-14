@@ -26,6 +26,28 @@ const indice = { capturado_em: new Date().toISOString(), site, escala: CONFIG.es
 const falhas = [];
 let atual = null;
 
+/**
+ * Com `pecas` (um seletor dentro do elemento), o elemento sai também desmontado, como as telas do app
+ * (assets/capturas/camadas/<nome>/): cada peça num PNG transparente com a posição exata, e o fundo sem elas. O filme
+ * faz cada barra crescer da base (o gráfico da projeção subindo, o pedido do Sidney, out/2026).
+ */
+async function camadas(alvo, caixa, c) {
+  const dir = `${DESTINO}camadas/${c.nome}/`;
+  mkdirSync(dir, { recursive: true });
+  const itens = alvo.locator(c.pecas);
+  const lista = [];
+  for (let i = 0; i < await itens.count(); i++) {
+    const b = await itens.nth(i).boundingBox();
+    const arquivo = `${String(i).padStart(2, '0')}-${c.tipoPeca ?? 'peca'}.png`;
+    await itens.nth(i).screenshot({ path: dir + arquivo, omitBackground: true, animations: 'disabled' });
+    lista.push({ i, tipo: c.tipoPeca ?? 'peca', arquivo, x: +(b.x - caixa.x).toFixed(1), y: +(b.y - caixa.y).toFixed(1), w: +b.width.toFixed(1), h: +b.height.toFixed(1), texto: '', conteudo: '' });
+  }
+  await alvo.evaluate((el, sel) => { for (const p of el.querySelectorAll(sel)) p.style.setProperty('visibility', 'hidden', 'important'); }, c.pecas);
+  await alvo.screenshot({ path: dir + 'fundo.png', omitBackground: true, animations: 'disabled' });
+  writeFileSync(dir + 'camadas.json', JSON.stringify({ tela: c.nome, largura: +caixa.width.toFixed(1), altura: +caixa.height.toFixed(1), escala: CONFIG.escala, fundo: 'fundo.png', semAparelho: true, pecas: lista }, null, 2) + '\n');
+  return lista.length;
+}
+
 for (const c of CONFIG.capturas) {
   if (so && !so.includes(c.nome)) continue;
   try {
@@ -40,7 +62,8 @@ for (const c of CONFIG.capturas) {
     });
     await alvo.screenshot({ path: `${DESTINO}${c.nome}.png`, omitBackground: true, animations: 'disabled' });
     const caixa = await alvo.boundingBox();
-    indice.capturas.push({ nome: c.nome, arquivo: `assets/capturas/${c.nome}.png`, o_que: c.o_que, pagina: c.pagina, largura: Math.round(caixa.width * CONFIG.escala), altura: Math.round(caixa.height * CONFIG.escala) });
+    const pecas = c.pecas ? await camadas(alvo, caixa, c) : undefined;
+    indice.capturas.push({ nome: c.nome, arquivo: `assets/capturas/${c.nome}.png`, o_que: c.o_que, pagina: c.pagina, largura: Math.round(caixa.width * CONFIG.escala), altura: Math.round(caixa.height * CONFIG.escala), ...(pecas ? { camadas: `assets/capturas/camadas/${c.nome}/camadas.json`, pecas } : {}) });
     console.log(`ok  ${c.nome}  ${Math.round(caixa.width * CONFIG.escala)}×${Math.round(caixa.height * CONFIG.escala)}`);
     await pagina.reload({ waitUntil: 'networkidle' });
   } catch (erro) {

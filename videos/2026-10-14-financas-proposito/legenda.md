@@ -10,4 +10,4 @@ Tecnologia feita para não ser usada.
 
 tolive.app
 
-Música: "Our Story Begins", Kevin MacLeod (incompetech.com), licença CC BY 4.0
+Música: "Inspired", Kevin MacLeod (incompetech.com), licença CC BY 4.0

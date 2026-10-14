@@ -22,3 +22,4 @@ compasso e onde cortar pra o filme ter N compassos calmos e a virada no seguinte
 | Arquivo | Faixa e autor | Onde | Licença | Crédito (vai na legenda) | Data |
 | --- | --- | --- | --- | --- | --- |
 | `kevin-macleod-our-story-begins.mp3` | "Our Story Begins", Kevin MacLeod | https://incompetech.com (baixada de incompetech.com/music/royalty-free/mp3-royaltyfree/Our%20Story%20Begins.mp3) | CC BY 4.0, https://creativecommons.org/licenses/by/4.0/ | Música: "Our Story Begins", Kevin MacLeod (incompetech.com), licença CC BY 4.0 | 2026-10-14 |
+| `kevin-macleod-inspired.mp3` | "Inspired", Kevin MacLeod | https://incompetech.com (baixada de https://incompetech.com/music/royalty-free/mp3-royaltyfree/Inspired.mp3) | CC BY 4.0, https://creativecommons.org/licenses/by/4.0/ | Música: "Inspired", Kevin MacLeod (incompetech.com), licença CC BY 4.0 | 2026-10-14 |

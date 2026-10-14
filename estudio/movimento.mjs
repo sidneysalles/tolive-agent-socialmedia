@@ -138,3 +138,19 @@ export function semente(n) {
 export const batida = (n, bpm) => (n * 60) / bpm;
 /** O tempo do compasso n (4/4). */
 export const compasso = (n, bpm) => batida(n * 4, bpm);
+
+/**
+ * A câmera em planos (um objeto de números: { rx, ry, escala, … }): cada chave é um movimento que começa na hora dela
+ * e dura `dur`, do valor anterior até o dela, na curva dada. Entre as chaves a câmera fica parada (nada flutua).
+ * chaves: [[tempo, { … }, dur?, curva?], …] em ordem de tempo, sem sobrepor. Função pura de t.
+ */
+export function poses(t, chaves, { dur = 0.6, curva = CURVA.empurra } = {}) {
+  const v = { ...chaves[0][1] };
+  for (let i = 1; i < chaves.length; i++) {
+    const [t0, alvo, d = dur, c = curva] = chaves[i];
+    const p = anima(t, t0, d, c);
+    if (p <= 0) break;
+    for (const k of Object.keys(alvo)) v[k] = mix(v[k] ?? alvo[k], alvo[k], p);
+  }
+  return v;
+}

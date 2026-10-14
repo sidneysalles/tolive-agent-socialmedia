@@ -14,32 +14,6 @@
       "pecas": 12
     },
     {
-      "nome": "app-aprovar",
-      "arquivo": "assets/capturas/app-aprovar.png",
-      "inteira": "assets/capturas/app-aprovar-inteira.png",
-      "rota": "/aprovar",
-      "estado": "calma",
-      "o_que": "Aprovar: 'Faltam dez.', um lançamento por tela, 'Vai para Compras › Eletrodomésticos', o botão 'Certo'",
-      "largura": 1170,
-      "altura": 2532,
-      "alturaInteira": 2532,
-      "camadas": "assets/capturas/camadas/app-aprovar/camadas.json",
-      "pecas": 6
-    },
-    {
-      "nome": "app-mes",
-      "arquivo": "assets/capturas/app-mes.png",
-      "inteira": "assets/capturas/app-mes-inteira.png",
-      "rota": "/mes",
-      "estado": "aviso",
-      "o_que": "O mês: 'Vai passar.' com o cartão 'Quatro categorias vão passar do limite' e a barra do gasto",
-      "largura": 1170,
-      "altura": 2532,
-      "alturaInteira": 4182,
-      "camadas": "assets/capturas/camadas/app-mes/camadas.json",
-      "pecas": 11
-    },
-    {
       "nome": "app-12-meses",
       "arquivo": "assets/capturas/app-12-meses.png",
       "inteira": "assets/capturas/app-12-meses-inteira.png",
@@ -51,19 +25,6 @@
       "alturaInteira": 2718,
       "camadas": "assets/capturas/camadas/app-12-meses/camadas.json",
       "pecas": 11
-    },
-    {
-      "nome": "app-patrimonio",
-      "arquivo": "assets/capturas/app-patrimonio.png",
-      "inteira": "assets/capturas/app-patrimonio-inteira.png",
-      "rota": "/patrimonio",
-      "estado": "calma",
-      "o_que": "Patrimônio: 'Oscilação normal.', o total, a evolução e a composição",
-      "largura": 1170,
-      "altura": 2532,
-      "alturaInteira": 2979,
-      "camadas": "assets/capturas/camadas/app-patrimonio/camadas.json",
-      "pecas": 13
     },
     {
       "nome": "app-extrato",
@@ -92,6 +53,45 @@
       "pecas": 10
     },
     {
+      "nome": "app-mes",
+      "arquivo": "assets/capturas/app-mes.png",
+      "inteira": "assets/capturas/app-mes-inteira.png",
+      "rota": "/mes",
+      "estado": "aviso",
+      "o_que": "O mês: 'Vai passar.' com o cartão 'Quatro categorias vão passar do limite' e a barra do gasto",
+      "largura": 1170,
+      "altura": 2532,
+      "alturaInteira": 4182,
+      "camadas": "assets/capturas/camadas/app-mes/camadas.json",
+      "pecas": 11
+    },
+    {
+      "nome": "app-patrimonio",
+      "arquivo": "assets/capturas/app-patrimonio.png",
+      "inteira": "assets/capturas/app-patrimonio-inteira.png",
+      "rota": "/patrimonio",
+      "estado": "calma",
+      "o_que": "Patrimônio: 'Oscilação normal.', o total, a evolução e a composição",
+      "largura": 1170,
+      "altura": 2532,
+      "alturaInteira": 2979,
+      "camadas": "assets/capturas/camadas/app-patrimonio/camadas.json",
+      "pecas": 13
+    },
+    {
+      "nome": "app-aprovar",
+      "arquivo": "assets/capturas/app-aprovar.png",
+      "inteira": "assets/capturas/app-aprovar-inteira.png",
+      "rota": "/aprovar",
+      "estado": "calma",
+      "o_que": "Aprovar: 'Faltam dez.', um lançamento por tela, 'Vai para Compras › Eletrodomésticos', o botão 'Certo'",
+      "largura": 1170,
+      "altura": 2532,
+      "alturaInteira": 2532,
+      "camadas": "assets/capturas/camadas/app-aprovar/camadas.json",
+      "pecas": 6
+    },
+    {
       "nome": "app-contas",
       "arquivo": "assets/capturas/app-contas.png",
       "inteira": "assets/capturas/app-contas-inteira.png",
@@ -105,7 +105,7 @@
       "pecas": 11
     }
   ],
-  "capturado_em": "2026-10-14T21:44:35.050Z",
+  "capturado_em": "2026-10-14T22:19:21.569Z",
   "app": "toLive Finanças (npm run local, dados simulados)",
   "dia": "2026-10-13",
   "escala": 3

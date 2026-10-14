@@ -99,7 +99,7 @@ export async function pagina(pasta) {
   }
   const dados = {
     video: ficha.titulo ?? filme.titulo, apelido: ficha.apelido ?? ficha.titulo ?? filme.titulo, id: filme.id, produto: ficha.produto ?? filme.produto, duracao: filme.duracao,
-    rodada: rodada?.n ?? 0, gerada: new Date().toISOString(), previa: prev && { de: prev.de, ate: prev.ate, arquivo: prev.arquivo },
+    rodada: rodada?.n ?? 0, gerada: new Date().toISOString(), previa: prev && { de: prev.de, ate: prev.ate, arquivo: prev.arquivo, titulo: filme.previa?.titulo, texto: filme.previa?.texto },
     atual: atual && { titulo: atual.titulo, bpm: atual.bpm },
     faixas: [...(atualNaPagina ? [atualNaPagina] : []), ...(rodada?.faixas ?? []).map(paraPagina)],
     // as rodadas de antes continuam valendo: dá pra escolher uma faixa de qualquer rodada
@@ -223,11 +223,11 @@ details.rodadas .musicas { margin-top: 12px; }
   ${dados.previa ? `<section aria-labelledby="t-previa">
     <div class="cabeca">
       <p class="rotulo">Prévia do movimento · ${String(dados.previa.de).replace('.', ',')} a ${String(dados.previa.ate).replace('.', ',')} s</p>
-      <h2 id="t-previa">As telas se constroem</h2>
+      <h2 id="t-previa">${esc(dados.previa.titulo ?? 'As telas se constroem')}</h2>
     </div>
     <div class="previa">
       <video controls playsinline preload="metadata" src="${esc(dados.previa.arquivo)}"></video>
-      <p class="apoio">Cada tela do app chega desmontada e se monta no celular, peça por peça, na ordem da leitura: o veredito, o cartão, os números, cada linha. São as peças da tela de verdade (dados de exemplo), não um desenho. Com som: é o trecho em que a música sobe. Comente no quadro da feature que quiser mudar.</p>
+      <p class="apoio">${esc(dados.previa.texto ?? 'Cada tela do app chega desmontada e se monta no celular, peça por peça, na ordem da leitura: o veredito, o cartão, os números, cada linha. São as peças da tela de verdade (dados de exemplo), não um desenho. Com som: é o trecho em que a música sobe. Comente no quadro da feature que quiser mudar.')}</p>
     </div>
   </section>` : ''}
 

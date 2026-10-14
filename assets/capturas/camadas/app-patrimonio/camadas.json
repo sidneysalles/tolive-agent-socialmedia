@@ -13,6 +13,7 @@
       "w": 390,
       "h": 8,
       "texto": "",
+      "conteudo": "",
       "arquivo": "00-topo.png"
     },
     {
@@ -23,6 +24,7 @@
       "w": 390,
       "h": 64,
       "texto": "FINANÇAS",
+      "conteudo": "FINANÇAS PATRIMÔNIO",
       "arquivo": "01-topo.png"
     },
     {
@@ -33,6 +35,7 @@
       "w": 342,
       "h": 87.4,
       "texto": "Oscilação normal",
+      "conteudo": "Oscilação normal",
       "arquivo": "02-veredito.png"
     },
     {
@@ -42,7 +45,8 @@
       "y": 183.4,
       "w": 342,
       "h": 95.2,
-      "texto": "Hoje −0,5% (−R$ 387): R$ 275 a menos de aporte, resgate ou s",
+      "texto": "Hoje −0,5% (−R$ 391): R$ 275 a menos de aporte, resgate ou s",
+      "conteudo": "Hoje −0,5% (−R$ 391): R$ 275 a menos de aporte, resgate ou saldo informado e R$ 115 de queda no mercado. Num dia comum, sua carteira mexe até 0,2%.",
       "arquivo": "03-texto.png"
     },
     {
@@ -52,7 +56,8 @@
       "y": 296.6,
       "w": 342,
       "h": 38.6,
-      "texto": "R$ 85.174",
+      "texto": "R$ 85.170",
+      "conteudo": "R$ 85.170 −0,5% hoje",
       "arquivo": "04-bloco.png"
     },
     {
@@ -62,7 +67,8 @@
       "y": 341.2,
       "w": 342,
       "h": 32,
-      "texto": "cotação das 18:44 · Atualizar",
+      "texto": "cotação das 19:16 · Atualizar",
+      "conteudo": "cotação das 19:16 · Atualizar",
       "arquivo": "05-texto.png"
     },
     {
@@ -73,6 +79,7 @@
       "w": 342,
       "h": 52,
       "texto": "Hoje",
+      "conteudo": "Hoje 7 dias 30 dias",
       "arquivo": "06-bloco.png"
     },
     {
@@ -83,6 +90,7 @@
       "w": 342,
       "h": 185.1,
       "texto": "5 MESES",
+      "conteudo": "5 MESES jun/26 jul ago set out De R$ 83 mil para R$ 85 mil: R$ 0 de aportes e R$ 2.495 de rendimento.",
       "arquivo": "07-grafico.png"
     },
     {
@@ -93,6 +101,7 @@
       "w": 342,
       "h": 10,
       "texto": "",
+      "conteudo": "",
       "arquivo": "08-bloco.png"
     },
     {
@@ -102,7 +111,8 @@
       "y": 676.2,
       "w": 342,
       "h": 17.4,
-      "texto": "Livre R$ 70.523 · travado R$ 14.651 (FGTS)",
+      "texto": "Livre R$ 70.519 · travado R$ 14.651 (FGTS)",
+      "conteudo": "Livre R$ 70.519 · travado R$ 14.651 (FGTS)",
       "arquivo": "09-texto.png"
     },
     {
@@ -113,6 +123,7 @@
       "w": 342,
       "h": 47,
       "texto": "Renda fixa e Tesouro",
+      "conteudo": "Renda fixa e Tesouro R$ 42.000",
       "arquivo": "10-linha.png"
     },
     {
@@ -123,6 +134,7 @@
       "w": 342,
       "h": 47,
       "texto": "Previdência",
+      "conteudo": "Previdência R$ 25.542",
       "arquivo": "11-linha.png"
     },
     {
@@ -133,6 +145,7 @@
       "w": 342,
       "h": 47,
       "texto": "FGTS",
+      "conteudo": "FGTS R$ 14.651",
       "arquivo": "12-linha.png"
     }
   ]

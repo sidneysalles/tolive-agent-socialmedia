@@ -1,19 +1,89 @@
 {
-  "comentario": "As telas do app de verdade (toLive Finanças), tiradas do `npm run local` do tolive-financas clonado ao lado: o app inteiro em memória sobre os dados simulados de um casal fictício, sem login nem Supabase, nada gravado. O modo local usa os nomes reais do Sidney e da Letícia como membros: o capturar-app.mjs troca pelos de 'nomes' antes de cada foto (o guia: nunca captura com dado real de ninguém). Os simulados foram feitos pra testar problema ('Sete coisas', 'Vai passar', meses no vermelho): 'estado' diz se a tela mostra calma ou um aviso, e o roteiro escolhe pelo que o vídeo diz.",
+  "comentario": "As telas do app de verdade (toLive Finanças), tiradas do `npm run local` do tolive-financas clonado ao lado: o app inteiro em memória sobre os dados simulados de um casal fictício, sem login nem Supabase, nada gravado. O modo local usa os nomes reais do Sidney e da Letícia como membros: o capturar-app.mjs troca pelos de 'nomes' antes de cada foto (o guia: nunca captura com dado real de ninguém). Os simulados foram feitos pra testar problema ('Sete coisas', 'Vai passar', meses no vermelho): 'estado' diz se a tela mostra calma ou um aviso, e o roteiro escolhe pelo que o vídeo diz. Com 'uso', a captura aperta o botão de verdade e desmonta a tela de novo em <nome>-depois (ver capturar-app.mjs); apertar muda o app em memória, então reinicie o local antes de repetir.",
   "app": "http://localhost:4173",
   "dia": "2026-10-13",
   "largura": 390,
   "altura": 844,
   "escala": 3,
-  "nomes": { "Sidney Dominguez Salles": "Rafael Souza", "Letícia Dominguez Salles": "Ana Souza", "Sidney": "Rafael", "Letícia": "Ana", "Leticia": "Ana", "Salles": "Souza", "Dominguez": "Souza", "sidney.o.salles@gmail.com": "rafael@exemplo.com", "dominguez.leh@gmail.com": "ana@exemplo.com" },
+  "nomes": {
+    "Sidney Dominguez Salles": "Rafael Souza",
+    "Letícia Dominguez Salles": "Ana Souza",
+    "Sidney": "Rafael",
+    "Letícia": "Ana",
+    "Leticia": "Ana",
+    "Salles": "Souza",
+    "Dominguez": "Souza",
+    "sidney.o.salles@gmail.com": "rafael@exemplo.com",
+    "dominguez.leh@gmail.com": "ana@exemplo.com"
+  },
   "capturas": [
-    { "nome": "app-inicio", "rota": "/", "estado": "aviso", "o_que": "O Início: 'Sete coisas.' e o cartão de alerta (o Open Finance parado), a lista do que fazer" },
-    { "nome": "app-aprovar", "rota": "/aprovar", "estado": "calma", "o_que": "Aprovar: 'Faltam dez.', um lançamento por tela, 'Vai para Compras › Eletrodomésticos', o botão 'Certo'" },
-    { "nome": "app-mes", "rota": "/mes", "estado": "aviso", "o_que": "O mês: 'Vai passar.' com o cartão 'Quatro categorias vão passar do limite' e a barra do gasto" },
-    { "nome": "app-12-meses", "rota": "/proximos-12-meses", "estado": "aviso", "o_que": "Próximos 12 meses: 'Faltam R$ 27 mil.' e o gráfico do que sobra, somado" },
-    { "nome": "app-patrimonio", "rota": "/patrimonio", "estado": "calma", "o_que": "Patrimônio: 'Oscilação normal.', o total, a evolução e a composição" },
-    { "nome": "app-extrato", "rota": "/ver-tudo/extrato", "estado": "calma", "o_que": "O extrato classificado, por dia" },
-    { "nome": "app-onde-foi", "rota": "/mes/onde-foi", "estado": "calma", "o_que": "Onde foi o dinheiro no mês" },
-    { "nome": "app-contas", "rota": "/contas", "estado": "calma", "o_que": "Contas e bancos: os cartões e as contas com a marca do banco" }
+    {
+      "nome": "app-inicio",
+      "rota": "/",
+      "estado": "aviso",
+      "o_que": "O Início: 'Sete coisas.' e o cartão de alerta (o Open Finance parado), a lista do que fazer"
+    },
+    {
+      "nome": "app-aprovar",
+      "rota": "/aprovar",
+      "estado": "calma",
+      "o_que": "Aprovar: 'Faltam dez.', um lançamento por tela, 'Vai para Compras › Eletrodomésticos', o botão 'Certo'",
+      "uso": {
+        "tocar": {
+          "texto": "Certo"
+        },
+        "espera": 1500,
+        "extras": [
+          ".barra-desfazer"
+        ],
+        "o_que": "Aprova o lançamento: o próximo entra, 'Faltam nove', e a barra 'MAGAZINE… em Compras › Eletrodomésticos · Desfazer' sobe de baixo"
+      }
+    },
+    {
+      "nome": "app-mes",
+      "rota": "/mes",
+      "estado": "aviso",
+      "o_que": "O mês: 'Vai passar.' com o cartão 'Quatro categorias vão passar do limite' e a barra do gasto"
+    },
+    {
+      "nome": "app-12-meses",
+      "rota": "/proximos-12-meses",
+      "estado": "aviso",
+      "o_que": "Próximos 12 meses: 'Faltam R$ 27 mil.' e o gráfico do que sobra, somado"
+    },
+    {
+      "nome": "app-patrimonio",
+      "rota": "/patrimonio",
+      "estado": "calma",
+      "o_que": "Patrimônio: 'Oscilação normal.', o total, a evolução e a composição"
+    },
+    {
+      "nome": "app-extrato",
+      "rota": "/ver-tudo/extrato",
+      "estado": "calma",
+      "o_que": "O extrato classificado, por dia"
+    },
+    {
+      "nome": "app-onde-foi",
+      "rota": "/mes/onde-foi",
+      "estado": "calma",
+      "o_que": "Onde foi o dinheiro no mês"
+    },
+    {
+      "nome": "app-contas",
+      "rota": "/contas",
+      "estado": "calma",
+      "o_que": "Contas e bancos: os cartões e as contas com a marca do banco",
+      "uso": {
+        "tocar": {
+          "texto": "Rafael"
+        },
+        "espera": 1500,
+        "extras": [
+          ".barra-desfazer"
+        ],
+        "o_que": "Diz de quem é a conta nova: o cartão escuro sai, 'Em conta R$ 2.400' entra e a barra 'Dono: Rafael · Conta Corrente Exemplo · Trocar' sobe"
+      }
+    }
   ]
 }

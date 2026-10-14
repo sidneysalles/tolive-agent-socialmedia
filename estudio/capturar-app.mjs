@@ -9,6 +9,12 @@
 // peça por peça (desenho.telaMontada), a tela de verdade sendo construída, não um print parado (o pedido do Sidney
 // depois do vídeo do SFX v2 da ElevenLabs, out/2026).
 //
+// A tela sendo usada (o pedido do Sidney, out/2026: "botões sendo clicados, mensagens de ação bem-sucedida depois"):
+// a captura com `uso` aperta o botão de verdade (`uso.tocar`), espera o app responder e desmonta a tela de novo em
+// <nome>-depois, com a barra de confirmação do próprio app (`uso.extras`, a .barra-desfazer). O camadas.json do antes
+// guarda onde fica o botão (`uso.alvo`), pro filme pôr o toque no lugar certo. Apertar muda o estado do app em
+// memória, então essas vêm depois das outras; pra repetir, reinicie o app.
+//
 //   (no tolive-financas, ao lado)  node local/local.mjs --dia=2026-10-13
 //   node estudio/capturar-app.mjs [--so app-aprovar,app-mes]
 
@@ -52,16 +58,22 @@ const trocarNomes = nomes => {
  * a lista linha a linha (o título dela e cada <li>) e o gráfico à parte. Cada peça sai com fundo transparente; o fundo
  * sai sem nenhuma delas. Só o que aparece na tela do celular (o resto não entra no vídeo).
  */
-async function camadas(pagina, nome) {
+async function camadas(pagina, nome, { extras = [], uso } = {}) {
   const dir = `${DESTINO}camadas/${nome}/`;
   mkdirSync(dir, { recursive: true });
-  const lista = await pagina.evaluate(altura => {
+  const lista = await pagina.evaluate(([altura, extras]) => {
     const pecas = [];
     const visivel = el => { const b = el.getBoundingClientRect(); return b.height > 4 && b.width > 4 && b.top < altura && b.bottom > 0; };
     const tipo = el => (el.matches('h1') ? 'veredito' : el.matches('.cartao-alerta, [class*="alerta"]') ? 'alerta' : el.matches('figure, .grafico, svg') ? 'grafico' : el.matches('li') ? 'linha' : el.matches('h2') ? 'rotulo' : el.matches('p') ? 'texto' : 'bloco');
     const marcar = (el, t) => { el.dataset.camada = String(pecas.length); pecas.push({ i: pecas.length, tipo: t ?? tipo(el) }); };
     for (const el of document.querySelectorAll('.faixa, header.topo')) if (visivel(el)) marcar(el, 'topo');
-    const entram = [...document.querySelectorAll('main .entra')].filter(el => !el.parentElement.closest('.entra') && visivel(el));
+    let entram = [...document.querySelectorAll('main .entra')].filter(el => !el.parentElement.closest('.entra') && visivel(el));
+    // depois de um toque o app repinta sem o .entra (a tela já entrou): os filhos do main, então
+    if (entram.length < 2) {
+      let raiz = document.querySelector('main');
+      while (raiz && raiz.children.length === 1) raiz = raiz.children[0];
+      entram = [...(raiz?.children ?? [])].filter(visivel);
+    }
     for (const el of entram) {
       const itens = el.querySelectorAll(':scope li, :scope figure');
       if (itens.length) {
@@ -74,11 +86,14 @@ async function camadas(pagina, nome) {
         for (const li of el.querySelectorAll('li')) if (visivel(li) && !li.parentElement.closest('li') && !li.closest('[data-camada]')) marcar(li, 'linha');
       } else marcar(el);
     }
+    // o que o app mostra fora do conteúdo (a barra de confirmação, que sobe de baixo)
+    for (const sel of extras) for (const el of document.querySelectorAll(sel)) if (visivel(el) && !el.closest('[data-camada]')) marcar(el, 'aviso');
     return pecas.map(p => {
-      const el = document.querySelector(`[data-camada="${p.i}"]`), b = el.getBoundingClientRect();
-      return { ...p, x: b.left, y: b.top, w: b.width, h: b.height, texto: (el.innerText || '').trim().split('\n')[0].slice(0, 60) };
+      const el = document.querySelector(`[data-camada="${p.i}"]`), b = el.getBoundingClientRect(), todo = (el.innerText || '').trim();
+      // conteudo: o texto inteiro, pro filme saber o que ficou igual entre o antes e o depois de um toque
+      return { ...p, x: b.left, y: b.top, w: b.width, h: b.height, texto: todo.split('\n')[0].slice(0, 60), conteudo: todo.replace(/\s+/g, ' ') };
     });
-  }, CONFIG.altura);
+  }, [CONFIG.altura, extras]);
   // cada peça com fundo transparente: some o fundo de quem está atrás (CSSOM, que a CSP deixa)
   await pagina.evaluate(() => { for (const el of [document.documentElement, document.body, ...document.querySelectorAll('.casca, .casca-corpo, main')]) el.style.setProperty('background', 'transparent', 'important'); });
   for (const p of lista) {
@@ -91,25 +106,49 @@ async function camadas(pagina, nome) {
   });
   await pagina.screenshot({ path: dir + 'fundo.png', animations: 'disabled' });
   await pagina.evaluate(() => { for (const el of document.querySelectorAll('[data-camada]')) { el.style.removeProperty('visibility'); delete el.dataset.camada; } });
-  writeFileSync(dir + 'camadas.json', JSON.stringify({ tela: nome, largura: CONFIG.largura, altura: CONFIG.altura, escala: CONFIG.escala, fundo: 'fundo.png', pecas: lista.map(p => ({ ...p, x: +p.x.toFixed(1), y: +p.y.toFixed(1), w: +p.w.toFixed(1), h: +p.h.toFixed(1) })) }, null, 2) + '\n');
+  writeFileSync(dir + 'camadas.json', JSON.stringify({ tela: nome, largura: CONFIG.largura, altura: CONFIG.altura, escala: CONFIG.escala, fundo: 'fundo.png', ...(uso ? { uso } : {}), pecas: lista.map(p => ({ ...p, x: +p.x.toFixed(1), y: +p.y.toFixed(1), w: +p.w.toFixed(1), h: +p.h.toFixed(1) })) }, null, 2) + '\n');
   return lista.length;
 }
 
+// troca os nomes e recusa a foto se sobrar algum
+async function semNomesReais(pagina) {
+  const texto = await pagina.evaluate(trocarNomes, CONFIG.nomes);
+  const sobrou = Object.keys(CONFIG.nomes).filter(n => texto.includes(n));
+  if (sobrou.length) throw new Error(`nome real na tela depois da troca: ${sobrou.join(', ')}`);
+  return texto;
+}
+
+// o botão do uso, pelo papel e pelo texto (já com o nome trocado)
+const botao = (pagina, { texto, papel = 'button' }) => pagina.getByRole(papel, { name: texto, exact: true }).first();
+
 const falhas = [];
-for (const c of CONFIG.capturas) {
+// as que apertam botão por último: o toque muda o estado do app (a conta ganha dono, o lançamento é aprovado)
+for (const c of [...CONFIG.capturas].sort((a, b) => Boolean(a.uso) - Boolean(b.uso))) {
   if (so && !so.includes(c.nome)) continue;
   try {
     await pagina.goto(CONFIG.app + c.rota, { waitUntil: 'networkidle' });
     await pagina.waitForTimeout(1200);
     const pular = pagina.getByText('Pular', { exact: true });
     if (await pular.isVisible().catch(() => false)) { await pular.click(); await pagina.waitForTimeout(600); }
-    const texto = await pagina.evaluate(trocarNomes, CONFIG.nomes);
-    const sobrou = Object.keys(CONFIG.nomes).filter(n => texto.includes(n));
-    if (sobrou.length) throw new Error(`nome real na tela depois da troca: ${sobrou.join(', ')}`);
+    const texto = await semNomesReais(pagina);
     await pagina.screenshot({ path: `${DESTINO}${c.nome}.png`, animations: 'disabled' });
     await pagina.screenshot({ path: `${DESTINO}${c.nome}-inteira.png`, fullPage: true, animations: 'disabled' });
     const altura = await pagina.evaluate(() => document.documentElement.scrollHeight);
-    const pecas = await camadas(pagina, c.nome);
+    let uso;
+    if (c.uso) {
+      const caixa = await botao(pagina, c.uso.tocar).boundingBox();
+      if (!caixa) throw new Error(`o botão "${c.uso.tocar.texto}" não está na tela (o app já foi usado? reinicie o local)`);
+      uso = { tocar: c.uso.tocar.texto, alvo: { x: +caixa.x.toFixed(1), y: +caixa.y.toFixed(1), w: +caixa.width.toFixed(1), h: +caixa.height.toFixed(1) }, depois: `${c.nome}-depois` };
+    }
+    const pecas = await camadas(pagina, c.nome, { uso });
+    if (c.uso) {
+      await botao(pagina, c.uso.tocar).click();
+      await pagina.waitForTimeout(c.uso.espera ?? 1500);
+      await semNomesReais(pagina);
+      await pagina.screenshot({ path: `${DESTINO}${c.nome}-depois.png`, animations: 'disabled' });
+      const depois = await camadas(pagina, `${c.nome}-depois`, { extras: c.uso.extras ?? [] });
+      console.log(`    depois de "${c.uso.tocar.texto}": ${depois} peças`);
+    }
     indice.capturas = indice.capturas.filter(x => x.nome !== c.nome);
     indice.capturas.push({ nome: c.nome, arquivo: `assets/capturas/${c.nome}.png`, inteira: `assets/capturas/${c.nome}-inteira.png`, rota: c.rota, estado: c.estado, o_que: c.o_que, largura: CONFIG.largura * CONFIG.escala, altura: CONFIG.altura * CONFIG.escala, alturaInteira: altura * CONFIG.escala, camadas: `assets/capturas/camadas/${c.nome}/camadas.json`, pecas });
     console.log(`ok  ${c.nome}  (${c.estado}, ${pecas} peças)  "${texto.split('\n').filter(Boolean).slice(3, 5).join(' / ').slice(0, 70)}"`);

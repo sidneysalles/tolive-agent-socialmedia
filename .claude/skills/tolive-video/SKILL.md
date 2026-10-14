@@ -90,12 +90,18 @@ quadros-chave da aprovação), `previa` ({ de, ate }) e `musica` ({ antes, depoi
 A música vem do `musica.json` ao lado (`import musica from './musica.json' with { type: 'json' }`).
 **As telas do app se constroem** (a referência da ElevenLabs, `conhecimento/referencias.md`): importe as camadas
 (`assets/capturas/camadas/<tela>/camadas.json`), ponha `assetsDasCamadas(apelido, cam)` nos assets e desenhe com
-`d.telaMontada3d(g, L, cam, ctx.img, apelido, cx, topo, w, tl, { inicio: { rx, ry }, fim: { rx, ry } })`: o celular
-inclinado em perspectiva 3D (WebGL), as peças pousando nele (decisão do Sidney). `d.telaMontada` é a versão plana.
-Print parado (`d.celular`) só quando a tela não tem camadas.
+`d.app3d(g, L, { cam, img: ctx.img, apelido, w, t: tl, pose, toque, depois, graficos, barras, apaga })`: o celular em
+perspectiva 3D (WebGL), as peças pousando nele, tudo recortado pela tela (decisão do Sidney). A câmera é a `pose`
+({ rx, ry, escala, fx, fy em px do app, x, y no quadro }) animada com `m.poses(tl, chaves)`: **um plano por feature**
+(o pedido do Sidney, out/2026): entra por um ângulo diferente (de lado, de baixo, do alto, de longe), o app inteiro,
+depois a câmera vai ao detalhe. **A tela sendo usada**: capture com `uso` em `capturas-app.json` (o botão de verdade,
+a tela de depois e a barra de confirmação do app) e passe `toque: { em }` e `depois: { cam, apelido, em }`; gráfico que
+se desenha (`graficos`) e barra que cresce da base (`barras`, cartões do site com `pecas` em `capturas.json`). A
+referência é a feature do filme Propósito (`enquadrar` e as chaves dele). `d.telaMontada3d` (a pose antiga) e
+`d.telaMontada` (plana) continuam. Print parado (`d.celular`) só quando a tela não tem camadas.
 Ferramentas no `ctx`:
 - `ctx.m` (movimento.mjs): `revela` (o tipo que bate), `anima(t, inicio, dur, CURVA.forte)`, `FILME` (as durações do
-  filme), `CURVA.empurra`, `trilha`, `trocaAlfa`, `MOLAS`, `DUR`, `semente`. **Só função de t.**
+  filme), `CURVA.empurra`, `poses` (a câmera em planos), `trilha`, `trocaAlfa`, `MOLAS`, `DUR`, `semente`. **Só função de t.**
 - `ctx.d` (desenho.mjs): `textoRevelado` (máscara, com o ponto da marca; passe `maxW: L.seguro.w`), `camera`, `veredito`,
   `texto`, `paragrafo`, `cartao`, `pilula`, `etiqueta`, `imagem`, `logoComSol`, `simbolo` (o sol nascendo).
 - `ctx.corte(t)`: o começo do quadro. **Decisão de corte seco (qual palavra, qual cena) usa ele**, senão o borrão de
