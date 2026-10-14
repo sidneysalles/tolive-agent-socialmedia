@@ -46,6 +46,15 @@ Preencha o `briefing.md` (o filme em uma linha: o que quem assiste **sente** no 
 falta uma? acrescente em `estudio/capturas.json` e rode `node estudio/capturar.mjs`). **Nunca redesenhe a interface de
 cabeça**: anime a captura. Elemento solto (um papel, um rótulo) pode ser desenhado com o texto e as cores do site.
 
+**As telas do app de verdade** (o melhor material): clone o `tolive-financas` ao lado, rode `node local/local.mjs
+--dia=2026-10-13` lá e `node estudio/capturar-app.mjs` aqui (dados simulados, nomes reais trocados; `estado` diz se a
+tela é de calma ou de aviso). No filme, `d.celular(g, img, x, y, w)` põe a tela num aparelho.
+
+**A música** (o padrão; a síntese é só reserva): uma faixa CC0 ou CC BY (onde achar e o que não serve:
+`assets/musicas/LICENCAS.md`), registrada lá com o crédito; `node estudio/batidas.mjs <faixa> --trecho 5,6` diz onde
+cortar; o filme usa o BPM medido e `som: { musica, inicio, fimDe, volumeEfeitos }`; o crédito vai na `legenda.md` e
+em `ficha.musica`. Diga a quem pediu que a escolha foi pela análise, sem ouvir.
+
 ## 3. Portão: o roteiro na grade de batidas
 
 Escreva o `roteiro.md`: tabela compasso → tempo → na tela → trilha (intro, sobe, cheio, fim) → som. Gancho no quadro 0;

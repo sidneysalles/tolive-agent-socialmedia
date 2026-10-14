@@ -7,7 +7,8 @@ import { oQueDizer, reais } from '../estudio/catalogo.mjs';
 import { cobertura, fichas, produtos, velhos } from '../estudio/historico.mjs';
 import { conferirVideo } from '../estudio/texto.mjs';
 import { sintetizar, wav, SR } from '../estudio/som.mjs';
-import { estimarBatidas } from '../estudio/batidas.mjs';
+import { estimarBatidas, melhoresTrechos } from '../estudio/batidas.mjs';
+import { readFileSync } from 'node:fs';
 
 const CONTA = { planos: [
   { tipo: 'plano', codigo: 'ate2', titulo: 'Até 2 conexões', teste_dias: 30, valor_centavos: 1490, limite_conexoes: 2 },
@@ -71,7 +72,28 @@ test('todo vídeo do repositório tem ficha válida, filme que carrega e texto n
     for (const src of Object.values(filme.assets ?? {})) assert.ok(existsSync(join(raiz, src.replace(/#.*$/, ''))), `${f.id}: falta ${src}`);
     for (const s of filme.som?.sons ?? []) assert.ok(s.t >= 0 && s.t < filme.duracao, `${f.id}: som fora do filme em ${s.t}`);
     assert.deepEqual(conferirVideo(join(raiz, 'videos', f.id)).filter(a => a.nivel === 'erro'), [], f.id);
+    if (filme.som?.musica) {
+      // música de fora: o arquivo, a linha da licença (só CC0 ou CC BY servem pra vídeo) e o crédito na legenda
+      const nome = filme.som.musica.split('/').pop();
+      assert.ok(existsSync(join(raiz, filme.som.musica)), `${f.id}: falta ${filme.som.musica}`);
+      const linha = readFileSync(join(raiz, 'assets/musicas/LICENCAS.md'), 'utf8').split('\n').find(l => l.includes(`\`${nome}\``));
+      assert.ok(linha, `${f.id}: ${nome} sem a linha em assets/musicas/LICENCAS.md`);
+      assert.match(linha, /CC0|CC BY \d/, `${f.id}: licença que não serve pra vídeo`);
+      assert.doesNotMatch(linha, /\| CC BY[- ](?:ND|SA|NC)/, `${f.id}: ND, SA e NC não servem pra vídeo`);
+      if (/CC BY/.test(linha)) assert.ok(readFileSync(join(raiz, 'videos', f.id, 'legenda.md'), 'utf8').includes(f.musica?.credito ?? '@@'), `${f.id}: o crédito da música (ficha.musica.credito) tem de estar na legenda`);
+    }
   }
+});
+
+test('o melhor trecho da música põe a virada onde a energia sobe', () => {
+  // 20 compassos: 8 calmos (−20 dB), 12 cheios (−10 dB); a virada é o compasso 8
+  const energia = [...Array(8).fill(-20), ...Array(12).fill(-10)];
+  const compassos = energia.map((_, i) => i * 2);
+  const [melhor] = melhoresTrechos({ compassos, energia }, { antes: 4, depois: 6 });
+  assert.equal(melhor.compasso, 8);
+  assert.equal(melhor.inicio, 8);
+  assert.equal(melhor.virada, 16);
+  assert.ok(melhor.subida >= 9.9);
 });
 
 test('a trilha sintetizada tem a duração do filme, é determinística e a batida dela é medida certa', () => {

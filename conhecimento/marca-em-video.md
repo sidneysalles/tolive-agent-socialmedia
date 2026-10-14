@@ -115,10 +115,12 @@ O guia não define som. A trilha "calma" do primeiro vídeo (colchão, piano el�
 um respiro de uma colcheia, virada com bumbo, palmas, baixo e arpejo, o fim na tônica. Sons de interface: `bate` (o tipo),
 `passa` (o empurrão), e os antigos `toque`, `entra`, `assenta`, `troca`. Sem sino (a marca não tem sino). −14 LUFS.
 
-**A verdade sobre a síntese:** ela segue a estrutura, mas não soa como uma trilha de estúdio. Pra peça de lançamento,
-compre uma faixa licenciada (gênero "inspiring / uplifting corporate", 110 a 124 BPM), ponha em `assets/musicas/` com a
-licença em `assets/musicas/LICENCAS.md` e use `som: { musica: 'assets/musicas/<arquivo>', inicio: <s> }`; meça as batidas
-com `node estudio/batidas.mjs` e alinhe o roteiro a elas. A maior parte assiste sem som: o vídeo tem que funcionar mudo.
+**A música licenciada é o padrão** (out/2026, depois da pergunta do Sidney sobre áudio de licença aberta): a síntese
+segue a estrutura, mas não soa como trilha de estúdio. Faixa CC0 ou CC BY (CC BY-ND, SA e NC não servem pra vídeo:
+`assets/musicas/LICENCAS.md`), gênero inspirador/uplifting, 100 a 130 BPM, com um trecho calmo e uma subida clara.
+`node estudio/batidas.mjs <faixa> --trecho 5,6` acha onde cortar (a virada da música na primeira feature; de
+preferência o fim de verdade da música no logo); o filme usa o BPM medido. O crédito da CC BY vai na legenda. A
+primeira: "Our Story Begins", Kevin MacLeod. A síntese (`estilo: 'inspiradora'`) fica pra quando não houver faixa. A maior parte assiste sem som: o vídeo tem que funcionar mudo.
 
 ## A legenda do post
 

@@ -1,0 +1,96 @@
+{
+  "capturas": [
+    {
+      "nome": "app-inicio",
+      "arquivo": "assets/capturas/app-inicio.png",
+      "inteira": "assets/capturas/app-inicio-inteira.png",
+      "rota": "/",
+      "estado": "aviso",
+      "o_que": "O Início: 'Sete coisas.' e o cartão de alerta (o Open Finance parado), a lista do que fazer",
+      "largura": 1170,
+      "altura": 2532,
+      "alturaInteira": 3201
+    },
+    {
+      "nome": "app-aprovar",
+      "arquivo": "assets/capturas/app-aprovar.png",
+      "inteira": "assets/capturas/app-aprovar-inteira.png",
+      "rota": "/aprovar",
+      "estado": "calma",
+      "o_que": "Aprovar: 'Faltam dez.', um lançamento por tela, 'Vai para Compras › Eletrodomésticos', o botão 'Certo'",
+      "largura": 1170,
+      "altura": 2532,
+      "alturaInteira": 2532
+    },
+    {
+      "nome": "app-mes",
+      "arquivo": "assets/capturas/app-mes.png",
+      "inteira": "assets/capturas/app-mes-inteira.png",
+      "rota": "/mes",
+      "estado": "aviso",
+      "o_que": "O mês: 'Vai passar.' com o cartão 'Quatro categorias vão passar do limite' e a barra do gasto",
+      "largura": 1170,
+      "altura": 2532,
+      "alturaInteira": 4182
+    },
+    {
+      "nome": "app-12-meses",
+      "arquivo": "assets/capturas/app-12-meses.png",
+      "inteira": "assets/capturas/app-12-meses-inteira.png",
+      "rota": "/proximos-12-meses",
+      "estado": "aviso",
+      "o_que": "Próximos 12 meses: 'Faltam R$ 27 mil.' e o gráfico do que sobra, somado",
+      "largura": 1170,
+      "altura": 2532,
+      "alturaInteira": 2718
+    },
+    {
+      "nome": "app-patrimonio",
+      "arquivo": "assets/capturas/app-patrimonio.png",
+      "inteira": "assets/capturas/app-patrimonio-inteira.png",
+      "rota": "/patrimonio",
+      "estado": "calma",
+      "o_que": "Patrimônio: 'Oscilação normal.', o total, a evolução e a composição",
+      "largura": 1170,
+      "altura": 2532,
+      "alturaInteira": 2979
+    },
+    {
+      "nome": "app-extrato",
+      "arquivo": "assets/capturas/app-extrato.png",
+      "inteira": "assets/capturas/app-extrato-inteira.png",
+      "rota": "/ver-tudo/extrato",
+      "estado": "calma",
+      "o_que": "O extrato classificado, por dia",
+      "largura": 1170,
+      "altura": 2532,
+      "alturaInteira": 3780
+    },
+    {
+      "nome": "app-onde-foi",
+      "arquivo": "assets/capturas/app-onde-foi.png",
+      "inteira": "assets/capturas/app-onde-foi-inteira.png",
+      "rota": "/mes/onde-foi",
+      "estado": "calma",
+      "o_que": "Onde foi o dinheiro no mês",
+      "largura": 1170,
+      "altura": 2532,
+      "alturaInteira": 2655
+    },
+    {
+      "nome": "app-contas",
+      "arquivo": "assets/capturas/app-contas.png",
+      "inteira": "assets/capturas/app-contas-inteira.png",
+      "rota": "/contas",
+      "estado": "calma",
+      "o_que": "Contas e bancos: os cartões e as contas com a marca do banco",
+      "largura": 1170,
+      "altura": 2532,
+      "alturaInteira": 2532
+    }
+  ],
+  "capturado_em": "2026-10-14T21:21:31.183Z",
+  "app": "toLive Finanças (npm run local, dados simulados)",
+  "dia": "2026-10-13",
+  "escala": 3
+}

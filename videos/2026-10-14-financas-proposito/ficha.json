@@ -8,15 +8,15 @@
   "mensagens": [
     "Boleto, fatura, extrato, planilha, lembrete, susto no dia 30: cada um pede um pedaço de você.",
     "Tecnologia feita para não ser usada (o sol nascendo).",
-    "Conecta, organiza, avisa antes, projeta o ano, acha o que vaza.",
+    "Conecta, organiza, avisa antes, projeta o ano, soma tudo, nas telas do app.",
     "O melhor elogio: esqueci que tinha o app."
   ],
   "features": [
     "open-finance",
-    "ia-regras",
+    "classificacao",
     "orcamento",
     "projecao",
-    "vazamentos",
+    "patrimonio",
     "pouco-tempo"
   ],
   "usa": [
@@ -26,9 +26,9 @@
   "duracao": 24.5,
   "status": "entregue",
   "publicado": [],
-  "notas": "Refeito no mesmo dia depois do primeiro ser reprovado (lento, trilha fraca, sem propósito). Primeiro vídeo no registro do filme e com a trilha inspiradora.",
+  "notas": "Versão 3 (14/10/2026): a música licenciada no lugar da trilha sintetizada, cortada pela análise (virada da música na primeira feature, o fim dela no logo), e as telas do app de verdade (npm run local do tolive-financas, dados simulados, nomes trocados). As versões 1 e 2 (trilha sintetizada, cartões do site) ficaram no histórico do git.",
   "catalogo": {
-    "lido_em": "2026-10-14T21:04:11.910Z",
+    "lido_em": "2026-10-14T21:28:45.625Z",
     "menorPreco": "R$ 14,90 por mês",
     "teste": "30 dias grátis com até duas conexões"
   },
@@ -36,5 +36,10 @@
     "stories",
     "feed"
   ],
-  "renderizado_em": "2026-10-14T21:08:43.992Z"
+  "renderizado_em": "2026-10-14T21:33:27.577Z",
+  "musica": {
+    "arquivo": "assets/musicas/kevin-macleod-our-story-begins.mp3",
+    "licenca": "CC BY 4.0",
+    "credito": "Música: \"Our Story Begins\", Kevin MacLeod (incompetech.com), licença CC BY 4.0"
+  }
 }

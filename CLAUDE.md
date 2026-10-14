@@ -80,12 +80,13 @@ estudio/
   texto.mjs         confere o texto da tela e da legenda contra a voz da marca
   catalogo.mjs      preço e teste grátis da conta toLive (conhecimento/planos.json guarda o último)
   capturar.mjs      as telas reais do site → assets/capturas (capturas.json diz quais)
+  capturar-app.mjs  as telas do app de verdade (o `npm run local` do tolive-financas, dados simulados, nomes trocados)
   conhecimento.mjs  o texto do site → conhecimento/site/ (o diff mostra o que o produto ganhou)
   historico.mjs     a memória: o que já foi dito, o que nunca foi, o que ficou velho
   novo-video.mjs    começa um vídeo a partir de estudio/modelo/filme.mjs (que já renderiza)
 conhecimento/       curso-motion.md, marca-em-video.md, produtos.json (features e ângulos com id), site/, planos.json
 assets/capturas/    as telas do site em 3x, fundo transparente, e indice.json
-assets/musicas/     música licenciada (cada uma com a licença em LICENCAS.md)
+assets/musicas/     música licenciada (CC0 ou CC BY; a licença e o crédito em LICENCAS.md; o teste confere)
 videos/<data>-<produto>-<angulo>/
   ficha.json        a memória deste vídeo (produto, ângulo, gancho, features, status, onde saiu, catálogo usado)
   briefing.md, roteiro.md, legenda.md, critica.md, filme.mjs
@@ -118,5 +119,10 @@ node estudio/historico.mjs                            # a memória
   apaga o impacto da música. (out/2026)
 - O primeiro vídeo seguiu o guia de interface ao pé da letra (400 ms, calmo, 90 BPM) e foi reprovado por lento. O guia de
   movimento é da tela do app; vídeo de venda tem o registro dele (marca-em-video.md). (out/2026)
+- Música: síntese em código não soa como trilha de estúdio. O padrão é a faixa licenciada (CC0/CC BY), escolhida e
+  cortada pela análise (`batidas.mjs --trecho`): a virada da música na primeira feature e o fim dela no logo. CC BY-ND
+  não serve pra vídeo (sincronizar é derivar), SA e NC também não. (out/2026)
+- As telas do app: o `npm run local` do Finanças dá o app de verdade com dado simulado, mas os membros são o Sidney e a
+  Letícia de verdade; o `capturar-app.mjs` troca os nomes e recusa a foto se sobrar algum. (out/2026)
 - O preço de exemplo do site ("Streaming parado, R$ 39,90 por mês") não é preço da toLive; o `texto.mjs` só reprova os
   preços que a conta cobra e "a partir de R$" / "N dias grátis". (out/2026)

@@ -36,3 +36,27 @@ Fica pro próximo:
   com o site no computador.
 - A frase da promessa (6,2–8,3 s) fica parada 2 s durante a subida: é de propósito (o respiro antes da virada), mas
   vale testar o "Tecnologia" entrando na batida 4 e o resto na 6.
+
+## Rodada 4 · a música licenciada e as telas do app (pedido do Sidney: "não dá pra tirar fotos do app e usar um áudio de licença aberta?")
+
+| Gancho | Leitura no celular | Movimento | Variedade | Composição | Marca | Som |
+| --- | --- | --- | --- | --- | --- | --- |
+| 8 | 8 | 8 | 9 | 7 | 9 | — |
+
+1. **0–11 s:** com seis compassos calmos na música, a virada chegava aos 11 s; a frase ficava 2,8 s parada e o sol 5,6 s.
+   → cinco compassos (a música a partir de 55,869 s): a virada aos 9,3 s.
+2. **As telas do app:** reais, mas num celular pequeno se ele tivesse de caber inteiro. → o aparelho sai do quadro
+   embaixo de propósito; o que importa é o veredito no topo da tela.
+3. **Os dados simulados são de teste** ("Vai passar.", "Faltam R$ 27 mil."). Ficam porque mostram o aviso, que é a
+   feature; um vídeo de calma pede uma vitrine com dados tranquilos (ver "Fica pro próximo").
+
+## Rodada 5 · render inteiro (`--sub 8`)
+
+| Gancho | Leitura no celular | Movimento | Variedade | Composição | Marca | Som |
+| --- | --- | --- | --- | --- | --- | --- |
+| 8 | 8 | 8 | 9 | 8 | 9 | 8 |
+
+Fica pro próximo:
+- Uma "vitrine" no modo local do Finanças (um `--vitrine` com o mês no ritmo, o ano no azul e "Tudo em ordem." no Início)
+  daria as telas de calma: é mudança no tolive-financas, a combinar.
+- Ouvir a música antes de publicar (o estúdio escolheu pela análise, sem ouvir).

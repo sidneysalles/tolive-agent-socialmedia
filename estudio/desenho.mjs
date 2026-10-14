@@ -178,6 +178,22 @@ export function imagem(g, img, x, y, w, { raio = 0, alfa = 1, h: hForcada } = {}
   return { w, h };
 }
 
+/**
+ * Uma tela do app (assets/capturas/app-*.png, 1170 × 2532) dentro de um celular: corpo em tinta, a tela recortada
+ * com os cantos do aparelho. Sem sombra (a marca é plana). w = largura do aparelho; o resto pode sair do quadro
+ * (o celular cortado embaixo é de propósito: o que importa é o veredito no topo da tela). Devolve { w, h }.
+ */
+export function celular(g, img, x, y, w, { alfa = 1, cor = COR.tinta } = {}) {
+  if (!img || alfa <= 0) return { w: 0, h: 0 };
+  const borda = w * 0.035, wt = w - 2 * borda, ht = wt * img.naturalHeight / img.naturalWidth, h = ht + 2 * borda;
+  g.save(); g.globalAlpha *= alfa;
+  retangulo(g, x, y, w, h, w * 0.14); g.fillStyle = cor; g.fill();
+  retangulo(g, x + borda, y + borda, wt, ht, w * 0.11); g.clip();
+  g.drawImage(img, x + borda, y + borda, wt, ht);
+  g.restore();
+  return { w, h };
+}
+
 /** O logo (um dos SVGs de marca/logo) com altura h; x pela esquerda (ou centro). Área de proteção é sua. */
 export function logo(g, img, x, y, h, { alfa = 1, alinhar = 'left' } = {}) {
   const w = (h * img.naturalWidth) / img.naturalHeight;

@@ -1,5 +1,5 @@
 {
-  "comentario": "O que um vídeo pode dizer de cada produto, com um id estável por feature e por ângulo (a ficha.json de cada vídeo cita esses ids, e o historico.mjs conta o que já foi dito). Tirado do site em 14/10/2026 (conhecimento/site/*.txt). Feature nova entra aqui quando entra no site; nunca antes. 'prova' é a frase do site que sustenta a feature; 'captura' é o asset real que a mostra. 'curto' é o título do vídeo (até quatro palavras, Archivo Black) e 'linha' a prova em uma frase, no registro do filme.",
+  "comentario": "O que um vídeo pode dizer de cada produto, com um id estável por feature e por ângulo (a ficha.json de cada vídeo cita esses ids, e o historico.mjs conta o que já foi dito). Tirado do site em 14/10/2026 (conhecimento/site/*.txt). Feature nova entra aqui quando entra no site; nunca antes. 'prova' é a frase do site que sustenta a feature; 'captura' é o asset real que a mostra. 'curto' é o título do vídeo (até quatro palavras, Archivo Black) e 'linha' a prova em uma frase, no registro do filme. A captura app-* (a tela do app de verdade, capturar-app.mjs) vem primeiro: é o que o novo-video usa.",
   "produtos": {
     "financas": {
       "nome": "toLive Finanças",
@@ -12,6 +12,7 @@
           "nome": "Abre numa frase",
           "prova": "Toda tela responde primeiro se está tudo bem. Os números ficam embaixo, para quem quiser conferir.",
           "captura": [
+            "app-inicio",
             "celular-inicio",
             "faz-veredito"
           ],
@@ -22,6 +23,8 @@
           "nome": "Só chama quando a decisão é sua",
           "prova": "No máximo um aviso por vez, sempre com um “agora não” que é respeitado.",
           "captura": [
+            "app-inicio",
+            "app-mes",
             "aviso-luz",
             "celular-tolive",
             "como-3-decide"
@@ -33,6 +36,7 @@
           "nome": "Conecta os bancos pelo Open Finance",
           "prova": "Seus bancos entram pelo Open Finance e trazem doze meses de histórico. Sem digitar nada. Permissão só para ler, nunca para pagar ou transferir.",
           "captura": [
+            "app-contas",
             "como-1-conectar"
           ],
           "curto": "Conecta",
@@ -42,6 +46,7 @@
           "nome": "A IA arruma uma vez; depois, as regras",
           "prova": "Ela lê o histórico e propõe categorias e regras. Quando não sabe, pergunta. Nada vale até você aprovar.",
           "captura": [
+            "app-aprovar",
             "como-2-ia"
           ],
           "curto": "Organiza",
@@ -50,14 +55,18 @@
         "classificacao": {
           "nome": "Lançamentos classificados sozinhos",
           "prova": "As regras que você aprovou classificam cada lançamento assim que ele chega. Transferências e estornos reconhecidos sozinhos.",
-          "captura": [],
+          "captura": [
+            "app-aprovar",
+            "app-extrato"
+          ],
           "curto": "Classifica sozinho",
-          "linha": "Cada lançamento na categoria certa, assim que chega."
+          "linha": "Um lançamento por vez. Você só diz “certo”."
         },
         "orcamento": {
           "nome": "Orçamento no ritmo",
           "prova": "O orçamento acompanha o ritmo do mês e avisa quando uma categoria vai passar do limite, enquanto ainda dá para ajustar.",
           "captura": [
+            "app-mes",
             "faz-orcamento",
             "como-3-decide"
           ],
@@ -68,6 +77,7 @@
           "nome": "Projeção de doze meses",
           "prova": "A projeção dos próximos doze meses responde numa frase se a meta fecha, e em que mês.",
           "captura": [
+            "app-12-meses",
             "faz-projecao"
           ],
           "curto": "Projeta o ano",
@@ -107,6 +117,7 @@
           "nome": "Patrimônio num número",
           "prova": "Contas, investimentos e reservas somados num número só.",
           "captura": [
+            "app-patrimonio",
             "faz-patrimonio"
           ],
           "curto": "Soma tudo",

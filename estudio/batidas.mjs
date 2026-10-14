@@ -3,6 +3,8 @@
 // neles). Quando a música é sintetizada pelo som.mjs, a grade já é conhecida e isto não é preciso.
 //
 //   node estudio/batidas.mjs musica.mp3 > videos/<id>/batidas.json
+//   node estudio/batidas.mjs musica.mp3 --trecho 4,6     onde cortar a música pra o filme: 4 compassos calmos e a
+//                                                         virada (a energia sobe) no começo dos 6 seguintes
 
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
@@ -93,7 +95,35 @@ export function estimarBatidas(amostras, sr = SR) {
       if (!picos.length || t - picos.at(-1) > 0.1) picos.push(+t.toFixed(3));
     }
   }
-  return { bpm: +melhor.bpm.toFixed(2), batidas, compassos: batidas.filter((_, i) => i % 4 === 0), picos };
+  const compassos = batidas.filter((_, i) => i % 4 === 0);
+  return { bpm: +melhor.bpm.toFixed(2), batidas, compassos, picos, energia: energiaPorCompasso(amostras, sr, compassos, periodo / qps) };
+}
+
+/** A energia (dB RMS) de cada compasso, pela grade de batidas. */
+export function energiaPorCompasso(amostras, sr, compassos, periodo) {
+  return compassos.map(t0 => {
+    const i0 = Math.floor(t0 * sr), i1 = Math.min(amostras.length, Math.floor((t0 + 4 * periodo) * sr));
+    let soma = 0;
+    for (let i = i0; i < i1; i++) soma += amostras[i] * amostras[i];
+    return +(10 * Math.log10(soma / Math.max(1, i1 - i0) + 1e-10)).toFixed(1);
+  });
+}
+
+/**
+ * Onde cortar a música pra estrutura do filme: `antes` compassos mais baixos e, no compasso seguinte, a virada
+ * (a energia sobe e fica em cima por `depois` compassos). Devolve os melhores começos, cada um com o tempo da
+ * música em que o filme começa (`inicio`), o compasso da virada e o salto em dB.
+ */
+export function melhoresTrechos({ compassos, energia }, { antes = 4, depois = 6, quantos = 3 } = {}) {
+  const media = l => l.reduce((a, b) => a + b, 0) / l.length;
+  const opcoes = [];
+  for (let c = antes; c + depois <= energia.length; c++) {
+    const calmo = energia.slice(c - antes, c), cheio = energia.slice(c, c + depois);
+    const salto = energia[c] - energia[c - 1];
+    const nota = (media(cheio) - media(calmo)) + 0.5 * salto - 0.3 * (Math.max(...cheio) - Math.min(...cheio));
+    opcoes.push({ inicio: compassos[c - antes], virada: compassos[c], compasso: c, salto: +salto.toFixed(1), subida: +(media(cheio) - media(calmo)).toFixed(1), nota: +nota.toFixed(2) });
+  }
+  return opcoes.sort((a, b) => b.nota - a.nota).slice(0, quantos);
 }
 
 export function lerAudio(arquivo) {
@@ -104,5 +134,11 @@ export function lerAudio(arquivo) {
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const arquivo = process.argv[2];
   if (!arquivo) { console.error('uso: node estudio/batidas.mjs <musica> > batidas.json'); process.exit(2); }
-  process.stdout.write(JSON.stringify(estimarBatidas(lerAudio(arquivo)), null, 1) + '\n');
+  const analise = estimarBatidas(lerAudio(arquivo));
+  const i = process.argv.indexOf('--trecho');
+  if (i > 0) {
+    const [antes, depois] = process.argv[i + 1].split(',').map(Number);
+    analise.trechos = melhoresTrechos(analise, { antes, depois });
+  }
+  process.stdout.write(JSON.stringify(analise, null, 1) + '\n');
 }
