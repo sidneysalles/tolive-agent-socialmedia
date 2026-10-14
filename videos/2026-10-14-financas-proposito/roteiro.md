@@ -13,7 +13,7 @@ apaga no lugar do manifesto, e os dias grátis em letra grande no fim.
 | batidas 0–4 | 0,00–2,6 | Uma palavra por batida, papel e noite alternando: Boleto · Fatura · Extrato · Planilha · Lembrete (só tarefas chatas; o "Susto no dia 30" é outro problema, pra outro vídeo) | calma | bate em cada palavra |
 | batidas 5–9 | 2,6–5,1 | "Cada um pede um pedaço de você" + o ponto | calma | — |
 | batidas 10–13 | 5,1–7,1 | Noite. O horizonte corre; o sol nasce atrás dele | calma | — |
-| batidas 14–19 | 7,1–10,2 | "Tecnologia que te devolve tempo de vida", uma linha por batida (responde aos problemas; o mote fica pro fim) | calma, subindo | — |
+| batidas 13–19 | 6,6–10,2 | O símbolo encolhe até o lugar do "o" e o "t" e o "Live" se abrem a partir dele: o logo inteiro. "A tecnologia precisa nos devolver tempo de vida", uma linha por batida (responde aos problemas; o mote fica pro fim) | calma, subindo | — |
 | 5–6 | 10,21 | **A virada.** Corte seco: "Conecta." O celular entra de lado (da direita), Contas e bancos se monta peça por peça; a câmera vai ao cartão "Chegou uma conta nova"; o dedo aperta "Rafael"; o cartão sai, "Em conta" entra e a barra "Dono: Rafael · Conta Corrente Exemplo · Trocar" sobe | a energia sobe | toque, entra |
 | 7–8 | 14,3 | Empurra: "Organiza." O celular sobe de baixo; Aprovar ("Faltam dez."); a câmera chega no lançamento e no "Certo"; o dedo aperta; o lançamento sai, o próximo entra, "Faltam nove.", e a barra da confirmação sobe | sobe | passa, toque, entra |
 | 9–10 | 18,4 | Empurra: "Avisa antes." O celular desce do alto; o mês ("Vai passar."); a câmera vai ao cartão de alerta e a barra do gasto se desenha | sobe | passa |

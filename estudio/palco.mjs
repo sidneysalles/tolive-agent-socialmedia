@@ -34,13 +34,16 @@ async function fontes() {
   await document.fonts.ready;
 }
 
-// "marca/logo/logo-escuro.svg#sem-sol": o logo sem o traço laranja, pro desenho.logoComSol fazer o sol nascer
+// "marca/logo/logo-escuro.svg#sem-sol": o logo sem o traço laranja, pro desenho.logoComSol fazer o sol nascer;
+// "#so-letras": só o "t" e o "Live", sem o símbolo (o símbolo solto que vira o "o" do logo)
 async function endereco(src) {
   const caminho = '/' + src.replace(/^\//, '').replace(/#.*$/, '');
-  if (!src.endsWith('#sem-sol')) return caminho;
+  if (!src.endsWith('#sem-sol') && !src.endsWith('#so-letras')) return caminho;
   const svg = await fetch(caminho).then(r => r.text());
-  const semSol = svg.replace(/<path[^>]*stroke="#(F26B3A|FF7A4A)"[^>]*\/>/i, '');
-  return URL.createObjectURL(new Blob([semSol], { type: 'image/svg+xml' }));
+  const recortado = src.endsWith('#so-letras')
+    ? svg.replace(/<g[^>]*>[\s\S]*?<\/g>/i, '')
+    : svg.replace(/<path[^>]*stroke="#(F26B3A|FF7A4A)"[^>]*\/>/i, '');
+  return URL.createObjectURL(new Blob([recortado], { type: 'image/svg+xml' }));
 }
 
 async function carregar(src) {

@@ -1,5 +1,5 @@
 {
-  "em": "2026-10-14T22:44:47.165Z",
+  "em": "2026-10-14T22:58:48.260Z",
   "formatos": [
     "stories"
   ],
@@ -21,12 +21,12 @@
       "arquivo": "quadros/stories-frase.jpg"
     },
     {
-      "id": "promessa-2",
+      "id": "promessa-3",
       "t": 9.96,
-      "nome": "O sol nasce: a promessa",
-      "texto": "Tecnologia que te devolve tempo de vida",
+      "nome": "O sol nasce, o logo se forma: a promessa",
+      "texto": "A tecnologia precisa nos devolver tempo de vida",
       "formato": "stories",
-      "arquivo": "quadros/stories-promessa-2.jpg"
+      "arquivo": "quadros/stories-promessa-3.jpg"
     },
     {
       "id": "f1-inteiro",

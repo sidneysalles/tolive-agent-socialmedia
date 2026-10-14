@@ -46,11 +46,12 @@ const FEATURES = [
     graficos: true,
     entra: { rx: 6, ry: 62, dx: -0.6 }, inteiro: { rx: 6, ry: 12 }, foco: { fy: 470, alto: 420, rx: 4, ry: 5 } },
 ];
-// a promessa logo depois dos problemas responde a eles; o mote "Tecnologia feita para não ser usada" fica só no fim,
-// depois do "Pode fechar o app" (Sidney, 14/10/2026: logo depois dos problemas ele ficava "nada a ver")
-const PROMESSA = ['Tecnologia', 'que te devolve', 'tempo de vida'];
+// a promessa logo depois dos problemas responde a eles, com o logo inteiro (o símbolo vira o "o" de toLive, pra a
+// promessa ter dono); o mote "Tecnologia feita para não ser usada" fica só no fim, depois do "Pode fechar o app"
+// (Sidney, 14/10/2026: logo depois dos problemas ele ficava "nada a ver"; e "só o símbolo não conecta")
+const PROMESSA = ['A tecnologia precisa', 'nos devolver', 'tempo de vida'];
 const COMPASSOS_POR_FEATURE = 2;
-const T = { frase: B(PALAVRAS.length), sol: B(10), solNasce: B(11), promessa: B(14), virada: C(5) };
+const T = { frase: B(PALAVRAS.length), sol: B(10), solNasce: B(11), vira: B(13), promessa: B(14), virada: C(5) };
 const inicioFeature = i => T.virada + C(i * COMPASSOS_POR_FEATURE);
 T.fecha = inicioFeature(FEATURES.length);   // a última tela fica de frente, apaga e a câmera entra nela
 T.folha = T.fecha + C(1);                   // a noite que era a tela apagada: o fim
@@ -92,14 +93,28 @@ export default {
   // o trecho com movimento que vai pra aprovação (aprovacao.mjs previa): o filme inteiro, com a música escolhida
   previa: {
     de: 0, ate: DURACAO, titulo: 'O filme inteiro, com a Inspired',
-    texto: 'Em qualidade de prévia (menor, mais leve). Agora sem o "Susto no dia 30" (outro problema, pra outro vídeo) e com "Tecnologia que te devolve tempo de vida" depois dos problemas; o mote fica só no fim. Antes disso, com os seus comentários: cada feature tem dois compassos e um plano de câmera (o app entra por um ângulo, aparece inteiro, a câmera vai ao detalhe); em Conecta e Organiza o dedo aperta o botão e o próprio app confirma (a barra que sobe de baixo, capturada de verdade); a projeção é o gráfico subindo, barra por barra; o manifesto virou a tela que apaga ("Pode fechar o app"); os dias grátis (do catálogo) ficaram em letra grande no fim. E os dois defeitos: as peças que sumiam (a ordem de pintura do 3D) e as que passavam por cima da borda (agora a tela recorta). Comente nos quadros abaixo; os de ids novos começam sem aprovação.',
+    texto: 'Em qualidade de prévia (menor, mais leve). Agora sem o "Susto no dia 30" (outro problema, pra outro vídeo) e com "A tecnologia precisa nos devolver tempo de vida", com o logo inteiro depois dos problemas; o mote fica só no fim. Antes disso, com os seus comentários: cada feature tem dois compassos e um plano de câmera (o app entra por um ângulo, aparece inteiro, a câmera vai ao detalhe); em Conecta e Organiza o dedo aperta o botão e o próprio app confirma (a barra que sobe de baixo, capturada de verdade); a projeção é o gráfico subindo, barra por barra; o manifesto virou a tela que apaga ("Pode fechar o app"); os dias grátis (do catálogo) ficaram em letra grande no fim. E os dois defeitos: as peças que sumiam (a ordem de pintura do 3D) e as que passavam por cima da borda (agora a tela recorta). Comente nos quadros abaixo; os de ids novos começam sem aprovação.',
   },
+  // a narração (o pedido do Sidney, 14/10/2026: a fala e a imagem conectadas): uma fala por cena, dizendo o que a tela
+  // escreve, na janela dela. Com o áudio em assets/narracao/<video>/<NN-id>.mp3, os cortes passam a seguir a fala
+  // (estudio/narracao.mjs escreve o roteiro de locução em narracao.md). A do teste grátis vem do catálogo, à parte,
+  // pra ser gravada de novo sozinha quando a conta mudar.
+  narracao: [
+    { id: 'abertura', de: 0, ate: T.frase, texto: PALAVRAS.map(l => l.join(' ')).join('. ') + '.', nota: 'Uma palavra por batida, com uma pausa curta entre elas: cada palavra troca a tela.' },
+    { id: 'frase', de: T.frase, ate: T.sol, texto: FRASE.join(' ') + '.', nota: 'Junto com a frase escrita.' },
+    { id: 'promessa', de: T.vira, ate: T.virada, texto: 'toLive. ' + PROMESSA.join(' ') + '.', nota: 'Começa quando o símbolo vira o logo ("toLive" com as letras abrindo); antes, só o sol nascendo, sem fala.' },
+    ...FEATURES.map((f, i) => ({ id: f.apelido, de: inicioFeature(i), ate: inicioFeature(i + 1), texto: `${f.titulo.join(' ')}. ${f.prova.replace(/[“”]/g, '')}`,
+      nota: f.depois ? `O toque no "${f.cam.uso.tocar}" cai ${f.apelido === 'aprovar' ? 'no "certo" da fala' : 'logo depois da fala'}.` : 'O título junto com a primeira palavra.' })),
+    { id: 'fecha', de: T.fecha, ate: T.folha, texto: 'Pode fechar o app.', nota: 'A tela apaga logo depois do "app".' },
+    { id: 'mote', de: T.folha, ate: T.teste, texto: 'toLive Finanças. Tecnologia feita para não ser usada.', nota: 'O logo com o sol nascendo; a única vez que o mote aparece.' },
+    { id: 'teste', de: T.teste, ate: DURACAO, catalogo: true, texto: 'Comece em tolive.app.', nota: 'Os dias grátis por extenso, do catálogo, e o convite.' },
+  ],
   // os quadros-chave que vão pra aprovação antes do render (estudio/aprovacao.mjs): cada cena já assentada. As
   // features têm dois: o app inteiro e o detalhe (depois do toque, quando há). Id novo = quadro novo na página.
   quadros: [
     { id: 'peso', t: B(0) + 0.35, nome: 'O peso: uma palavra por batida', texto: PALAVRAS.map(l => l.join(' ')).join(' · ') },
     { id: 'frase', t: T.sol - 0.2, nome: 'A frase', texto: FRASE.join(' ') },
-    { id: 'promessa-2', t: T.virada - 0.25, nome: 'O sol nasce: a promessa', texto: PROMESSA.join(' ') },
+    { id: 'promessa-3', t: T.virada - 0.25, nome: 'O sol nasce, o logo se forma: a promessa', texto: PROMESSA.join(' ') },
     ...FEATURES.flatMap((f, i) => [
       { id: `f${i + 1}-inteiro`, t: inicioFeature(i) + 1.5, nome: `${f.titulo.join(' ')}: o app inteiro`, texto: `${f.titulo.join(' ')}. ${f.prova}` },
       { id: `f${i + 1}-foco`, t: inicioFeature(i) + C(2) - 0.3, nome: `${f.titulo.join(' ')}: ${f.depois ? 'o toque e a confirmação do app' : f.barras ? 'o gráfico subindo' : 'o detalhe'}`, texto: f.depois ? `Toque em "${f.cam.uso.tocar}"` : '' },
@@ -110,6 +125,7 @@ export default {
   assets: {
     ...Object.assign({}, ...FEATURES.flatMap(f => [assetsDasCamadas(f.apelido, f.cam), f.depois ? assetsDasCamadas(f.depois.apelido, f.depois.cam) : {}])),
     logo: 'marca/logo/logo-escuro.svg#sem-sol',
+    letras: 'marca/logo/logo-escuro.svg#so-letras',
   },
   som: {
     musica: musica.arquivo,
@@ -144,18 +160,34 @@ export default {
         }
       },
     },
-    { // a virada de chave: na noite, o horizonte corre e o sol nasce atrás dele; a promessa
+    { // a virada de chave: na noite, o horizonte corre e o sol nasce atrás dele; o símbolo encolhe até o lugar do "o"
+      // e o "t" e o "Live" se abrem a partir dele (o logo inteiro); a promessa
       de: T.sol, ate: T.virada, desenhar(g, t, ctx, tg) {
         const { L, d, m, COR } = ctx, u = L.u, S = L.seguro;
         d.fundo(g, L, COR.noite);
-        const tam = 340 * u, y = S.y + 120 * u;
-        d.simbolo(g, S.cx - (tam * 100 / 92) / 2, y, tam, {
+        // o logo (viewBox 289,2 × 72,1; o símbolo em translate(43.5 14.3) scale(0.612), traços 17/16)
+        const hLogo = Math.min(150 * u, (S.w * 0.8 * 72.1) / 289.2), sL = hLogo / 72.1, wLogo = 289.2 * sL;
+        // o logo e a promessa centrados juntos na área segura (o símbolo grande nasce no mesmo centro do logo)
+        const grande = 340 * u, centro = S.cy - 200 * u, yGrande = centro - grande / 2;
+        const xLogo = S.cx - wLogo / 2, yLogo = centro - hLogo / 2;
+        const vira = m.anima(tg, T.vira, 0.6, m.CURVA.empurra);
+        const tamFim = 92 * 0.612 * sL, xFim = xLogo + 43.5 * sL, yFim = yLogo + 14.3 * sL;
+        const tam = m.mix(grande, tamFim, vira);
+        d.simbolo(g, m.mix(S.cx - (grande * 100 / 92) / 2, xFim, vira), m.mix(yGrande, yFim, vira), tam, {
           horizonte: m.anima(tg, T.sol - 0.08, 0.6, m.CURVA.forte), // na batida, o traço já está correndo
           sol: m.anima(tg, T.solNasce, m.FILME.sol * 1.3, m.CURVA.forte),
           corHorizonte: COR.noiteTinta, corSol: COR.noiteSinal,
+          tracoSol: m.mix(15, 17, vira), tracoHorizonte: m.mix(14, 16, vira),
         });
+        const abre = m.anima(tg, T.vira + 0.35, 0.5, m.CURVA.forte);
+        if (abre > 0) { // as letras saem de trás do símbolo, pros dois lados
+          const meio = xFim + (tamFim * 100 / 92) / 2, meia = Math.max(meio - xLogo, xLogo + wLogo - meio) * abre;
+          g.save(); g.beginPath(); g.rect(meio - meia, yLogo - 10 * u, meia * 2, hLogo + 20 * u); g.clip();
+          d.imagem(g, ctx.img.letras, xLogo, yLogo, wLogo, { h: hLogo });
+          g.restore();
+        }
         const desloc = PROMESSA.map((_, k) => m.revela(tg, T.promessa - 0.08 + k * B(1)));
-        d.textoRevelado(g, PROMESSA, S.cx, y + tam + 230 * u, desloc, { tam: 130 * u, cor: COR.noiteTinta, alinhar: 'center', maxW: S.w });
+        d.textoRevelado(g, PROMESSA, S.cx, centro + hLogo / 2 + 200 * u, desloc, { tam: 110 * u, cor: COR.noiteTinta, alinhar: 'center', maxW: S.w });
       },
     },
     { // a virada da música: cinco features, dois compassos cada; a primeira corta seco, as outras empurram a anterior.

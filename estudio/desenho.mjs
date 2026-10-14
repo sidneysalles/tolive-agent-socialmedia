@@ -420,16 +420,17 @@ function solNascendo(g, p, cor, traco, tracoHorizonte) {
 
 /**
  * O símbolo animável: o horizonte se desenha da esquerda pra direita (horizonte 0 → 1) e o sol nasce de trás
- * dele (sol 0 → 1). tam = altura em px; traço 15/14 (o do guia pra 48 px ou mais).
+ * dele (sol 0 → 1). tam = altura em px; traço 15/14 (o do guia pra 48 px ou mais; o do logo é 17/16, pra quem
+ * passa do símbolo solto pro símbolo dentro do logo).
  */
-export function simbolo(g, x, y, tam, { sol = 1, horizonte = 1, corSol = COR.sinal, corHorizonte = COR.tinta, alfa = 1 } = {}) {
+export function simbolo(g, x, y, tam, { sol = 1, horizonte = 1, corSol = COR.sinal, corHorizonte = COR.tinta, alfa = 1, tracoSol = 15, tracoHorizonte = 14 } = {}) {
   const s = tam / 92;
   g.save(); g.globalAlpha *= alfa; g.translate(x, y); g.scale(s, s);
   if (horizonte > 0) {
-    g.strokeStyle = corHorizonte; g.lineWidth = 14; g.lineCap = 'butt';
+    g.strokeStyle = corHorizonte; g.lineWidth = tracoHorizonte; g.lineCap = 'butt';
     g.beginPath(); g.arc(HORIZONTE.cx, HORIZONTE.cy, HORIZONTE.r, HORIZONTE.a0, HORIZONTE.a0 + (HORIZONTE.a1 - HORIZONTE.a0) * clamp(horizonte)); g.stroke();
   }
-  solNascendo(g, clamp(sol), corSol, 15, 14);
+  solNascendo(g, clamp(sol), corSol, tracoSol, tracoHorizonte);
   g.restore();
   return { w: tam * (100 / 92), h: tam };
 }

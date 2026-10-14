@@ -17,15 +17,16 @@ no mesmo dia com o segundo (`videos/2026-10-14-financas-proposito`), depois das 
 | 3 | O sol nascendo atrás do horizonte | **Aprovado**: "ajuda o usuário a entender a estética". É a assinatura do vídeo: na virada de chave e no logo do fim. |
 | 4 | Telas sendo usadas e câmera (Propósito, 14/10/2026) | **"Telas sendo usadas, botões sendo clicados, mensagens de ação bem-sucedida depois, gráficos surgindo"** e **"ângulos de câmera, app inteiro, foco em algo, app entrando sob diferentes óticas"**. A perspectiva 3D foi aprovada ("ótima escolha, precisamos ter mais"). Cada feature: entra por um ângulo, o app inteiro, o foco no detalhe, o toque e a confirmação do próprio app (capturas de antes e depois). |
 | 5 | Um problema por vídeo (Propósito, 14/10/2026) | A abertura lista **um tipo de dor só**. "Boleto, fatura, extrato, planilha, lembrete" são tarefas chatas; o "Susto no dia 30" é outro problema (o dinheiro que falta) e saiu: **"juntou várias tarefas chatas com outro problema, que podemos abordar em outro vídeo"**. |
-| 6 | O mote no lugar dele (Propósito, 14/10/2026) | "Tecnologia feita para não ser usada" **só no fim**, depois do produto se provar (e do "Pode fechar o app"): logo depois dos problemas ficou "nada a ver". Ali vai a resposta aos problemas: **"Tecnologia que te devolve tempo de vida."** |
+| 6 | O mote no lugar dele (Propósito, 14/10/2026) | "Tecnologia feita para não ser usada" **só no fim**, depois do produto se provar (e do "Pode fechar o app"): logo depois dos problemas ficou "nada a ver". Ali vai a resposta aos problemas: **"A tecnologia precisa nos devolver tempo de vida."**, com o logo inteiro (o símbolo sozinho "não conecta") |
 | 7 | O manifesto | "O melhor elogio: esqueci que tinha o app" foi reprovado ("pensa em outra coisa"). Ficou a tela que apaga: "Pode fechar o app". |
 | 8 | Os dias grátis | No fim, **chamativos**: em letra de veredito, grande, do catálogo, nunca escritos à mão. |
+| 9 | A narração | **A fala e a imagem conectadas**: a voz diz o que a tela escreve, na hora em que escreve. Roteiro de locução gerado do filme (`estudio/narracao.mjs`), um arquivo por fala; os cortes seguem a voz. |
 
 
 ## A ideia que o vídeo vende
 
 - "Tecnologia feita para não ser usada." Não é um app a mais, é uma tarefa a menos. **É o mote do fim** (decisão 6): depois
-  dos problemas vem a resposta a eles ("Tecnologia que te devolve tempo de vida"), e o mote só quando o produto já provou.
+  dos problemas vem a resposta a eles ("A tecnologia precisa nos devolver tempo de vida", com o logo inteiro), e o mote só quando o produto já provou.
 - O vídeo vende **um propósito**: a vida pede pedaços de você; a toLive existe pra devolver. As features vêm depois,
   como prova. Inspirar, não agitar: a energia vem da música e do corte, nunca de urgência no texto.
 - Do curso de motion (`curso-motion.md`) a gente copia o arreio inteiro (render, batida, crítica) e a energia do corte;

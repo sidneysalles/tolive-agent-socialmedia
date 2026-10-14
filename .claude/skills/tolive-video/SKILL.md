@@ -83,6 +83,14 @@ a cena nova chega **no** tempo forte; uma feature por compasso a partir da virad
 1,5 a 2 s. **Mostre o roteiro e espere o OK** antes de animar (se a pessoa já disse "faz tudo",
 siga e diga que seguiu).
 
+## Narração (quando pedirem voz)
+
+A fala diz **o que a tela escreve, na hora em que ela escreve** (Sidney, 14/10/2026: olhar e ouvir ao mesmo tempo; e
+quem vê sem som, a maioria no feed, lê a mesma coisa). Ponha `narracao: [{ id, de, ate, texto, nota }]` no filme
+(a do teste grátis com `catalogo: true`, arquivo à parte) e rode `node estudio/narracao.mjs videos/<id>`: o
+`narracao.md` é o roteiro de locução, com o limite de palavras de cada janela. Fala que não cabe faz a cena crescer
+em batidas inteiras. O áudio volta um arquivo por fala; aí os cortes seguem a fala e a música baixa sob a voz.
+
 ## 4. Animar
 
 O `filme.mjs` (o modelo já renderiza): `cenas` com `de/ate` e `desenhar(g, t, ctx, tGlobal)`, mais `quadros` (os
