@@ -1,7 +1,8 @@
 // A memória do que já foi dito: cada vídeo tem a sua videos/<id>/ficha.json (produto, ângulo, gancho,
 // features, status, onde saiu); isto aqui junta todas e responde o que a próxima pauta precisa saber:
-// o que já se falou de cada produto, o que nunca se falou, que gancho já foi usado e que vídeo ficou velho
-// porque o preço ou o teste grátis mudou na conta.
+// o que já se falou de cada produto, o que nunca se falou, que gancho já foi usado, que vídeo ficou velho
+// porque o preço ou o teste grátis mudou na conta, e o que foi reprovado e por quê (status "reprovado", com
+// reprovado.motivo: não conta como dito, mas ensina).
 //
 //   node estudio/historico.mjs                 a lista e a cobertura de todos os produtos
 //   node estudio/historico.mjs financas        só um produto (o que falta dizer vem primeiro)
@@ -70,6 +71,11 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     console.log(`  ângulos livres:  ${c.angulosLivres.join(', ') || '—'}`);
     console.log(`  já dito:         ${c.features.filter(f => f.vezes).map(f => `${f.id} ×${f.vezes}`).join(', ') || '—'}`);
     if (c.ganchos.length) console.log(`  ganchos usados:  ${c.ganchos.map(g => `"${g}"`).join(' · ')}`);
+  }
+  const reprovados = lista.filter(f => f.status === 'reprovado' && (!so || f.produto === so));
+  if (reprovados.length) {
+    console.log('\nReprovados (o que não repetir):');
+    for (const f of reprovados) console.log(`  ${f.id}: ${f.reprovado?.motivo ?? ''}${f.reprovado?.o_que_ficou ? `\n    ficou: ${f.reprovado.o_que_ficou}` : ''}`);
   }
   const v = velhos(lista);
   if (v.length) console.log(`\nRefazer (o preço ou o teste grátis mudou na conta): ${v.map(f => f.id).join(', ')}`);

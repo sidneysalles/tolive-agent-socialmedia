@@ -14,7 +14,7 @@ const REGRAS = [
   { nivel: 'erro', regra: 'nunca citar "Lei 10" nem o livro de onde veio (guia, seção 8)', re: /lei\s*10|di[aá]rio de um ceo/i },
   { nivel: 'erro', regra: 'sem urgência falsa nem gamificação', re: /imperd[ií]vel|n[aã]o perca|corra|[uú]ltimas vagas|s[oó] hoje|parab[eé]ns|incr[ií]vel|revolucion|desafio do m[eê]s|sequ[eê]ncia de \d+/i },
   { nivel: 'erro', regra: 'preço só do catálogo da conta (ctx.catalogo), nunca escrito', re: /a partir de R\$|R\$\s?\d+(?:,\d{2})?\s*(?:por conex[aã]o|o plano)|\d+ dias gr[aá]tis/i },
-  { nivel: 'erro', regra: 'o nome do app é "toLive Finanças" (nunca "Finance")', re: /\bFinance\b(?! Brasil)/ },
+  { nivel: 'erro', regra: 'o nome do app é "toLive Finanças" (nunca "Finance")', re: /(?<!Open )\bFinance\b/ },
   { nivel: 'aviso', regra: 'número até dez por extenso no texto ("três assinaturas", "Faltam quatro")', re: /(?<![\d,.R$%])\b[1-9]\s+(?!out\b|jan\b|fev\b|mar\b|abr\b|mai\b|jun\b|jul\b|ago\b|set\b|nov\b|dez\b|min\b|h\b|s\b|x\b|de\s+\d)[a-zà-ú]{3,}/i },
   { nivel: 'aviso', regra: 'evite o vocabulário de app comum (insights, dica, novidades)', re: /\binsights?\b|dica do dia|confira as novidades|ol[aá],/i },
   { nivel: 'aviso', regra: 'o Toly não comemora nem chama de volta (guia, seção 7)', re: /toly[^.]{0,60}(comemor|festej|volte|sentimos)/i },

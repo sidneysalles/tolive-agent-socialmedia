@@ -19,13 +19,13 @@ próprios quadros. **Seja um diretor duro, não um autor orgulhoso.** Nota alta 
 
 | Critério | 8 é |
 | --- | --- |
-| **Gancho** | O quadro 0 já diz algo; nos 2 s o problema ou a resposta está claro em até cinco palavras |
+| **Gancho** | O quadro 0 já diz algo; nos 2 s o problema está claro; a energia já está lá (o primeiro vídeo foi reprovado por "lento, fraco") |
 | **Leitura no celular** | Tudo legível na `celular.png` (360 px): nada abaixo de 28 px no vídeo, contraste do guia |
-| **Movimento** | Tudo entra, assenta e para; sem quique, sem deslizar sem fim, sem quadro morto no meio de uma troca |
+| **Movimento** | Corte na batida, tipo que bate, empurrão com borrão limpo; tudo assenta e para; sem quique, sem quadro morto |
 | **Variedade** | Algo novo a cada 2 a 4 s; não é "tudo sobe e aparece" do começo ao fim |
 | **Composição** | Tudo dentro de `L.seguro`; nada centrado em fundo liso sem motivo; equilíbrio no stories **e** no feed |
 | **Marca** | Ver a lista abaixo; uma falha aqui é nota máxima 5 |
-| **Som** | Os sons caem no que acontece (toque no toque, assenta no ponto); trilha calma; −14 LUFS |
+| **Som** | A virada da trilha cai na primeira feature; os sons caem no que acontece; −14 LUFS |
 
 ## O que caçar (pela ordem)
 
@@ -37,7 +37,11 @@ próprios quadros. **Seja um diretor duro, não um autor orgulhoso.** Nota alta 
 - O Toly fora do cartão dele (mascote, narrador, na chamada).
 - Texto: exclamação, emoji, "ToLive", número até dez em algarismo no texto, preço ou teste grátis escrito à mão.
 
-**O vídeo** (o curso):
+**O vídeo** (o curso e o que este estúdio já errou):
+- **O quadro de uma batida vazio** (na folha de batidas: a cena ainda não chegou no tempo forte).
+- **Um quadro cinza no corte seco** (o borrão misturou as duas cenas: a decisão do corte não usa `ctx.corte`).
+- **Cópias fantasmas no empurrão** (faixa: `--sub` baixo ou obturador 1).
+- Lento e morno: mais de um compasso sem corte nem tipo novo, fora a promessa e o fim.
 - Texto sobreposto durante uma troca; texto borrado por escala; coisa deslizando em vez de assentar.
 - Rótulo ou texto nos cantos, moldura (cara de vídeo de IA).
 - Batida morta (nada acontece por mais de 4 s, fora o fim parado).

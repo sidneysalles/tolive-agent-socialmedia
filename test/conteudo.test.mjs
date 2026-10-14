@@ -64,7 +64,8 @@ test('todo vídeo do repositório tem ficha válida, filme que carrega e texto n
     assert.ok(catalogo[f.produto], `${f.id}: produto ${f.produto}`);
     assert.ok(!f.angulo || catalogo[f.produto].angulos[f.angulo], `${f.id}: ângulo ${f.angulo}`);
     for (const id of f.features ?? []) assert.ok(catalogo[f.produto].features[id], `${f.id}: feature ${id}`);
-    assert.ok(['rascunho', 'entregue', 'publicado'].includes(f.status), `${f.id}: status ${f.status}`);
+    assert.ok(['rascunho', 'entregue', 'publicado', 'reprovado'].includes(f.status), `${f.id}: status ${f.status}`);
+    if (f.status === 'reprovado') assert.ok(f.reprovado?.motivo, `${f.id}: reprovado sem o motivo (é o que a próxima pauta aprende)`);
     const filme = (await import(`../videos/${f.id}/filme.mjs`)).default;
     assert.ok(filme.duracao > 0 && filme.bpm > 0, f.id);
     for (const src of Object.values(filme.assets ?? {})) assert.ok(existsSync(join(raiz, src.replace(/#.*$/, ''))), `${f.id}: falta ${src}`);
@@ -74,13 +75,13 @@ test('todo vídeo do repositório tem ficha válida, filme que carrega e texto n
 });
 
 test('a trilha sintetizada tem a duração do filme, é determinística e a batida dela é medida certa', () => {
-  const a = sintetizar({ bpm: 96, duracao: 8, sons: [{ t: 1, tipo: 'toque' }] });
+  const [a] = sintetizar({ bpm: 96, duracao: 8, sons: [{ t: 1, tipo: 'toque' }] });
   assert.equal(a.length, Math.ceil(8 * SR));
-  assert.deepEqual(a.slice(48000, 48100), sintetizar({ bpm: 96, duracao: 8, sons: [{ t: 1, tipo: 'toque' }] }).slice(48000, 48100));
+  assert.deepEqual(a.slice(48000, 48100), sintetizar({ bpm: 96, duracao: 8, sons: [{ t: 1, tipo: 'toque' }] })[0].slice(48000, 48100));
   let pico = 0;
   for (const v of a) pico = Math.max(pico, Math.abs(v));
   assert.ok(pico <= 0.9, `pico ${pico}`);
-  assert.equal(wav(a).toString('ascii', 0, 4), 'RIFF');
+  assert.equal(wav([a, a]).toString('ascii', 0, 4), 'RIFF');
   // a 22050 Hz, como o batidas.mjs lê do ffmpeg
   const reamostrada = Float32Array.from({ length: Math.floor(a.length * 22050 / SR) }, (_, i) => a[Math.floor(i * SR / 22050)]);
   const { bpm, batidas } = estimarBatidas(reamostrada, 22050);
@@ -89,13 +90,28 @@ test('a trilha sintetizada tem a duração do filme, é determinística e a bati
   assert.ok(fase < 0.1 || fase > 0.9, `a batida caiu fora do tempo (fase ${fase.toFixed(2)})`);
 });
 
+test('a trilha inspiradora cresce na virada, cai no fim e a batida dela é medida certa', () => {
+  const comp = (4 * 60) / 116;
+  const [E, D] = sintetizar({ estilo: 'inspiradora', bpm: 116, duracao: 10 * comp, secoes: [{ ate: 2, tipo: 'intro' }, { ate: 4, tipo: 'sobe' }, { ate: 8, tipo: 'cheio' }, { ate: 99, tipo: 'fim' }], sons: [{ t: 1, tipo: 'bate' }, { t: 9, tipo: 'passa' }] });
+  assert.notDeepEqual(E.slice(200000, 200100), D.slice(200000, 200100), 'é estéreo');
+  const db = c => { let s = 0, k = 0; for (let i = Math.floor(c * comp * SR); i < (c + 1) * comp * SR; i++) { s += E[i] ** 2; k++; } return 10 * Math.log10(s / k); };
+  assert.ok(db(5) > db(0) + 4, `a virada (${db(5).toFixed(1)} dB) não cresce sobre a intro (${db(0).toFixed(1)} dB)`);
+  assert.ok(db(9) < db(5) - 4, 'o fim não cai');
+  const reamostrada = Float32Array.from({ length: Math.floor(E.length * 22050 / SR) }, (_, i) => E[Math.floor(i * SR / 22050)]);
+  assert.ok(Math.abs(estimarBatidas(reamostrada, 22050).bpm - 116) < 2.5);
+});
+
 test('o novo-video cria a pasta com ficha, briefing e um filme que passa na voz', async () => {
   const { criarVideo } = await import('../estudio/novo-video.mjs');
   const raiz = mkdtempSync(join(tmpdir(), 'estudio-'));
   mkdirSync(join(raiz, 'videos'));
-  const { pasta } = criarVideo({ produto: 'financas', angulo: 'vazamento', gancho: 'Três assinaturas', gancho2: 'paradas', frase: 'R$ 87 por mês.', data: '2026-01-01', raiz });
+  const { pasta } = criarVideo({ produto: 'financas', angulo: 'vazamento', features: 'vazamentos,toly', palavras: 'Streaming|Academia|Nuvem', frase: 'Três assinaturas,paradas', data: '2026-01-01', raiz });
   assert.deepEqual(readdirSync(pasta).sort(), ['briefing.md', 'critica.md', 'ficha.json', 'filme.mjs', 'legenda.md', 'roteiro.md']);
   assert.deepEqual(conferirVideo(pasta).filter(a => a.nivel === 'erro'), []);
+  const filme = (await import(join(pasta, 'filme.mjs'))).default;
+  assert.ok(filme.assets['faz-vazamentos'] && filme.assets['toly-balao'], 'as capturas das features');
+  assert.ok(filme.duracao > 15 && filme.duracao < 20, `duração ${filme.duracao}`);
+  assert.throws(() => criarVideo({ produto: 'financas', angulo: 'vazamento', features: 'cancelar', raiz, data: '2026-01-02' }), /não tem captura/);
   assert.throws(() => criarVideo({ produto: 'financas', angulo: 'nao-existe', raiz }), /ângulo desconhecido/);
   assert.throws(() => criarVideo({ produto: 'cripto', angulo: 'x', raiz }), /produto desconhecido/);
 });

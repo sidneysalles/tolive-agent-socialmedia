@@ -1,17 +1,19 @@
 // A trilha e os sons de interface, sintetizados em código na mesma linha do tempo da imagem (o passo 09 do
 // curso): cada corte cai numa batida conhecida, sem medir nada. Determinístico (ruído com semente).
 //
-// A marca não define som (guia: "não definido"). A proposta daqui segue o movimento dela: calmo, sem
-// urgência, termina parado. Por isso: andamento de 84 a 100, acordes abertos (maj7/maj9), um piano elétrico
-// suave em colcheias, baixo nos tempos fortes, pulso quase inaudível, nada de "drop", riser ou sirene.
-// O fim resolve no acorde da tônica e some devagar, junto com o último quadro parado.
+// Dois estilos. 'inspiradora' (trilha-inspiradora.mjs) é o padrão desde 14/10/2026: o Sidney achou a 'calma'
+// "horrível" e pediu a pegada da Apple (intro, subida, virada nas features, fim). 'calma' fica só pro primeiro
+// vídeo. Os dois resolvem na tônica e somem junto com o quadro parado do fim. Música licenciada (som.musica)
+// ganha de qualquer síntese: o motor mede as batidas dela (batidas.mjs) e mixa os sons de interface por cima.
 //
 //   node estudio/som.mjs videos/<id>        escreve videos/<id>/saida/som.wav a partir do `som` do filme.mjs
 
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { execFileSync } from 'node:child_process';
 import { semente } from './movimento.mjs';
+import { sintetizarInspiradora } from './trilha-inspiradora.mjs';
 
 export const SR = 48000;
 const midi = n => 440 * 2 ** ((n - 69) / 12);
@@ -33,6 +35,9 @@ function vozes(r) {
     entra: [0.42, t => (r() * 2 - 1) * Math.sin(Math.PI * Math.min(1, t / 0.42)) ** 2 * 0.06],
     assenta: [0.3, t => Math.sin(2 * Math.PI * (120 - 50 * t) * t) * Math.exp(-t * 14) * 0.35],
     troca: [0.5, t => Math.sin(2 * Math.PI * midi(81) * t + 1.2 * Math.exp(-t * 9) * Math.sin(2 * Math.PI * midi(81) * t)) * Math.exp(-t * 7) * 0.09],
+    // do registro do filme: a cena que empurra a outra e o tipo que bate
+    passa: [0.5, (() => { let y = 0; return t => { const x = r() * 2 - 1; y += (0.05 + 0.4 * Math.sin(Math.PI * Math.min(1, t / 0.5))) * (x - y); return y * Math.sin(Math.PI * Math.min(1, t / 0.5)) ** 1.5 * 0.5; }; })()],
+    bate: [0.18, t => (Math.sin(2 * Math.PI * (160 - 90 * t) * t) * 0.6 + (r() * 2 - 1) * Math.exp(-t * 90) * 0.4) * Math.exp(-t * 22) * 0.4],
   };
 }
 
@@ -65,10 +70,31 @@ function reverb(entrada, mistura = 0.22) {
 }
 
 /**
- * Sintetiza a trilha: { bpm, duracao, progressao: ['I','vi','IV','V',…] (um por compasso), pulso, sons }.
- * Devolve Float32Array mono em SR, já com fim em fade e pico em −1 dBFS.
+ * Sintetiza a trilha e os sons de interface: { estilo: 'inspiradora' | 'calma' | 'nenhuma', bpm, duracao,
+ * progressao (um acorde por compasso), secoes (inspiradora), sons: [{ t, tipo }] }. Devolve [esquerda, direita]
+ * em SR, com pico em −1 dBFS. 'nenhuma': só os sons (pra mixar com uma música trazida).
  */
-export function sintetizar({ bpm = 92, duracao, progressao = ['I', 'vi', 'IV', 'V'], pulso = true, sons = [], fimDe = 1.6, seed = 7 }) {
+export function sintetizar({ estilo = 'calma', sons = [], seed = 7, ...op }) {
+  const n = Math.ceil(op.duracao * SR);
+  const [E, D] = estilo === 'inspiradora' ? sintetizarInspiradora(op)
+    : estilo === 'nenhuma' ? [new Float32Array(n), new Float32Array(n)]
+      : (m => [m, Float32Array.from(m)])(sintetizarCalma(op));
+  const r = semente(seed), V = vozes(r);
+  for (const { t: tc, tipo } of sons) {
+    const voz = V[tipo];
+    if (!voz) throw new Error(`som desconhecido: ${tipo} (use ${Object.keys(V).join(', ')})`);
+    const [dur, fn] = voz, inicio = Math.floor(tc * SR);
+    for (let i = 0; i < dur * SR && inicio + i < n; i++) { const v = fn(i / SR); E[inicio + i] += v; D[inicio + i] += v; }
+  }
+  let pico = 0;
+  for (let i = 0; i < n; i++) pico = Math.max(pico, Math.abs(E[i]), Math.abs(D[i]));
+  const ganho = pico > 0 ? 0.891 / pico : 1; // −1 dBFS
+  for (let i = 0; i < n; i++) { E[i] *= ganho; D[i] *= ganho; }
+  return [E, D];
+}
+
+/** A trilha calma do primeiro vídeo (mono, sem os sons de interface). */
+function sintetizarCalma({ bpm = 92, duracao, progressao = ['I', 'vi', 'IV', 'V'], pulso = true, fimDe = 1.6 }) {
   const n = Math.ceil(duracao * SR);
   const musica = new Float32Array(n);
   const b = 60 / bpm, compasso = 4 * b;
@@ -122,43 +148,44 @@ export function sintetizar({ bpm = 92, duracao, progressao = ['I', 'vi', 'IV', '
   }
 
   const molhada = reverb(musica);
-  // os sons de interface, por cima, secos
-  const r = semente(seed), V = vozes(r);
-  for (const { t: tc, tipo } of sons) {
-    const voz = V[tipo];
-    if (!voz) throw new Error(`som desconhecido: ${tipo} (use ${Object.keys(V).join(', ')})`);
-    const [dur, fn] = voz, inicio = Math.floor(tc * SR);
-    for (let i = 0; i < dur * SR && inicio + i < n; i++) molhada[inicio + i] += fn(i / SR);
-  }
   // fim: some devagar junto com o último quadro parado; começo sem clique
   for (let i = 0; i < n; i++) {
     const t = i / SR;
     molhada[i] *= Math.min(1, t / 0.02) * Math.min(1, Math.max(0, (duracao - t) / fimDe));
   }
-  let pico = 0;
-  for (const v of molhada) pico = Math.max(pico, Math.abs(v));
-  const ganho = pico > 0 ? 0.891 / pico : 1; // −1 dBFS
-  for (let i = 0; i < n; i++) molhada[i] *= ganho;
   return molhada;
 }
 
-/** WAV 16 bits, mono. */
-export function wav(amostras) {
-  const n = amostras.length, b = Buffer.alloc(44 + n * 2);
-  b.write('RIFF', 0); b.writeUInt32LE(36 + n * 2, 4); b.write('WAVEfmt ', 8);
-  b.writeUInt32LE(16, 16); b.writeUInt16LE(1, 20); b.writeUInt16LE(1, 22);
-  b.writeUInt32LE(SR, 24); b.writeUInt32LE(SR * 2, 28); b.writeUInt16LE(2, 32); b.writeUInt16LE(16, 34);
-  b.write('data', 36); b.writeUInt32LE(n * 2, 40);
-  for (let i = 0; i < n; i++) b.writeInt16LE(Math.round(Math.max(-1, Math.min(1, amostras[i])) * 32767), 44 + i * 2);
+/** WAV 16 bits, estéreo, de [esquerda, direita]. */
+export function wav([E, D]) {
+  const n = E.length, b = Buffer.alloc(44 + n * 4);
+  b.write('RIFF', 0); b.writeUInt32LE(36 + n * 4, 4); b.write('WAVEfmt ', 8);
+  b.writeUInt32LE(16, 16); b.writeUInt16LE(1, 20); b.writeUInt16LE(2, 22);
+  b.writeUInt32LE(SR, 24); b.writeUInt32LE(SR * 4, 28); b.writeUInt16LE(4, 32); b.writeUInt16LE(16, 34);
+  b.write('data', 36); b.writeUInt32LE(n * 4, 40);
+  const q = v => Math.round(Math.max(-1, Math.min(1, v)) * 32767);
+  for (let i = 0; i < n; i++) { b.writeInt16LE(q(E[i]), 44 + i * 4); b.writeInt16LE(q(D[i]), 46 + i * 4); }
   return b;
 }
 
+/**
+ * O som do vídeo em saida/som.wav. Com som.musica (um arquivo licenciado em assets/musicas/, ver o LICENCAS.md de
+ * lá), a música entra a partir de som.inicio, com fade no fim, e os sons de interface por cima; sem, a trilha
+ * sintetizada no estilo do filme.
+ */
 export async function somDoVideo(pasta) {
   const filme = (await import(pathToFileURL(resolve(pasta, 'filme.mjs')).href)).default;
   const som = { duracao: filme.duracao, bpm: filme.bpm, ...filme.som };
   mkdirSync(join(pasta, 'saida'), { recursive: true });
   const destino = join(pasta, 'saida', 'som.wav');
-  writeFileSync(destino, wav(sintetizar(som)));
+  if (!som.musica) { writeFileSync(destino, wav(sintetizar(som))); return destino; }
+  const efeitos = join(pasta, 'saida', 'efeitos.wav');
+  writeFileSync(efeitos, wav(sintetizar({ ...som, estilo: 'nenhuma' })));
+  const musica = resolve(fileURLToPath(new URL('..', import.meta.url)), som.musica);
+  const fim = Math.max(0, som.duracao - (som.fimDe ?? 1.8));
+  execFileSync('ffmpeg', ['-y', '-v', 'error', '-ss', String(som.inicio ?? 0), '-t', String(som.duracao), '-i', musica, '-i', efeitos,
+    '-filter_complex', `[0:a]aresample=${SR},afade=t=out:st=${fim}:d=${som.fimDe ?? 1.8}[m];[1:a]volume=${som.volumeEfeitos ?? 0.5}[e];[m][e]amix=inputs=2:normalize=0[s]`,
+    '-map', '[s]', '-ac', '2', '-ar', String(SR), destino]);
   return destino;
 }
 

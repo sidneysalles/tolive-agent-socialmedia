@@ -20,7 +20,7 @@
   ],
   "cta": "Comece em tolive.app (com o teste grátis do catálogo)",
   "duracao": 16,
-  "status": "entregue",
+  "status": "reprovado",
   "publicado": [],
   "notas": "O primeiro vídeo do estúdio, feito junto com o motor. A crítica (critica.md) lista o que fica pro próximo.",
   "catalogo": {
@@ -32,5 +32,11 @@
     "stories",
     "feed"
   ],
-  "renderizado_em": "2026-10-14T20:47:25.708Z"
+  "renderizado_em": "2026-10-14T20:47:25.708Z",
+  "reprovado": {
+    "quando": "2026-10-14",
+    "por": "Sidney",
+    "motivo": "Os motions muito lentos, a trilha horrível, fraco. Faltou propósito: quer a pegada inspiradora da Apple, com a visão da marca e as features.",
+    "o_que_ficou": "O sol nascendo atrás do horizonte (aprovado: ajuda a entender a estética). O Toly só como feature, nunca mascote (aprovado)."
+  }
 }

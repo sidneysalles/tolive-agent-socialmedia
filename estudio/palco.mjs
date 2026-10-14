@@ -15,6 +15,10 @@ const qs = new URLSearchParams(location.search);
 const video = qs.get('video');
 const L = layout(qs.get('formato') ?? 'stories');
 const render = navigator.webdriver || qs.has('render');
+const FPS = Number(qs.get('fps') ?? 30);
+// o tempo do começo do quadro: quem decide um corte seco (qual cena está na tela) usa este, pra o borrão de movimento
+// (os subquadros dentro de um quadro) nunca misturar as duas cenas de um corte
+const corte = t => Math.floor(t * FPS + 1e-6) / FPS;
 if (render) document.documentElement.classList.add('render');
 
 const canvas = document.getElementById('c');
@@ -54,14 +58,15 @@ async function iniciar() {
   const [{ default: filme }] = await Promise.all([import(`/${video}/filme.mjs`), fontes()]);
   const img = Object.fromEntries(await Promise.all(Object.entries(filme.assets ?? {}).map(async ([nome, src]) => [nome, await carregar(src)])));
   const guardado = await fetch('/conhecimento/planos.json').then(r => (r.ok ? r.json() : null)).catch(() => null);
-  const ctx = Object.freeze({ L, img, catalogo: oQueDizer(guardado?.resposta), COR, DOMINIO, dominio, m, d });
+  const ctx = Object.freeze({ L, img, catalogo: oQueDizer(guardado?.resposta), COR, DOMINIO, dominio, m, d, fps: FPS, corte });
 
   const pintar = t => {
     g.setTransform(1, 0, 0, 1, 0, 0);
     g.globalAlpha = 1;
     filme.fundo?.(g, t, ctx);
     if (filme.cenas) {
-      for (const cena of filme.cenas) if (t >= cena.de && t < cena.ate) { g.save(); cena.desenhar(g, t - cena.de, ctx, t); g.restore(); }
+      const tc = corte(t);
+      for (const cena of filme.cenas) if (tc >= cena.de && tc < cena.ate) { g.save(); cena.desenhar(g, t - cena.de, ctx, t); g.restore(); }
     }
     filme.desenhar?.(g, t, ctx);
   };

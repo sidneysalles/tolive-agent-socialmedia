@@ -1,5 +1,5 @@
 {
-  "comentario": "O que um vídeo pode dizer de cada produto, com um id estável por feature e por ângulo (a ficha.json de cada vídeo cita esses ids, e o historico.mjs conta o que já foi dito). Tirado do site em 14/10/2026 (conhecimento/site/*.txt). Feature nova entra aqui quando entra no site; nunca antes. 'prova' é a frase do site que sustenta a feature; 'captura' é o asset real que a mostra.",
+  "comentario": "O que um vídeo pode dizer de cada produto, com um id estável por feature e por ângulo (a ficha.json de cada vídeo cita esses ids, e o historico.mjs conta o que já foi dito). Tirado do site em 14/10/2026 (conhecimento/site/*.txt). Feature nova entra aqui quando entra no site; nunca antes. 'prova' é a frase do site que sustenta a feature; 'captura' é o asset real que a mostra. 'curto' é o título do vídeo (até quatro palavras, Archivo Black) e 'linha' a prova em uma frase, no registro do filme.",
   "produtos": {
     "financas": {
       "nome": "toLive Finanças",
@@ -8,22 +8,148 @@
       "uma_frase": "O dinheiro da casa, organizado sozinho.",
       "cta": "Comece em tolive.app",
       "features": {
-        "veredito": { "nome": "Abre numa frase", "prova": "Toda tela responde primeiro se está tudo bem. Os números ficam embaixo, para quem quiser conferir.", "captura": ["celular-inicio", "faz-veredito"] },
-        "excecao": { "nome": "Só chama quando a decisão é sua", "prova": "No máximo um aviso por vez, sempre com um “agora não” que é respeitado.", "captura": ["aviso-luz", "celular-tolive", "como-3-decide"] },
-        "open-finance": { "nome": "Conecta os bancos pelo Open Finance", "prova": "Seus bancos entram pelo Open Finance e trazem doze meses de histórico. Sem digitar nada. Permissão só para ler, nunca para pagar ou transferir.", "captura": ["como-1-conectar"] },
-        "ia-regras": { "nome": "A IA arruma uma vez; depois, as regras", "prova": "Ela lê o histórico e propõe categorias e regras. Quando não sabe, pergunta. Nada vale até você aprovar.", "captura": ["como-2-ia"] },
-        "classificacao": { "nome": "Lançamentos classificados sozinhos", "prova": "As regras que você aprovou classificam cada lançamento assim que ele chega. Transferências e estornos reconhecidos sozinhos.", "captura": [] },
-        "orcamento": { "nome": "Orçamento no ritmo", "prova": "O orçamento acompanha o ritmo do mês e avisa quando uma categoria vai passar do limite, enquanto ainda dá para ajustar.", "captura": ["faz-orcamento", "como-3-decide"] },
-        "projecao": { "nome": "Projeção de doze meses", "prova": "A projeção dos próximos doze meses responde numa frase se a meta fecha, e em que mês.", "captura": ["faz-projecao"] },
-        "vazamentos": { "nome": "Dinheiro que vazava, achado", "prova": "Assinatura parada, cobrança repetida, conta acima da média. Aparecem sozinhas, com o motivo e a fonte.", "captura": ["faz-vazamentos", "toly-balao", "toly-tres"] },
-        "toly": { "nome": "O Toly, o mordomo", "prova": "Surge quando vale o seu tempo. Depois, some. Sempre mostra de onde tirou a informação. Sempre aceita um “agora não”.", "captura": ["toly-balao", "toly-tres"] },
-        "casa-toda": { "nome": "A casa toda, sem cobrar por pessoa", "prova": "Quem divide as contas vê o mesmo orçamento. Contas com dono ou da casa. Ninguém de fora vê nada.", "captura": ["faz-casa"] },
-        "patrimonio": { "nome": "Patrimônio num número", "prova": "Contas, investimentos e reservas somados num número só.", "captura": ["faz-patrimonio"] },
-        "celular-computador": { "nome": "Celular e computador, a mesma casa", "prova": "Responda a pergunta no celular, confira os números no computador. Tudo sincronizado.", "captura": [] },
-        "privacidade": { "nome": "O extrato da sua casa não é produto", "prova": "Não vendemos dados, não mostramos anúncios e não usamos o que é seu para treinar modelos. A senha do banco nunca passa por nós.", "captura": [] },
-        "preco-conexao": { "nome": "Paga pelas conexões", "prova": "Uma conexão é um banco ligado pelo Open Finance. Conta, cartão e poupança do mesmo banco contam como uma só. Preço e teste grátis: só do catálogo (ctx.catalogo).", "captura": [] },
-        "cancelar": { "nome": "Cancela sem pergunta de novo", "prova": "Na conta toLive, em Plano. Sem ligação, sem formulário, sem pergunta de novo.", "captura": [] },
-        "pouco-tempo": { "nome": "Usar pouco é o objetivo", "prova": "O melhor elogio que podemos receber é: “esqueci que tinha o app”. Medimos o tempo que você passa longe da tela.", "captura": ["app-comum", "celular-tolive"] }
+        "veredito": {
+          "nome": "Abre numa frase",
+          "prova": "Toda tela responde primeiro se está tudo bem. Os números ficam embaixo, para quem quiser conferir.",
+          "captura": [
+            "celular-inicio",
+            "faz-veredito"
+          ],
+          "curto": "Responde numa frase",
+          "linha": "Abriu, leu uma frase, fechou."
+        },
+        "excecao": {
+          "nome": "Só chama quando a decisão é sua",
+          "prova": "No máximo um aviso por vez, sempre com um “agora não” que é respeitado.",
+          "captura": [
+            "aviso-luz",
+            "celular-tolive",
+            "como-3-decide"
+          ],
+          "curto": "Só chama quando importa",
+          "linha": "Um pedido por vez, sempre com um “agora não”."
+        },
+        "open-finance": {
+          "nome": "Conecta os bancos pelo Open Finance",
+          "prova": "Seus bancos entram pelo Open Finance e trazem doze meses de histórico. Sem digitar nada. Permissão só para ler, nunca para pagar ou transferir.",
+          "captura": [
+            "como-1-conectar"
+          ],
+          "curto": "Conecta",
+          "linha": "Seus bancos pelo Open Finance. Só para ler."
+        },
+        "ia-regras": {
+          "nome": "A IA arruma uma vez; depois, as regras",
+          "prova": "Ela lê o histórico e propõe categorias e regras. Quando não sabe, pergunta. Nada vale até você aprovar.",
+          "captura": [
+            "como-2-ia"
+          ],
+          "curto": "Organiza",
+          "linha": "A IA propõe as regras. Nada vale até você aprovar."
+        },
+        "classificacao": {
+          "nome": "Lançamentos classificados sozinhos",
+          "prova": "As regras que você aprovou classificam cada lançamento assim que ele chega. Transferências e estornos reconhecidos sozinhos.",
+          "captura": [],
+          "curto": "Classifica sozinho",
+          "linha": "Cada lançamento na categoria certa, assim que chega."
+        },
+        "orcamento": {
+          "nome": "Orçamento no ritmo",
+          "prova": "O orçamento acompanha o ritmo do mês e avisa quando uma categoria vai passar do limite, enquanto ainda dá para ajustar.",
+          "captura": [
+            "faz-orcamento",
+            "como-3-decide"
+          ],
+          "curto": "Avisa antes",
+          "linha": "Quando a categoria vai passar do limite, não depois."
+        },
+        "projecao": {
+          "nome": "Projeção de doze meses",
+          "prova": "A projeção dos próximos doze meses responde numa frase se a meta fecha, e em que mês.",
+          "captura": [
+            "faz-projecao"
+          ],
+          "curto": "Projeta o ano",
+          "linha": "Doze meses à vista, numa frase."
+        },
+        "vazamentos": {
+          "nome": "Dinheiro que vazava, achado",
+          "prova": "Assinatura parada, cobrança repetida, conta acima da média. Aparecem sozinhas, com o motivo e a fonte.",
+          "captura": [
+            "faz-vazamentos",
+            "toly-balao",
+            "toly-tres"
+          ],
+          "curto": "Acha o que vaza",
+          "linha": "Assinatura parada, com o motivo e a fonte."
+        },
+        "toly": {
+          "nome": "O Toly, o mordomo",
+          "prova": "Surge quando vale o seu tempo. Depois, some. Sempre mostra de onde tirou a informação. Sempre aceita um “agora não”.",
+          "captura": [
+            "toly-balao",
+            "toly-tres"
+          ],
+          "curto": "Traz a decisão pronta",
+          "linha": "Surge quando vale o seu tempo. Depois, some."
+        },
+        "casa-toda": {
+          "nome": "A casa toda, sem cobrar por pessoa",
+          "prova": "Quem divide as contas vê o mesmo orçamento. Contas com dono ou da casa. Ninguém de fora vê nada.",
+          "captura": [
+            "faz-casa"
+          ],
+          "curto": "A casa toda",
+          "linha": "Quem divide as contas vê o mesmo orçamento."
+        },
+        "patrimonio": {
+          "nome": "Patrimônio num número",
+          "prova": "Contas, investimentos e reservas somados num número só.",
+          "captura": [
+            "faz-patrimonio"
+          ],
+          "curto": "Soma tudo",
+          "linha": "Contas, investimentos e reservas num número só."
+        },
+        "celular-computador": {
+          "nome": "Celular e computador, a mesma casa",
+          "prova": "Responda a pergunta no celular, confira os números no computador. Tudo sincronizado.",
+          "captura": [],
+          "curto": "Em qualquer tela",
+          "linha": "Responda no celular, confira no computador."
+        },
+        "privacidade": {
+          "nome": "O extrato da sua casa não é produto",
+          "prova": "Não vendemos dados, não mostramos anúncios e não usamos o que é seu para treinar modelos. A senha do banco nunca passa por nós.",
+          "captura": [],
+          "curto": "Seu extrato não é produto",
+          "linha": "Sem anúncio, sem venda de dados, sem treinar modelo."
+        },
+        "preco-conexao": {
+          "nome": "Paga pelas conexões",
+          "prova": "Uma conexão é um banco ligado pelo Open Finance. Conta, cartão e poupança do mesmo banco contam como uma só. Preço e teste grátis: só do catálogo (ctx.catalogo).",
+          "captura": [],
+          "curto": "Paga por conexão",
+          "linha": "A casa toda entra, sem cobrar por pessoa."
+        },
+        "cancelar": {
+          "nome": "Cancela sem pergunta de novo",
+          "prova": "Na conta toLive, em Plano. Sem ligação, sem formulário, sem pergunta de novo.",
+          "captura": [],
+          "curto": "Cancela sem pergunta",
+          "linha": "Na conta toLive, em Plano. Sem ligação."
+        },
+        "pouco-tempo": {
+          "nome": "Usar pouco é o objetivo",
+          "prova": "O melhor elogio que podemos receber é: “esqueci que tinha o app”. Medimos o tempo que você passa longe da tela.",
+          "captura": [
+            "app-comum",
+            "celular-tolive"
+          ],
+          "curto": "Usa pouco",
+          "linha": "O melhor elogio: “esqueci que tinha o app”."
+        }
       },
       "angulos": {
         "antes-depois": "Doze coisas pedindo você; onze se resolvem sozinhas; uma pergunta é sua.",
@@ -37,7 +163,8 @@
         "esqueci-o-app": "Manifesto: o melhor elogio é 'esqueci que tinha o app'. Medimos o tempo longe da tela.",
         "faca-a-conta": "Se vão quatro horas por mês com boleto, extrato e planilha, são 48 horas por ano. (Ilustrativo: diga 'se'.)",
         "domingo-de-volta": "Nada de planilha para atualizar. Devolva o domingo para quem importa.",
-        "conta-de-luz": "Uma pergunta só: 'A conta de luz veio 22% acima da média. Pago mesmo assim?' Fato antes do pedido."
+        "conta-de-luz": "Uma pergunta só: 'A conta de luz veio 22% acima da média. Pago mesmo assim?' Fato antes do pedido.",
+        "proposito": "O propósito antes do produto (registro do filme, pegada Apple): o que pede pedaços de você → 'Tecnologia feita para não ser usada' com o sol nascendo → as features como prova, uma por compasso → 'esqueci que tinha o app'."
       }
     },
     "fe": {
@@ -47,7 +174,13 @@
       "uma_frase": "A escala do louvor fechada sem trinta mensagens no grupo.",
       "cta": "Ainda em teste: só teaser, nunca 'assine'. O nome do app está a definir (guia, seção 1).",
       "features": {
-        "escalas": { "nome": "Escalas, repertório e ensaios do ministério", "prova": "Escalas, repertório e ensaios do ministério.", "captura": [] }
+        "escalas": {
+          "nome": "Escalas, repertório e ensaios do ministério",
+          "prova": "Escalas, repertório e ensaios do ministério.",
+          "captura": [],
+          "curto": "A escala fechada",
+          "linha": "Sem trinta mensagens no grupo."
+        }
       },
       "angulos": {
         "trinta-mensagens": "A escala do louvor fechada sem trinta mensagens no grupo."
@@ -60,9 +193,27 @@
       "uma_frase": "Tecnologia feita para não ser usada.",
       "cta": "tolive.app",
       "features": {
-        "mordomia": { "nome": "Mordomia", "prova": "Cuidar bem do que nos foi confiado, sem deixar que isso tome o lugar do que importa.", "captura": [] },
-        "tarefa-a-menos": { "nome": "Não é um app a mais. É uma tarefa a menos.", "prova": "Não é um app a mais. É uma tarefa a menos.", "captura": [] },
-        "proximos": { "nome": "O resto da casa vem em seguida", "prova": "Fé (em teste): a escala do louvor fechada sem trinta mensagens no grupo. Saúde, Casa e Pessoas (em breve): o exame lembrado antes de passar do prazo; seguro, IPVA e revisão sem juros por esquecimento; faz cinco semanas que você não janta com os amigos.", "captura": [] }
+        "mordomia": {
+          "nome": "Mordomia",
+          "prova": "Cuidar bem do que nos foi confiado, sem deixar que isso tome o lugar do que importa.",
+          "captura": [],
+          "curto": "Mordomia",
+          "linha": "Cuidar bem do que nos foi confiado."
+        },
+        "tarefa-a-menos": {
+          "nome": "Não é um app a mais. É uma tarefa a menos.",
+          "prova": "Não é um app a mais. É uma tarefa a menos.",
+          "captura": [],
+          "curto": "Uma tarefa a menos",
+          "linha": "Não é um app a mais."
+        },
+        "proximos": {
+          "nome": "O resto da casa vem em seguida",
+          "prova": "Fé (em teste): a escala do louvor fechada sem trinta mensagens no grupo. Saúde, Casa e Pessoas (em breve): o exame lembrado antes de passar do prazo; seguro, IPVA e revisão sem juros por esquecimento; faz cinco semanas que você não janta com os amigos.",
+          "captura": [],
+          "curto": "O resto da casa",
+          "linha": "Fé, Saúde, Casa e Pessoas vêm em seguida."
+        }
       },
       "angulos": {
         "manifesto": "A maior parte da tecnologia pede mais atenção. A toLive faz o contrário.",

@@ -57,7 +57,7 @@ test('o formato sai do pedido em português', () => {
 test('a voz: o que a marca proíbe vira erro, o que ela pede passa', () => {
   const erros = s => conferirTexto(s, { precos: ['14,90'] }).filter(a => a.nivel === 'erro').length;
   for (const s of ['Não perca!', 'Oferta imperdível', 'ToLive Finanças', 'Finance ToLive', 'a Lei 10', 'Parabéns, você economizou', '💸 economize', 'a partir de R$ 14,90', 'só R$ 14,90 por mês', '30 dias grátis']) assert.ok(erros(s) > 0, s);
-  for (const s of ['Tudo em ordem.', 'toLive Finanças', 'tolive.app', 'A conta de luz veio 22% acima da média. Pago mesmo assim?', 'R$ 6.840 de R$ 9.500', 'Open Finance Brasil', 'Streaming parado, R$ 39,90 por mês', 'To Live Soluções de Inteligência Artificial Ltda.']) assert.equal(erros(s), 0, s);
+  for (const s of ['Tudo em ordem.', 'toLive Finanças', 'tolive.app', 'A conta de luz veio 22% acima da média. Pago mesmo assim?', 'R$ 6.840 de R$ 9.500', 'Open Finance Brasil', 'Seus bancos pelo Open Finance.', 'Streaming parado, R$ 39,90 por mês', 'To Live Soluções de Inteligência Artificial Ltda.']) assert.equal(erros(s), 0, s);
   assert.equal(conferirTexto('Achei 3 assinaturas')[0]?.nivel, 'aviso');
 });
 

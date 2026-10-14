@@ -5,12 +5,13 @@ Claude com este repositório, e ele:
 
 1. lê o que o site diz hoje e o que os vídeos anteriores já disseram, e propõe três ângulos que complementam;
 2. escreve o roteiro na grade de batidas e espera o seu OK;
-3. anima as telas reais do site com a marca da toLive (papel, tinta, Archivo Black, o ponto laranja, sem quique);
+3. anima as telas reais do site com a marca da toLive: o propósito primeiro, o sol nascendo, as features na virada da trilha;
 4. renderiza, olha os próprios quadros, dá nota, conserta (três rodadas no mínimo);
 5. entrega o MP4 de cada formato, o pôster e a legenda do post, e guarda na memória o que foi dito.
 
-O primeiro vídeo, feito junto com o motor: [`videos/2026-10-14-financas-tudo-em-ordem`](videos/2026-10-14-financas-tudo-em-ordem)
-(16 s, stories e feed).
+A referência de direção: [`videos/2026-10-14-financas-proposito`](videos/2026-10-14-financas-proposito) (24,5 s, stories
+e feed, na pegada dos filmes de produto da Apple). O primeiro vídeo, [`…-tudo-em-ordem`](videos/2026-10-14-financas-tudo-em-ordem),
+ficou como reprovado, com o motivo, pra não se repetir.
 
 | Pasta | O que tem |
 | --- | --- |

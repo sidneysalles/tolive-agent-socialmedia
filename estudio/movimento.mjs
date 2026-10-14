@@ -2,16 +2,21 @@
 // sem simular os 811 de antes e o render seja idêntico a cada vez. Roda no navegador (o palco) e no Node
 // (os testes). Nada de Math.random, timer, transição de CSS ou estado guardado entre quadros.
 //
-// A marca manda no feitio (guia, seção 6): "tudo se move como quem chega em silêncio e senta". Por isso:
-// - as molas são criticamente amortecidas ou mais (z >= 1): desaceleram e param, nunca quicam;
-// - as curvas são as do guia (--chegada, --saida, --troca) com as durações dos tokens;
-// - entrada nenhuma passa de 0,6 s (o 1,2 s é só do "esvaziar a cor" do fim).
+// Dois registros (conhecimento/marca-em-video.md):
+// - o da interface (guia, seção 6): as curvas --chegada/--saida/--troca e as durações dos tokens. É como a tela
+//   do app se mexe quando ela aparece no vídeo;
+// - o do filme (decisão do Sidney, 14/10/2026, depois do primeiro vídeo: "muito lento, fraco; mais inspirador,
+//   como a Apple"): a curva `forte` (sai rápido, assenta longo), cortes na batida, revelação por máscara,
+//   câmera que empurra e para. Continua sem quique (molas com z >= 1) e sem número contando.
 
 export const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
 export const mix = (a, b, p) => a + (b - a) * p;
 
 /** As durações da marca, em segundos (marca/tokens.css). */
 export const DUR = Object.freeze({ rapido: 0.15, padrao: 0.25, entrada: 0.4, expressivo: 0.6, fim: 1.2, passo: 0.06 });
+
+/** As durações do filme, em segundos: o tipo que bate (revela), a cena que empurra a outra, a câmera, o sol. */
+export const FILME = Object.freeze({ revela: 0.32, empurra: 0.5, camera: 1.6, sol: 0.9, passo: 0.05 });
 
 /** cubic-bezier(x1, y1, x2, y2) como função de p em [0, 1], resolvida por Newton com bisseção de reserva. */
 export function bezier(x1, y1, x2, y2) {
@@ -41,6 +46,10 @@ export const CURVA = Object.freeze({
   chegada: bezier(0.2, 0.8, 0.2, 1),
   saida: bezier(0.6, 0, 0.8, 0.4),
   troca: bezier(0.42, 0, 0.58, 1),
+  // o filme: arranca e assenta devagar (a "expo-out" dos filmes de produto); nunca passa do alvo
+  forte: bezier(0.16, 1, 0.3, 1),
+  // a cena que sai empurrada: acelera junto com a que entra
+  empurra: bezier(0.7, 0, 0.2, 1),
 });
 
 /** Progresso 0 → 1 de uma animação que começa em `inicio` e dura `dur`, na curva dada. */
@@ -52,6 +61,14 @@ export function anima(t, inicio, dur = DUR.entrada, curva = CURVA.chegada) {
 export function entra(t, inicio, { dur = DUR.entrada, sobe = 8 } = {}) {
   const p = anima(t, inicio, dur, CURVA.chegada);
   return { a: p, y: (1 - p) * sobe };
+}
+
+/**
+ * O tipo que bate: sobe de dentro de uma máscara (a linha aparece "de trás" da própria base), sem fade. Devolve o
+ * deslocamento em fração da altura da linha (1 → 0); o desenho.textoRevelado usa isso.
+ */
+export function revela(t, inicio, dur = FILME.revela) {
+  return 1 - anima(t, inicio, dur, CURVA.forte);
 }
 
 /** Saída da marca: some e desliza `vai` px na direção dada. Devolve { a, d }. */

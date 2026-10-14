@@ -10,6 +10,10 @@ O estúdio já existe: motor (`estudio/`), marca (`marca/`, `conhecimento/marca-
 Isto aqui é o caminho, com os portões. **Não pule portão**: o curso que deu origem a isto (`conhecimento/curso-motion.md`)
 mostra que o vídeo bom sai do laço, não do prompt. Filme novo vale esforço alto (xhigh); ajuste, médio.
 
+**A direção (Sidney, 14/10/2026):** inspirador, na pegada dos filmes da Apple. Propósito primeiro, features como prova,
+corte na batida, o sol nascendo atrás do horizonte como assinatura. O primeiro vídeo (calmo, lento, trilha de colchão)
+foi **reprovado**: não volte a ele. O "registro do filme" está em `conhecimento/marca-em-video.md`; o modelo já nasce nele.
+
 ## 0. O que perguntar (só o que faltar)
 
 - **Produto**: financas, fe (só teaser) ou suite (a marca). **Formato**: stories, reels, feed (vários saem da mesma linha
@@ -30,8 +34,12 @@ as features (ids) e o que ele **complementa** no que já saiu. Recomende um. Ân
 ## 2. Começar
 
 ```sh
-node estudio/novo-video.mjs <produto> <angulo> --formato stories --captura <nome> --gancho "…" --gancho2 "…" --frase "…"
+node estudio/novo-video.mjs <produto> <angulo> --features open-finance,orcamento,projecao \
+  --palavras "Fatura|Mercado|Delivery|Susto no,dia 30" --frase "Cada um,pede um,pedaço,de você"
 ```
+
+(`|` separa as batidas da intro; a vírgula quebra a linha. Cada feature leva o título curto, a linha de prova e a
+captura de `produtos.json`; feature sem captura não entra na montagem.)
 
 Preencha o `briefing.md` (o filme em uma linha: o que quem assiste **sente** no fim), a `ficha.json` (features, "usa":
 ["teste"] se falar do teste grátis, "preco" se falar de preço, série se houver) e as capturas (`assets/capturas/indice.json`;
@@ -40,19 +48,24 @@ cabeça**: anime a captura. Elemento solto (um papel, um rótulo) pode ser desen
 
 ## 3. Portão: o roteiro na grade de batidas
 
-Escreva o `roteiro.md`: tabela batida → tempo → na tela → som. Gancho no quadro 0; algo novo a cada 2 a 4 s; um laranja
-por quadro; fim parado de 1,5 a 2 s. **Mostre o roteiro e espere o OK** antes de animar (se a pessoa já disse "faz tudo",
+Escreva o `roteiro.md`: tabela compasso → tempo → na tela → trilha (intro, sobe, cheio, fim) → som. Gancho no quadro 0;
+a cena nova chega **no** tempo forte; uma feature por compasso a partir da virada; um laranja por quadro; fim parado de
+1,5 a 2 s. **Mostre o roteiro e espere o OK** antes de animar (se a pessoa já disse "faz tudo",
 siga e diga que seguiu).
 
 ## 4. Animar
 
 O `filme.mjs` (o modelo já renderiza): `cenas` com `de/ate` e `desenhar(g, t, ctx, tGlobal)`. Ferramentas no `ctx`:
-- `ctx.m` (movimento.mjs): `entra`, `sai`, `anima`, `trilha`, `trocaAlfa`, `MOLAS`, `DUR`, `semente`. **Só função de t.**
-- `ctx.d` (desenho.mjs): `veredito` (com o ponto desenhado; passe `maxW: L.seguro.w`), `texto`, `paragrafo`, `cartao`,
-  `pilula`, `etiqueta`, `imagem`, `logoComSol`, `simbolo`.
+- `ctx.m` (movimento.mjs): `revela` (o tipo que bate), `anima(t, inicio, dur, CURVA.forte)`, `FILME` (as durações do
+  filme), `CURVA.empurra`, `trilha`, `trocaAlfa`, `MOLAS`, `DUR`, `semente`. **Só função de t.**
+- `ctx.d` (desenho.mjs): `textoRevelado` (máscara, com o ponto da marca; passe `maxW: L.seguro.w`), `camera`, `veredito`,
+  `texto`, `paragrafo`, `cartao`, `pilula`, `etiqueta`, `imagem`, `logoComSol`, `simbolo` (o sol nascendo).
+- `ctx.corte(t)`: o começo do quadro. **Decisão de corte seco (qual palavra, qual cena) usa ele**, senão o borrão de
+  movimento mistura as duas cenas num quadro cinza.
 - `ctx.L` (o formato: `W`, `H`, `u`, `seguro`), `ctx.COR`, `ctx.dominio(app)`, `ctx.img.<asset>`, `ctx.catalogo`
   (`teste`, `aPartirDe`: **o único lugar de preço e teste grátis**).
-- Os sons vão em `som.sons` (`toque`, `entra`, `assenta`, `troca`) nos tempos do roteiro.
+- A trilha: `som.estilo: 'inspiradora'` com `secoes` em compassos; os sons em `som.sons` (`bate`, `passa`, `toque`,
+  `entra`, `assenta`, `troca`). Música licenciada: `som.musica` (ver `marca-em-video.md`, Som).
 
 Prévia ao vivo: `node estudio/servidor.mjs` e abra `…/estudio/palco.html?video=videos/<id>&formato=stories`.
 
@@ -69,15 +82,18 @@ com o tempo, conserto, de novo. Registre cada rodada no `critica.md`. Só passa 
 ## 6. Render, folhas e a última olhada
 
 ```sh
-node estudio/render.mjs videos/<id> --formato stories,feed   # final.mp4, contato.png, celular.png, poster.png
+node estudio/render.mjs videos/<id> --formato stories,feed --sub 8   # final.mp4, contato.png, celular.png, poster.png
 ```
 
-Olhe `contato.png` e `celular.png` (a 360 px de largura: dá pra ler?). Movimento rápido suspeito: `node estudio/critica.mjs
-<final.mp4> --faixa <s>`. Refazer só um trecho: `--de 4 --ate 8`.
+Olhe `contato.png` e `celular.png` (a 360 px de largura: dá pra ler?). Empurrão e corte: `node estudio/critica.mjs
+<final.mp4> --faixa <s>` (12 quadros seguidos; cópias fantasmas pedem mais `--sub`). Refazer só um trecho: `--de 4 --ate 8`.
+`--sub 8` com o obturador de 180° (padrão) dá o borrão de filme; sem `--sub`, o empurrão trepida.
 
 ## 7. Entregar e lembrar
 
 - Mande o `final.mp4` de cada formato (SendUserFile), o pôster e a `legenda.md` (mesma voz; `texto.mjs` confere).
+- Reprovado pela pessoa? `status: "reprovado"` e `reprovado: { quando, por, motivo, o_que_ficou }` com as palavras dela:
+  não conta como dito, mas a pauta lê e não repete. Aprovou uma direção? Vira regra em `marca-em-video.md` (decisões).
 - `ficha.json`: `status: "entregue"`; quando a pessoa disser onde postou, `"publicado"` e `publicado: [{ "onde", "quando", "link" }]`.
   Resultado (views, salvos) entra em `notas` quando vier: é o que a pauta usa pra decidir o próximo.
 - Diga em uma linha o que você melhoraria no próximo. Commit com a pasta do vídeo (o mp4 não vai pro git: refaz-se do filme).
@@ -85,8 +101,10 @@ Olhe `contato.png` e `celular.png` (a 360 px de largura: dá pra ler?). Moviment
 
 ## O que mais se erra
 
-- Título no meio sobre fundo liso, tudo em fade, logo no fim: o vídeo genérico. Use a composição da marca (veredito à
-  esquerda, produto real entrando, a folha da noite).
+- Lento e morno (o primeiro vídeo): tudo subindo em 400 ms, nada na batida, trilha de colchão. Reprovado.
+- Título no meio sobre fundo liso, tudo em fade, logo no fim: o vídeo genérico. Tipo revelado por máscara, à esquerda,
+  enorme; produto real entrando com a câmera; a folha da noite no fim.
+- Quadro da batida vazio (o título só começa depois): a cena tem que estar chegando no tempo forte.
 - Quique, overshoot, câmera flutuando, número contando: proibidos pela marca, mesmo o curso pedindo.
 - Preço ou "30 dias grátis" escrito no filme; feature que o site não promete; tela de app que não existe (Saúde, Casa, Pessoas).
 - O Toly como mascote ou narrador (ver `marca-em-video.md`).

@@ -1,0 +1,40 @@
+{
+  "data": "2026-10-14",
+  "produto": "financas",
+  "titulo": "Tecnologia feita para não ser usada",
+  "serie": null,
+  "angulo": "proposito",
+  "gancho": "Boleto. Fatura. Extrato. Planilha.",
+  "mensagens": [
+    "Boleto, fatura, extrato, planilha, lembrete, susto no dia 30: cada um pede um pedaço de você.",
+    "Tecnologia feita para não ser usada (o sol nascendo).",
+    "Conecta, organiza, avisa antes, projeta o ano, acha o que vaza.",
+    "O melhor elogio: esqueci que tinha o app."
+  ],
+  "features": [
+    "open-finance",
+    "ia-regras",
+    "orcamento",
+    "projecao",
+    "vazamentos",
+    "pouco-tempo"
+  ],
+  "usa": [
+    "teste"
+  ],
+  "cta": "Comece em tolive.app (com o teste grátis do catálogo)",
+  "duracao": 24.5,
+  "status": "entregue",
+  "publicado": [],
+  "notas": "Refeito no mesmo dia depois do primeiro ser reprovado (lento, trilha fraca, sem propósito). Primeiro vídeo no registro do filme e com a trilha inspiradora.",
+  "catalogo": {
+    "lido_em": "2026-10-14T21:04:11.910Z",
+    "menorPreco": "R$ 14,90 por mês",
+    "teste": "30 dias grátis com até duas conexões"
+  },
+  "formatos": [
+    "stories",
+    "feed"
+  ],
+  "renderizado_em": "2026-10-14T21:08:43.992Z"
+}

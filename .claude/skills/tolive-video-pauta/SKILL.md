@@ -15,7 +15,8 @@ node estudio/historico.mjs [produto]   # entregues, nunca ditos, ângulos livres
 node estudio/historico.mjs --json      # o mesmo, pra ler inteiro
 ```
 
-E as `notas` das fichas publicadas (resultado: views, salvos, comentários), quando houver.
+E as `notas` das fichas publicadas (resultado: views, salvos, comentários), quando houver, e os **reprovados** (o
+`historico.mjs` lista com o motivo, nas palavras de quem reprovou): o que foi reprovado não se propõe de novo.
 
 ## Decidir
 

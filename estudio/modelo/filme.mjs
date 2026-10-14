@@ -1,68 +1,123 @@
-// {{titulo}} · {{produto}} · {{formatos}} · 12 s a 92 BPM
-// O modelo do estúdio: três cenas que já funcionam (o gancho, o produto de verdade, o fim com o logo e o convite).
-// Troque o texto, as capturas e o tempo; acrescente cenas. O roteiro batida a batida vai no roteiro.md.
+// {{titulo}} · {{produto}} · {{formatos}} · 116 BPM (batida = 0,517 s, compasso = 2,069 s)
+// O modelo do estúdio, no registro do filme (o "Propósito", videos/2026-10-14-financas-proposito, aprovado como
+// direção em 14/10/2026): palavras batendo na intro → o sol nascendo com a promessa → as features na virada da
+// música, uma por compasso → o fim com o sol no logo. Já renderiza; troque o texto, as telas e o tempo.
 // Pintar é função pura de t: nada de estado entre quadros, Math.random, timer ou transição de CSS.
 
-const BPM = 92;
+const BPM = 116;
 const B = n => (n * 60) / BPM;
+const C = n => B(n * 4);
 
-const T = { gancho: 0, ponto: 0.4, captura: B(4), frase: B(4) + 0.5, folha: B(12), logo: B(13), sol: B(13.5), cta: B(15) };
+// o peso: uma palavra (ou duas linhas) por batida; a frase da batida 6 fecha com o ponto
+const PALAVRAS = {{palavras}};
+const FRASE = {{frase}};
+// a prova: uma feature por compasso (títulos e linhas de conhecimento/produtos.json: curto, linha, captura)
+const FEATURES = {{features}};
+const PROMESSA = ['Tecnologia', 'feita para não', 'ser usada'];
+
+const T = { sol: C(2), solNasce: C(2) + B(1), promessa: C(2) + B(4), virada: C(4) };
+const inicioFeature = i => T.virada + C(i);
+T.folha = inicioFeature(FEATURES.length);
+T.logo = T.folha + B(1); T.solFim = T.folha + B(1.5); T.cta = T.folha + B(4);
+const DURACAO = +(T.folha + C(2) - B(1)).toFixed(2);
 
 export default {
   id: '{{id}}',
   titulo: '{{titulo}}',
   produto: '{{produto}}',
-  duracao: 12,
+  duracao: DURACAO,
   bpm: BPM,
-  poster: B(6),
+  poster: inicioFeature(0) + 1.2,
   assets: {
-    captura: 'assets/capturas/{{captura}}.png',
+    ...Object.fromEntries(FEATURES.map(f => [f.img, `assets/capturas/${f.img}.png`])),
     logo: 'marca/logo/logo-escuro.svg#sem-sol',
   },
   som: {
-    progressao: ['I', 'vi', 'IV', 'V'],
+    estilo: 'inspiradora',
+    progressao: ['vi', 'IV', 'I', 'V'],
+    secoes: [{ ate: 2, tipo: 'intro' }, { ate: 4, tipo: 'sobe' }, { ate: 4 + FEATURES.length, tipo: 'cheio' }, { ate: 99, tipo: 'fim' }],
     sons: [
-      { t: T.ponto, tipo: 'assenta' },
-      { t: T.captura, tipo: 'entra' },
-      { t: T.folha, tipo: 'entra' },
-      { t: T.sol + 0.5, tipo: 'troca' },
+      ...PALAVRAS.map((_, i) => ({ t: B(i), tipo: 'bate' })),
+      ...FEATURES.slice(1).map((_, i) => ({ t: inicioFeature(i + 1) - 0.05, tipo: 'passa' })),
+      { t: T.folha - 0.05, tipo: 'passa' },
     ],
   },
 
   fundo(g, t, { L, d, COR }) { d.fundo(g, L, COR.papel); },
 
   cenas: [
-    { // o gancho: o veredito grande, já no quadro 0
-      de: 0, ate: T.folha + 1, desenhar(g, t, ctx, tg) {
-        const { L, d, m, COR } = ctx, u = L.u, S = L.seguro;
-        const tam = 150 * u;
-        const l1 = m.entra(tg, -0.3, { sobe: 24 * u }), l2 = m.entra(tg, -0.24, { sobe: 24 * u });
-        d.veredito(g, '', S.x, S.y + 140 * u, { tam, linhas: ['{{gancho1}}', '{{gancho2}}'], alfas: [l1.a, l2.a], sobe: [l1.y, l2.y], pontoEscala: m.anima(tg, T.ponto, m.DUR.padrao), maxW: S.w });
-        const e = m.entra(tg, T.frase, { sobe: 16 * u });
-        d.texto(g, '{{frase}}', S.x, S.y + 140 * u + tam * 0.92 + 90 * u + e.y, { tam: 46 * u, peso: 500, cor: COR.tinta2, alfa: e.a });
-
-        // o produto de verdade (assets/capturas), subindo de baixo
-        const img = ctx.img.captura, w = Math.min(S.w, 900 * u), topo = S.y + 480 * u;
-        const ec = m.entra(tg, T.captura, { dur: m.DUR.expressivo, sobe: 160 * u });
-        d.imagem(g, img, S.cx - w / 2, topo + ec.y, w, { alfa: ec.a });
+    { // o peso: cada palavra bate na sua batida (0,08 s antes, pra estar chegando no tempo forte), papel e noite alternando
+      de: 0, ate: C(2), desenhar(g, t, ctx) {
+        const { L, d, m, COR } = ctx, u = L.u, S = L.seguro, ADIANTA = 0.08;
+        const i = Math.min(Math.floor((ctx.corte(t) + ADIANTA) / B(1)), 7); // corte seco: decide pelo começo do quadro
+        if (i < PALAVRAS.length) {
+          const noite = i % 2 === 1, linhas = PALAVRAS[i];
+          d.fundo(g, L, noite ? COR.noite : COR.papel);
+          const desloc = linhas.map((_, k) => m.revela(t, (i === 0 ? -0.28 : B(i) - ADIANTA) + k * 0.05));
+          d.textoRevelado(g, linhas, S.x, S.cy + 100 * u - (linhas.length - 1) * 130 * u, desloc, { tam: 300 * u, cor: noite ? COR.noiteTinta : COR.tinta, maxW: S.w });
+        } else {
+          const desloc = FRASE.map((_, k) => m.revela(t, B(PALAVRAS.length) - ADIANTA + k * 0.06));
+          d.textoRevelado(g, FRASE, S.x, S.cy - 250 * u, desloc, { tam: 200 * u, maxW: S.w, ponto: true, pontoEscala: m.anima(t, B(PALAVRAS.length) + 0.4, m.DUR.padrao, m.CURVA.forte) });
+        }
       },
     },
-    { // o fim: a folha da noite sobe; o logo com o sol nascendo; o convite (o teste grátis vem do catálogo)
-      de: T.folha, ate: 12, desenhar(g, t, ctx, tg) {
+    { // a virada de chave: o horizonte corre, o sol nasce atrás dele (a assinatura), a promessa
+      de: T.sol, ate: T.virada, desenhar(g, t, { L, d, m, COR }, tg) {
+        const u = L.u, S = L.seguro;
+        d.fundo(g, L, COR.noite);
+        const tam = 340 * u, y = S.y + 120 * u;
+        d.simbolo(g, S.cx - (tam * 100 / 92) / 2, y, tam, {
+          horizonte: m.anima(tg, T.sol - 0.08, 0.55, m.CURVA.forte), sol: m.anima(tg, T.solNasce, m.FILME.sol, m.CURVA.forte),
+          corHorizonte: COR.noiteTinta, corSol: COR.noiteSinal,
+        });
+        const desloc = PROMESSA.map((_, k) => m.revela(tg, T.promessa + k * 0.09));
+        d.textoRevelado(g, PROMESSA, S.cx, y + tam + 230 * u, desloc, { tam: 130 * u, cor: COR.noiteTinta, alinhar: 'center', maxW: S.w });
+      },
+    },
+    { // a prova: uma feature por compasso; a primeira corta seco na virada, as outras empurram a anterior
+      de: T.virada, ate: T.folha + 0.6, desenhar(g, t, ctx, tg) {
+        const { L, d, m, COR } = ctx, u = L.u, S = L.seguro;
+        FEATURES.forEach((f, i) => {
+          const ini = inicioFeature(i), prox = inicioFeature(i + 1);
+          if (tg < ini - m.FILME.empurra || tg > prox + m.FILME.empurra) return;
+          const entra = i === 0 ? 0 : (1 - m.anima(tg, ini - m.FILME.empurra * 0.5, m.FILME.empurra, m.CURVA.empurra)) * L.W;
+          const sai = -m.anima(tg, prox - m.FILME.empurra * 0.5, m.FILME.empurra, m.CURVA.empurra) * L.W;
+          g.save(); g.translate(entra + sai, 0);
+          d.fundo(g, L, COR.papel);
+          const tl = tg - ini;
+          const desloc = f.titulo.map((_, k) => m.revela(tl, -0.12 + k * 0.06));
+          const tit = d.textoRevelado(g, f.titulo, S.x, S.y + 200 * u, desloc, { tam: 210 * u, maxW: S.w, ponto: true, pontoEscala: m.anima(tl, 0.3, m.DUR.padrao, m.CURVA.forte) });
+          const yProva = S.y + 200 * u + tit.h - tit.tam * 0.92 + 96 * u;
+          const ep = m.anima(tl, 0.18, m.DUR.entrada, m.CURVA.forte);
+          const prova = d.paragrafo(g, f.prova, S.x, yProva + (1 - ep) * 24 * u, { tam: 46 * u, peso: 500, cor: COR.tinta2, alfa: ep, maxW: S.w, entrelinha: 1.25 });
+          const img = ctx.img[f.img], asp = img.naturalHeight / img.naturalWidth;
+          const livreTopo = yProva + prova.h + 40 * u, livre = S.base - livreTopo;
+          const w = Math.min(S.w + 60 * u, livre / asp), topo = livreTopo + Math.max(0, livre - w * asp) * 0.42;
+          const pc = m.anima(tl, -0.08, m.FILME.camera, m.CURVA.forte);
+          g.save();
+          d.camera(g, { escala: 1.14 - 0.14 * pc, fx: S.cx, fy: topo, dy: (1 - pc) * 120 * u });
+          d.imagem(g, img, S.cx - w / 2, topo, w, { alfa: i === 0 ? m.anima(tl, -0.1, 0.12) : 1 });
+          g.restore();
+          g.restore();
+        });
+      },
+    },
+    { // o fim: a folha da noite sobe, o sol nasce no logo, o convite (o teste grátis vem do catálogo). Termina parado.
+      de: T.folha - 0.3, ate: DURACAO, desenhar(g, t, ctx, tg) {
         const { L, d, m, COR, dominio, catalogo } = ctx, u = L.u, S = L.seguro;
-        const p = m.anima(tg, T.folha, m.DUR.expressivo);
+        const p = m.anima(tg, T.folha - 0.25, m.FILME.empurra, m.CURVA.empurra);
         d.cartao(g, 0, L.H * (1 - p), L.W, L.H * p + 60 * u, { raio: 56 * u * (1 - p), cor: COR.noite });
         if (p < 1) return;
-        const hLogo = 120 * u, yLogo = S.cy - 220 * u;
-        const eLogo = m.entra(tg, T.logo, { sobe: 16 * u });
-        d.logoComSol(g, ctx.img.logo, S.cx, yLogo + eLogo.y, hLogo, { alfa: eLogo.a, sol: m.anima(tg, T.sol, m.DUR.expressivo), corSol: COR.noiteSinal, alinhar: 'center' });
-        const eNome = m.entra(tg, T.sol + 0.5, { sobe: 12 * u });
-        d.texto(g, '{{nomeCurto}}', S.cx, yLogo + hLogo + 90 * u + eNome.y, { tam: 40 * u, peso: 700, letra: 0.12, caixaAlta: true, cor: dominio('{{dominio}}').horizonte, alinhar: 'center', alfa: eNome.a });
-        const eAss = m.entra(tg, T.sol + 0.56, { sobe: 12 * u });
-        ['Tecnologia feita', 'para não ser usada'].forEach((l, i) => d.texto(g, l, S.cx, yLogo + hLogo + 200 * u + i * 50 * u + eAss.y, { tam: 32 * u, peso: 500, letra: 0.3, caixaAlta: true, cor: COR.noiteTinta2, alinhar: 'center', alfa: eAss.a }));
-        const eCta = m.entra(tg, T.cta, { sobe: 16 * u }), yCta = S.base - 130 * u;
-        if (catalogo.teste) d.texto(g, catalogo.teste.charAt(0).toUpperCase() + catalogo.teste.slice(1), S.cx, yCta - 50 * u + eCta.y, { tam: 36 * u, peso: 500, cor: COR.noiteTinta, alinhar: 'center', alfa: eCta.a });
-        d.pilula(g, 'Comece em tolive.app', S.cx, yCta + eCta.y, { tam: 38 * u, fundo: COR.papel, cor: COR.tinta, alinhar: 'center', alfa: eCta.a });
+        const hLogo = 140 * u, yLogo = S.cy - 260 * u;
+        const eLogo = m.anima(tg, T.logo, m.DUR.entrada, m.CURVA.forte);
+        d.logoComSol(g, ctx.img.logo, S.cx, yLogo + (1 - eLogo) * 20 * u, hLogo, { alfa: eLogo, sol: m.anima(tg, T.solFim, m.FILME.sol, m.CURVA.forte), corSol: COR.noiteSinal, alinhar: 'center' });
+        const eNome = m.anima(tg, T.solFim + 0.55, m.DUR.entrada, m.CURVA.forte);
+        d.texto(g, '{{nomeCurto}}', S.cx, yLogo + hLogo + 100 * u + (1 - eNome) * 14 * u, { tam: 44 * u, peso: 700, letra: 0.12, caixaAlta: true, cor: dominio('{{dominio}}').horizonte, alinhar: 'center', alfa: eNome });
+        const eAss = m.anima(tg, T.solFim + 0.62, m.DUR.entrada, m.CURVA.forte);
+        ['Tecnologia feita', 'para não ser usada'].forEach((l, i) => d.texto(g, l, S.cx, yLogo + hLogo + 210 * u + i * 52 * u + (1 - eAss) * 14 * u, { tam: 32 * u, peso: 500, letra: 0.3, caixaAlta: true, cor: COR.noiteTinta2, alinhar: 'center', alfa: eAss }));
+        const eCta = m.anima(tg, T.cta, m.DUR.entrada, m.CURVA.forte), yCta = S.base - 150 * u;
+        if (catalogo.teste) d.texto(g, catalogo.teste.charAt(0).toUpperCase() + catalogo.teste.slice(1), S.cx, yCta - 56 * u + (1 - eCta) * 16 * u, { tam: 38 * u, peso: 500, cor: COR.noiteTinta, alinhar: 'center', alfa: eCta });
+        d.pilula(g, 'Comece em tolive.app', S.cx, yCta + (1 - eCta) * 16 * u, { tam: 42 * u, fundo: COR.papel, cor: COR.tinta, alinhar: 'center', alfa: eCta });
       },
     },
   ],

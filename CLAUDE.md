@@ -10,6 +10,10 @@ Nasceu em 14/10/2026 do curso de motion com o Opus 5.5 (`conhecimento/curso-moti
 O curso dá o arreio (render por `seek(t)`, molas, batida, som, crítica dos próprios quadros); a marca dá o gosto.
 Quando os dois discordam, vale a marca (`conhecimento/marca-em-video.md`).
 
+**A direção** (Sidney, 14/10/2026, reprovando o primeiro vídeo por "lento, trilha horrível, fraco"): **inspirador, na
+pegada dos filmes da Apple**: o propósito da marca primeiro, as features como prova, corte na batida, a trilha que vira
+nas features, o sol nascendo atrás do horizonte como assinatura. A referência é `videos/2026-10-14-financas-proposito`.
+
 ## Como pedir e como fazer
 
 - Vídeo novo: a skill **`tolive-video`** (o caminho com os portões). O que dizer: a **`tolive-video-pauta`**. Antes de
@@ -41,14 +45,15 @@ Onde sai da base, e por quê:
   formatos. Texto só dentro de `L.seguro`.
 - Cor só de `estudio/cores.mjs` (que o teste confere contra `marca/tokens.css` e `marca/dominios.css`). Nenhum outro
   arquivo escreve hexadecimal, nem os filmes.
-- Movimento só de `estudio/movimento.mjs`: as curvas e durações do guia, molas com amortecimento crítico ou maior. Sem
-  quique, sem número contando, sem nada se mexendo depois de parado.
+- Movimento só de `estudio/movimento.mjs`: o registro do filme (`CURVA.forte`, `revela`, `FILME`) e, na tela do app, as
+  curvas do guia; molas com amortecimento crítico ou maior. Sem quique, sem número contando, sem câmera flutuando.
+- Corte seco decide pelo `ctx.corte(t)` (o começo do quadro); o palco já faz isso na troca de cena.
 - Preço e teste grátis só de `ctx.catalogo` (a conta toLive, lida no render). `estudio/texto.mjs` reprova o escrito à mão.
-- H.264 yuv420p, CRF 16, 30 fps (60 se o movimento pedir), AAC 192k, −14 LUFS.
+- H.264 yuv420p, CRF 16, 30 fps, `--sub 8` com obturador de 180° no render final, AAC 192k estéreo, −14 LUFS.
 
 ## Visual proibido (o vídeo genérico de IA e o que a marca não deixa)
 
-Título no meio sobre fundo liso ou degradê; tudo aparecendo por fade; logo solto no fim; rótulo e texto nos cantos;
+Lento e morno (o primeiro vídeo, reprovado); título no meio sobre fundo liso ou degradê; tudo aparecendo por fade; logo solto no fim; rótulo e texto nos cantos;
 moldura; brilho na interface; explosão de partículas; quique; parallax; câmera flutuando; loop "perfeito" no lugar do fim
 parado; número girando; mais de um laranja no quadro; o Toly como mascote; interface redesenhada de cabeça (use a captura).
 
@@ -68,7 +73,8 @@ estudio/
   desenho.mjs       veredito com o ponto, texto, cartão, pílula, etiqueta, imagem, logo com o sol nascendo
   palco.html/.mjs   o canvas que carrega um filme e expõe window.seek(t); prévia no navegador
   render.mjs        Playwright → ffmpeg → trilha → mixagem → folhas (e --batidas, --quadros, --de/--ate)
-  som.mjs           a trilha e os sons de interface, sintetizados e determinísticos
+  som.mjs           os sons de interface, a trilha (ou a música licenciada) e o estéreo
+  trilha-inspiradora.mjs  a trilha padrão: intro, subida, virada nas features, fim
   batidas.mjs       mede andamento e batidas de uma música trazida
   critica.mjs       contato, celular, faixa, pôster
   texto.mjs         confere o texto da tela e da legenda contra a voz da marca
@@ -79,6 +85,7 @@ estudio/
   novo-video.mjs    começa um vídeo a partir de estudio/modelo/filme.mjs (que já renderiza)
 conhecimento/       curso-motion.md, marca-em-video.md, produtos.json (features e ângulos com id), site/, planos.json
 assets/capturas/    as telas do site em 3x, fundo transparente, e indice.json
+assets/musicas/     música licenciada (cada uma com a licença em LICENCAS.md)
 videos/<data>-<produto>-<angulo>/
   ficha.json        a memória deste vídeo (produto, ângulo, gancho, features, status, onde saiu, catálogo usado)
   briefing.md, roteiro.md, legenda.md, critica.md, filme.mjs
@@ -104,5 +111,12 @@ node estudio/historico.mjs                            # a memória
 - Linha de veredito forçada não quebra sozinha: passe `maxW: L.seguro.w` e o `veredito()` encolhe até caber. (out/2026)
 - Captura por posição (`nth=`) troca de cartão quando o site muda; selecione pelo texto do rótulo. (out/2026)
 - `loudnorm` numa passada só fica ~1 dB abaixo num clipe curto; o render mede e aplica em duas. (out/2026)
+- Com borrão de movimento, um corte seco no meio de um quadro vira um quadro cinza (as duas cenas misturadas): a escolha
+  da cena usa o começo do quadro (`ctx.corte`). E obturador de 360° com 4 subquadros vira cópias fantasmas no empurrão:
+  180° e 8 subquadros. (out/2026)
+- O quadro da batida tem que ter a cena chegando: subida começando 0,08 a 0,12 s antes. Na virada, um quadro em branco
+  apaga o impacto da música. (out/2026)
+- O primeiro vídeo seguiu o guia de interface ao pé da letra (400 ms, calmo, 90 BPM) e foi reprovado por lento. O guia de
+  movimento é da tela do app; vídeo de venda tem o registro dele (marca-em-video.md). (out/2026)
 - O preço de exemplo do site ("Streaming parado, R$ 39,90 por mês") não é preço da toLive; o `texto.mjs` só reprova os
   preços que a conta cobra e "a partir de R$" / "N dias grátis". (out/2026)

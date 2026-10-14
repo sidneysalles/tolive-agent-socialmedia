@@ -54,6 +54,45 @@ export function paragrafo(g, s, x, y, { maxW, entrelinha = 1.3, ...op } = {}) {
   return { linhas, h: linhas.length * tam * entrelinha };
 }
 
+/**
+ * O tipo revelado por máscara (o corte de filme de produto): cada linha sobe de trás da própria base. desloc[i] é
+ * 1 (escondida) → 0 (no lugar), de movimento.revela. Display em Archivo Black por padrão; devolve { h, larguras }.
+ * Com ponto: o ponto final desenhado da marca na última linha (pontoEscala 0 → 1).
+ */
+export function textoRevelado(g, linhas, x, y, desloc, { tam = 160, fonte: f = 'display', peso = 400, cor = COR.tinta, letra = f === 'display' ? -0.04 : -0.01, entrelinha = 0.92, alinhar = 'left', ponto: comPonto = false, corPonto = COR.sinal, pontoEscala = 1, maxW = Infinity } = {}) {
+  let t = tam;
+  if (Number.isFinite(maxW)) {
+    g.save(); fonte(g, { tam: t, fonte: f, peso, letra });
+    const maior = Math.max(...linhas.map(l => g.measureText(l).width)) + (comPonto ? t * 0.3 : 0);
+    g.restore();
+    if (maior > maxW) t *= maxW / maior;
+  }
+  const passo = t * entrelinha, larguras = [];
+  linhas.forEach((l, i) => {
+    const d = Array.isArray(desloc) ? desloc[i] ?? 1 : desloc;
+    const yy = y + i * passo;
+    g.save();
+    g.beginPath(); g.rect(-1e4, yy - t * 1.02, 2e4, t * 1.3); g.clip();
+    const w = texto(g, l, x, yy + d * t * 1.15, { tam: t, fonte: f, peso, cor, letra, alinhar });
+    larguras.push(w);
+    if (comPonto && i === linhas.length - 1) {
+      const x0 = alinhar === 'center' ? x - w / 2 : alinhar === 'right' ? x - w : x;
+      const r = (t * 0.21) / 2;
+      ponto(g, x0 + w + t * 0.09 + r, yy + d * t * 1.15 - r, r * clamp(pontoEscala, 0, 1), corPonto);
+    }
+    g.restore();
+  });
+  return { h: linhas.length * passo, larguras, tam: t };
+}
+
+/**
+ * A câmera: escala em volta de um ponto focal e desloca (dx, dy). Chame com g.save() antes e g.restore() depois do
+ * que ela filma. Sem rotação (o guia: nada gira).
+ */
+export function camera(g, { escala = 1, fx = 0, fy = 0, dx = 0, dy = 0 } = {}) {
+  g.translate(fx + dx, fy + dy); g.scale(escala, escala); g.translate(-fx, -fy);
+}
+
 /** Um círculo cheio. */
 export function ponto(g, x, y, r, cor = COR.sinal, alfa = 1) {
   if (r <= 0 || alfa <= 0) return;
