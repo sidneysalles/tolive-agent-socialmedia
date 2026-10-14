@@ -10,6 +10,9 @@ próprios quadros. **Seja um diretor duro, não um autor orgulhoso.** Nota alta 
 
 ## Como olhar
 
+**Toda versão que vai pra página de aprovação passa por aqui antes**, não só a primeira (no Propósito a crítica parou na
+versão 3 e os defeitos chegaram ao Sidney). Se der, chame um subagente que não escreveu o código pra dar a nota.
+
 1. Abra com o Read, inteiras: `saida/<formato>/batidas.png` (antes do render) ou `contato.png` e `celular.png` (depois).
    Movimento rápido: `node estudio/critica.mjs <final.mp4> --faixa <s>` e abra a faixa (12 quadros seguidos).
 2. Olhe todos os formatos que vão sair. O feed (4:5) quebra o que o stories esconde.

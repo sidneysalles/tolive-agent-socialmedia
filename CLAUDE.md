@@ -119,6 +119,7 @@ test/               node:test
 npm test                                              # tudo, inclusive o palco no Chromium (pula sem Playwright)
 node estudio/novo-video.mjs financas projecao-meta    # começa um vídeo
 node estudio/render.mjs videos/<id> --batidas         # a folha antes do render
+node estudio/render.mjs videos/<id> --rascunho        # o animatic: o filme inteiro em ~20 s (meia resolução, JPEG, sem borrão)
 node estudio/render.mjs videos/<id> --formato stories,feed
 node estudio/servidor.mjs                             # prévia ao vivo no navegador
 node estudio/historico.mjs                            # a memória
@@ -163,6 +164,10 @@ node estudio/historico.mjs                            # a memória
   mudou metade das frases na hora de gravar, e a tela foi atrás). A voz mais rápida que o roteiro não encurta o filme:
   ele cresceu (38 → 43 s) porque cada feature precisa dos seus dois compassos pra mostrar o toque. No foco, o texto fica
   compacto no topo em vez de sumir (sumia enquanto a voz ainda o dizia). (out/2026)
+- O tempo do render: o final (stories e feed, 8 subquadros) leva ~19 min pra 43 s; a prévia em 4 subquadros, 6 min. O
+  custo é pintar e codificar cada subquadro em PNG de 1080 × 1920: o `--rascunho` (meia resolução ×3, JPEG, 1 subquadro
+  ×4, três páginas ×2,4) faz o filme inteiro em 18 s, legível. Metade dos quadros (15 fps) só daria mais 2×, com o
+  movimento aos trancos: não vale. (out/2026)
 - Chave de API nunca no chat: a sessão recusa usar a que foi colada (vazada no histórico). Vai nas configurações do
   ambiente. (out/2026)
 - O preço de exemplo do site ("Streaming parado, R$ 39,90 por mês") não é preço da toLive; o `texto.mjs` só reprova os

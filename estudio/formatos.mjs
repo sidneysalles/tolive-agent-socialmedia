@@ -14,15 +14,19 @@ export const FORMATOS = Object.freeze({
   horizontal: { W: 1920, H: 1080, margem: { topo: 72, base: 96, esquerda: 120, direita: 120 }, uso: 'YouTube, site, apresentação (16:9)' },
 });
 
-/** O layout de um formato: tamanho, unidade (u = 1 num lado de 1080) e a área segura. */
-export function layout(nome) {
+/**
+ * O layout de um formato: tamanho, unidade (u = 1 num lado de 1080) e a área segura. escala < 1 é a prévia de rascunho
+ * (o mesmo quadro em meia resolução: tudo que a cena desenha vem em L.u, então só encolhe).
+ */
+export function layout(nome, escala = 1) {
   const f = FORMATOS[nome];
   if (!f) throw new Error(`formato desconhecido: ${nome} (use ${Object.keys(FORMATOS).join(', ')})`);
-  const { W, H, margem: m } = f;
+  const e = v => Math.round(v * escala);
+  const W = e(f.W), H = e(f.H), m = Object.fromEntries(Object.entries(f.margem).map(([k, v]) => [k, e(v)]));
   const seguro = { x: m.esquerda, y: m.topo, w: W - m.esquerda - m.direita, h: H - m.topo - m.base };
   return Object.freeze({
     nome, W, H,
-    u: Math.min(W, H) / 1080,
+    u: (Math.min(f.W, f.H) / 1080) * escala,
     retrato: H > W,
     cx: W / 2, cy: H / 2,
     seguro: Object.freeze({ ...seguro, cx: seguro.x + seguro.w / 2, cy: seguro.y + seguro.h / 2, direita: seguro.x + seguro.w, base: seguro.y + seguro.h }),

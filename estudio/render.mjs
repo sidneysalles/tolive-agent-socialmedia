@@ -10,11 +10,14 @@
 //   opções: --fps 30 (60 pra movimento rápido) · --sub 4 (subquadros misturados: borrão de movimento) ·
 //           --obturador 0.5 (o borrão cobre meio quadro, os 180° do cinema; 1 borra o quadro inteiro e o empurrão vira
 //           cópias fantasmas)
+//   --rascunho: a prévia rápida (o "animatic" do curso): meia resolução, quadros em JPEG, sem borrão, em 3 páginas ao
+//           mesmo tempo (--escala 0.5 --jpeg --sub 1 --paralelo 3; cada um também vale sozinho). Pra aprovar ritmo e
+//           conteúdo; o borrão, a nitidez e o detalhe só no render final.
 //
 // Sai em videos/<id>/saida/<formato>/: final.mp4 (H.264 yuv420p, CRF 16, AAC), poster.png e as folhas.
 
 import { spawn, spawnSync, execFileSync } from 'node:child_process';
-import { mkdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { mkdirSync, readFileSync, writeFileSync, existsSync, rmSync } from 'node:fs';
 import { join, resolve, relative } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { servir } from './servidor.mjs';
@@ -29,7 +32,7 @@ import { batida } from './movimento.mjs';
 const RAIZ = resolve(fileURLToPath(new URL('..', import.meta.url)));
 
 function opcoes(argv) {
-  const o = { formatos: ['stories'], fps: 30, sub: 1, obturador: 0.5 };
+  const o = { formatos: ['stories'], fps: 30, sub: 1, obturador: 0.5, escala: 1, jpeg: false, paralelo: 1 };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i], prox = () => argv[++i];
     if (a === '--formato') o.formatos = prox().split(',');
@@ -41,6 +44,10 @@ function opcoes(argv) {
     else if (a === '--so-som') o.soSom = true;
     else if (a === '--de') o.de = Number(prox());
     else if (a === '--ate') o.ate = Number(prox());
+    else if (a === '--escala') o.escala = Number(prox());
+    else if (a === '--jpeg') o.jpeg = true;
+    else if (a === '--paralelo') o.paralelo = Math.max(1, Number(prox()));
+    else if (a === '--rascunho') Object.assign(o, { escala: 0.5, jpeg: true, sub: 1, paralelo: 3, rascunho: true });
     else if (!a.startsWith('--')) o.pasta = a;
   }
   for (const f of o.formatos) if (!FORMATOS[f]) throw new Error(`formato desconhecido: ${f}`);
@@ -83,20 +90,21 @@ function anotarNaFicha(pasta, formato) {
   writeFileSync(arquivo, JSON.stringify(ficha, null, 2) + '\n');
 }
 
-export async function abrirPalco(navegador, url, pasta, formato, fps = 30) {
-  const { W, H } = FORMATOS[formato];
+export async function abrirPalco(navegador, url, pasta, formato, fps = 30, escala = 1) {
+  const W = Math.round(FORMATOS[formato].W * escala), H = Math.round(FORMATOS[formato].H * escala);
   const pagina = await navegador.newPage({ viewport: { width: W, height: H }, deviceScaleFactor: 1 });
   const erros = [];
   pagina.on('pageerror', e => erros.push(String(e)));
   pagina.on('console', m => m.type() === 'error' && erros.push(m.text()));
-  await pagina.goto(`${url}/estudio/palco.html?render&video=${encodeURIComponent(relative(RAIZ, pasta))}&formato=${formato}&fps=${fps}`);
+  await pagina.goto(`${url}/estudio/palco.html?render&video=${encodeURIComponent(relative(RAIZ, pasta))}&formato=${formato}&fps=${fps}&escala=${escala}`);
   await pagina.waitForFunction(() => window.pronto || window.erroDoPalco, null, { timeout: 30000 });
   const erro = await pagina.evaluate(() => window.erroDoPalco);
   if (erro || erros.length) throw new Error(`o palco falhou:\n${erro ?? erros.join('\n')}`);
   return pagina;
 }
 
-export const quadro = (pagina, t) => pagina.evaluate(t => { window.seek(t); return document.getElementById('c').toDataURL('image/png'); }, t)
+// o quadro t em PNG (sem perda: o render final) ou JPEG (o rascunho: codifica umas cinco vezes mais rápido)
+export const quadro = (pagina, t, tipo = 'image/png') => pagina.evaluate(([t, tipo]) => { window.seek(t); return document.getElementById('c').toDataURL(tipo, 0.9); }, [t, tipo])
   .then(url => Buffer.from(url.slice(url.indexOf(',') + 1), 'base64'));
 
 export async function renderizar(argv) {
@@ -121,7 +129,7 @@ export async function renderizar(argv) {
         feitos.push(final, ...folhas(final, { poster: filme.poster ?? filme.duracao - 0.5, duracao: filme.duracao }));
         continue;
       }
-      const pagina = await abrirPalco(navegador, url, pasta, formato, o.fps);
+      const pagina = await abrirPalco(navegador, url, pasta, formato, o.fps, o.quadros || o.batidas ? 1 : o.escala);
 
       if (o.quadros || o.batidas) {
         const tempos = o.quadros ?? Array.from({ length: Math.floor((filme.duracao * filme.bpm) / 60) }, (_, n) => +batida(n, filme.bpm).toFixed(3));
@@ -141,25 +149,41 @@ export async function renderizar(argv) {
 
       const de = o.de ?? 0, ate = Math.min(o.ate ?? filme.duracao, filme.duracao);
       const trecho = o.de !== undefined || o.ate !== undefined;
-      const mudo = join(saida, trecho ? `trecho-${de}-${ate}-mudo.mp4` : 'mudo.mp4');
-      const SUB = Math.max(1, o.sub), FPS = o.fps;
-      const filtro = SUB > 1 ? ['-vf', `tmix=frames=${SUB},select='eq(mod(n\\,${SUB})\\,${SUB - 1})',setpts=N/${FPS}/TB`] : [];
-      const ff = spawn('ffmpeg', ['-y', '-v', 'error', '-f', 'image2pipe', '-framerate', String(FPS * SUB), '-i', '-', ...filtro,
-        '-r', String(FPS), '-c:v', 'libx264', '-preset', 'medium', '-crf', '16', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', mudo], { stdio: ['pipe', 'inherit', 'inherit'] });
-      const fim = new Promise((ok, falha) => ff.on('close', c => (c === 0 ? ok() : falha(new Error(`ffmpeg saiu com ${c}`)))));
+      const mudo = join(saida, `${o.rascunho ? 'rascunho-' : ''}${trecho ? `trecho-${de}-${ate}-mudo` : 'mudo'}.mp4`);
+      const SUB = Math.max(1, o.sub), FPS = o.fps, tipo = o.jpeg ? 'image/jpeg' : 'image/png';
       const total = Math.round((ate - de) * FPS * SUB);
+      // em paralelo: cada página pinta um pedaço contínuo (em quadros inteiros) num arquivo próprio; o ffmpeg emenda
+      const quadros = total / SUB, partes = Math.min(o.paralelo, Math.max(1, Math.floor(quadros / FPS)));
+      const limites = Array.from({ length: partes + 1 }, (_, p) => Math.round((quadros * p) / partes) * SUB);
       const t0 = Date.now();
-      for (let i = 0; i < total; i++) {
-        // o subquadro j do quadro k: dentro da fração do quadro em que o obturador fica aberto
-        const k = Math.floor(i / SUB), j = i % SUB;
-        const png = await quadro(pagina, de + k / FPS + (j * o.obturador) / (FPS * SUB));
-        if (!ff.stdin.write(png)) await new Promise(r => ff.stdin.once('drain', r));
-        if (i % (FPS * SUB * 2) === 0) process.stdout.write(`\r${formato}: ${(i / (FPS * SUB)).toFixed(0)} s de ${(ate - de).toFixed(0)} s`);
+      let feitosQ = 0;
+      const pedaco = async (p, pag) => {
+        const arq = partes > 1 ? join(saida, `.pedaco-${p}.mp4`) : mudo;
+        const filtro = SUB > 1 ? ['-vf', `tmix=frames=${SUB},select='eq(mod(n\\,${SUB})\\,${SUB - 1})',setpts=N/${FPS}/TB`] : [];
+        const ff = spawn('ffmpeg', ['-y', '-v', 'error', '-f', 'image2pipe', ...(o.jpeg ? ['-c:v', 'mjpeg'] : []), '-framerate', String(FPS * SUB), '-i', '-', ...filtro,
+          '-r', String(FPS), '-c:v', 'libx264', '-preset', o.rascunho ? 'veryfast' : 'medium', '-crf', o.rascunho ? '23' : '16', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', arq], { stdio: ['pipe', 'inherit', 'inherit'] });
+        const fim = new Promise((ok, falha) => ff.on('close', c => (c === 0 ? ok() : falha(new Error(`ffmpeg saiu com ${c}`)))));
+        for (let i = limites[p]; i < limites[p + 1]; i++) {
+          // o subquadro j do quadro k: dentro da fração do quadro em que o obturador fica aberto
+          const k = Math.floor(i / SUB), j = i % SUB;
+          const img = await quadro(pag, de + k / FPS + (j * o.obturador) / (FPS * SUB), tipo);
+          if (!ff.stdin.write(img)) await new Promise(r => ff.stdin.once('drain', r));
+          if (++feitosQ % (FPS * SUB * 2) === 0) process.stdout.write(`\r${formato}: ${(feitosQ / (FPS * SUB)).toFixed(0)} s de ${(ate - de).toFixed(0)} s`);
+        }
+        ff.stdin.end();
+        await fim;
+        return arq;
+      };
+      const paginas = [pagina, ...(await Promise.all(Array.from({ length: partes - 1 }, () => abrirPalco(navegador, url, pasta, formato, o.fps, o.escala))))];
+      const arquivos = await Promise.all(paginas.map((pag, p) => pedaco(p, pag)));
+      if (partes > 1) {
+        const lista = join(saida, '.pedacos.txt');
+        writeFileSync(lista, arquivos.map(a => `file '${a}'`).join('\n') + '\n');
+        execFileSync('ffmpeg', ['-y', '-v', 'error', '-f', 'concat', '-safe', '0', '-i', lista, '-c', 'copy', '-movflags', '+faststart', mudo]);
+        for (const a of [...arquivos, lista]) rmSync(a, { force: true });
       }
-      ff.stdin.end();
-      await fim;
-      process.stdout.write(`\r${formato}: ${total} quadros em ${((Date.now() - t0) / 1000).toFixed(0)} s\n`);
-      await pagina.close();
+      process.stdout.write(`\r${formato}: ${total} quadros em ${((Date.now() - t0) / 1000).toFixed(0)} s${partes > 1 ? ` (${partes} páginas)` : ''}\n`);
+      for (const pag of paginas) await pag.close();
       if (trecho) { feitos.push(mudo); continue; }
 
       const final = await mixar(pasta, mudo, saida);

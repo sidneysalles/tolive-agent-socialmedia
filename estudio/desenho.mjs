@@ -309,7 +309,9 @@ export function parear(antes, depois) {
  *   barra cresce da base, uma depois da outra. Sem eles, o gráfico se desenha na montagem.
  * - apaga: 0 → 1, a tela apaga (a noite cobre a tela, como o celular desligando).
  */
-export function app3d(g, L, { cam, img, apelido, w, t, pose, montagem = {}, toque, depois, graficos, barras, apaga = 0, cor = COR.tinta, distancia = 2600 }) {
+export function app3d(g, L, { cam, img, apelido, w, t, pose, montagem = {}, toque, depois, graficos, barras, apaga = 0, cor = COR.tinta, distancia: dist = 2600 }) {
+  // as distâncias em px do formato cheio, na escala do layout (a prévia de rascunho pinta em meia resolução)
+  const k1 = L.u, distancia = dist * k1;
   const { passo = 0.055, dur = 0.6, profundidade = 520 } = montagem;
   const fundo = img[`${apelido}:fundo`];
   const corpo = cam.semAparelho
@@ -331,8 +333,8 @@ export function app3d(g, L, { cam, img, apelido, w, t, pose, montagem = {}, toqu
     if (!fonte || pr <= 0) continue;
     const linha = p.tipo === 'linha', vem = 1 - pr;
     let [x, y] = noApp(p.x, p.y), alfa = clamp(pr * 2.5);
-    x += vem * (linha ? 140 : (k % 2 ? -40 : 40));
-    y += vem * (linha ? 10 : 60 + (p.y + p.h / 2 - meio) * 0.15);
+    x += vem * (linha ? 140 : (k % 2 ? -40 : 40)) * k1;
+    y += vem * (linha ? 10 : 60 + (p.y + p.h / 2 - meio) * 0.15) * k1;
     let pw = p.w * corpo.s, ph = p.h * corpo.s;
     if (troca) {
       const alvo = troca.par.get(p.i);
@@ -347,7 +349,7 @@ export function app3d(g, L, { cam, img, apelido, w, t, pose, montagem = {}, toqu
     }
     const corte = p.tipo === 'grafico' ? (graficos ? anima(t, graficos.em, graficos.dur, CURVA.forte) : clamp(pr * 1.2)) : 1;
     const sobe = p.tipo === 'barra' ? (barras ? anima(t, barras.em + p.i * (barras.passo ?? 0.06), barras.dur ?? 0.5, CURVA.forte) : 1) : 1;
-    planos.push({ fonte, x, y, w: pw, h: ph, z: 1 + vem * (profundidade + (k % 3) * 160), alfa, corte, sobe, recorta: true });
+    planos.push({ fonte, x, y, w: pw, h: ph, z: 1 + vem * (profundidade + (k % 3) * 160) * k1, alfa, corte, sobe, recorta: true });
   }
   if (troca) { // o que só existe depois do toque: entra (a frase no lugar, o cartão pela direita, o aviso por baixo)
     troca.novas.forEach((p, n) => {

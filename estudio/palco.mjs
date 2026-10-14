@@ -13,7 +13,7 @@ import { oQueDizer } from './catalogo-navegador.mjs';
 
 const qs = new URLSearchParams(location.search);
 const video = qs.get('video');
-const L = layout(qs.get('formato') ?? 'stories');
+const L = layout(qs.get('formato') ?? 'stories', Number(qs.get('escala') ?? 1)); // escala 0.5: a prévia de rascunho
 const render = navigator.webdriver || qs.has('render');
 const FPS = Number(qs.get('fps') ?? 30);
 // o tempo do começo do quadro: quem decide um corte seco (qual cena está na tela) usa este, pra o borrão de movimento

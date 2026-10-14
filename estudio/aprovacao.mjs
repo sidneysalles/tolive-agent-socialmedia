@@ -66,7 +66,8 @@ export async function quadros(pasta, { formatos = ['stories'] } = {}) {
 export async function previa(pasta) {
   const filme = (await import(pathToFileURL(join(pasta, 'filme.mjs')).href)).default;
   const { de = 0, ate = Math.min(filme.duracao, 6) } = filme.previa ?? {};
-  const [mudo] = await renderizar([pasta, '--de', String(de), '--ate', String(ate), '--sub', '4']);
+  // o rascunho (meia resolução, JPEG, sem borrão, em paralelo): a prévia é pra aprovar ritmo e conteúdo, e sai em segundos
+  const [mudo] = await renderizar([pasta, '--de', String(de), '--ate', String(ate), '--rascunho']);
   const som = await somDoVideo(pasta);
   const destino = join(pasta, 'aprovacao', 'previa.mp4');
   mkdirSync(join(pasta, 'aprovacao'), { recursive: true });

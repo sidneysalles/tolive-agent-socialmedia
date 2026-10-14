@@ -160,6 +160,32 @@ calma. O arreio a gente copia inteiro; a estética, não. Quando o curso e o gui
 - **No estúdio:** `formatos.mjs` (stories, reels, feed, quadrado, horizontal, cada um com a área segura) e as cenas
   usando `L.seguro`; as três skills (`tolive-video`, `-critica`, `-pauta`).
 
+## O que ficou pelo caminho (revisão depois do Propósito, 14/10/2026)
+
+O Propósito saiu aprovado depois de seis versões; comparando o processo que rodou com os doze passos:
+
+- **A crítica (passo 11) parou na versão 3.** O `critica.md` tem as rodadas de antes do 3D, do toque e da voz; daí em
+  diante quem achou os defeitos foi o Sidney (as peças que sumiam, a imagem por cima da borda). E a folha do celular do
+  render final mostra o que ninguém pegou: no foco, a prova compacta (32 px) fica com ~11 px na tela do celular.
+  Conserto: a rodada de nota é obrigatória a cada versão que vai pra página, com a faixa (os quadros seguidos em volta
+  de cada movimento rápido) e o celular, e de preferência por um subagente que não escreveu o código ("diretor duro,
+  não autor orgulhoso").
+- **O animatic (os portões do passo 10).** Pulamos dos quadros parados pra prévia em qualidade quase final (6 min).
+  Agora é o `render.mjs --rascunho` (meia resolução, JPEG, sem borrão, três páginas): o filme inteiro em ~20 s.
+- **O desenho de som (passo 9: "picos → efeitos").** São quatro sons de interface, baixos, debaixo da música e da voz;
+  cada mudança de estado (a peça que pousa, o toque, a câmera que anda) pode ter o seu. O vídeo do SFX v2 da ElevenLabs
+  era a referência disso e ainda não foi usado.
+- **O número que prova (o roteiro do passo 4).** Gancho → o produto se monta → três features com o cursor → **um
+  número** → logo e convite. O Propósito tem cinco features e nenhum número (o "Faltam dez → nove" chega perto).
+  Com três features e um número, o filme caberia em ~30 s.
+- **A referência plano a plano (passo 5).** A da ElevenLabs foi conversada, não decupada: extrair os quadros com o
+  ffmpeg e escrever o ritmo plano a plano em `videos/<id>/refs/` antes do código.
+- **Os formatos (passo 12).** Saíram stories e feed; o reels (outra área segura: legenda e botões embaixo e à direita)
+  não foi olhado.
+
+O que o estúdio fez além do curso: as telas do app sendo usadas de verdade (o toque e a confirmação capturados), o 3D,
+a página de aprovação com db, a voz medida palavra por palavra e o roteiro de vendas antes de tudo.
+
 ## Repositórios citados pelo curso (pra consulta, nenhum é dependência)
 
 - Música: https://github.com/JohnHeibel/PDoomVideo · Base: https://github.com/JohnHeibel/ClaudeAnimationBase
