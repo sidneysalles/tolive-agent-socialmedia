@@ -15,11 +15,17 @@ no mesmo dia com o segundo (`videos/2026-10-14-financas-proposito`), depois das 
 | 1 | O Toly em vídeo | **Só como feature**, no cartão real dele; nunca mascote, narrador ou voz. |
 | 2 | Ritmo, movimento e trilha | O primeiro ("calmo", 90 BPM, tudo subindo devagar, trilha de colchão) ficou **"horrível… muito lento… fraco"**. A direção é **inspiradora, como os filmes da Apple**: o propósito da marca primeiro, as features como prova, corte na batida. É o **registro do filme** (abaixo). |
 | 3 | O sol nascendo atrás do horizonte | **Aprovado**: "ajuda o usuário a entender a estética". É a assinatura do vídeo: na virada de chave e no logo do fim. |
+| 4 | Telas sendo usadas e câmera (Propósito, 14/10/2026) | **"Telas sendo usadas, botões sendo clicados, mensagens de ação bem-sucedida depois, gráficos surgindo"** e **"ângulos de câmera, app inteiro, foco em algo, app entrando sob diferentes óticas"**. A perspectiva 3D foi aprovada ("ótima escolha, precisamos ter mais"). Cada feature: entra por um ângulo, o app inteiro, o foco no detalhe, o toque e a confirmação do próprio app (capturas de antes e depois). |
+| 5 | Um problema por vídeo (Propósito, 14/10/2026) | A abertura lista **um tipo de dor só**. "Boleto, fatura, extrato, planilha, lembrete" são tarefas chatas; o "Susto no dia 30" é outro problema (o dinheiro que falta) e saiu: **"juntou várias tarefas chatas com outro problema, que podemos abordar em outro vídeo"**. |
+| 6 | O mote no lugar dele (Propósito, 14/10/2026) | "Tecnologia feita para não ser usada" **só no fim**, depois do produto se provar (e do "Pode fechar o app"): logo depois dos problemas ficou "nada a ver". Ali vai a resposta aos problemas: **"Tecnologia que te devolve tempo de vida."** |
+| 7 | O manifesto | "O melhor elogio: esqueci que tinha o app" foi reprovado ("pensa em outra coisa"). Ficou a tela que apaga: "Pode fechar o app". |
+| 8 | Os dias grátis | No fim, **chamativos**: em letra de veredito, grande, do catálogo, nunca escritos à mão. |
 
 
 ## A ideia que o vídeo vende
 
-- "Tecnologia feita para não ser usada." Não é um app a mais, é uma tarefa a menos.
+- "Tecnologia feita para não ser usada." Não é um app a mais, é uma tarefa a menos. **É o mote do fim** (decisão 6): depois
+  dos problemas vem a resposta a eles ("Tecnologia que te devolve tempo de vida"), e o mote só quando o produto já provou.
 - O vídeo vende **um propósito**: a vida pede pedaços de você; a toLive existe pra devolver. As features vêm depois,
   como prova. Inspirar, não agitar: a energia vem da música e do corte, nunca de urgência no texto.
 - Do curso de motion (`curso-motion.md`) a gente copia o arreio inteiro (render, batida, crítica) e a energia do corte;
@@ -76,11 +82,14 @@ O registro do filme (acima) é o padrão; o `estudio/modelo/filme.mjs` já nasce
 1. **O quadro 0 já diz algo** (é a miniatura em alguns feeds; o teste do palco reprova quadro 0 vazio).
 2. **O quadro da batida nunca está vazio**: na virada, o título e a tela já estão chegando (o primeiro corte do
    "Propósito" caía num quadro em branco).
-3. Duas a cinco features; uma por compasso. Mais que isso vira catálogo.
-4. O fim é a abertura do app com o sol nascendo no logo, e o convite com o teste grátis **do catálogo**. Parado
+3. Duas a cinco features. Com a tela sendo usada (decisão 4), **dois compassos por feature** (entrada, app inteiro,
+   foco, toque, confirmação); só a montagem, sem uso, cabe em um. Mais de cinco vira catálogo.
+4. **Um problema por vídeo** na abertura (decisão 5): a lista de dores é de um tipo só.
+5. O fim é a abertura do app com o sol nascendo no logo, e o convite com o teste grátis **do catálogo**. Parado
    1,5 a 2 s.
 
-Duração: stories 15 a 25 s, reels 15 a 30 s, feed 15 a 30 s.
+Duração: stories 15 a 25 s, reels 15 a 30 s, feed 15 a 30 s; o filme de propósito com cinco features usadas vai a ~38 s
+(o Propósito, out/2026). Passou disso, corte uma feature, não acelere.
 
 ## Formatos e área segura
 

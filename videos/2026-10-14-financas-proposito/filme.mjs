@@ -22,8 +22,9 @@ const BPM = musica.bpm;            // medido na faixa
 const B = n => (n * 60) / BPM;     // batida n (0,51 s)
 const C = n => B(n * 4);           // compasso n (2,04 s)
 
-// o peso: uma palavra por batida, cortando seco, papel e noite alternando; a frase fica quatro batidas
-const PALAVRAS = [['Boleto'], ['Fatura'], ['Extrato'], ['Planilha'], ['Lembrete'], ['Susto no', 'dia 30']];
+// o peso: uma palavra por batida, cortando seco, papel e noite alternando; a frase fica cinco batidas. Só tarefas
+// chatas: o "Susto no dia 30" saiu (Sidney, 14/10/2026: é outro problema, o do dinheiro que falta, pra outro vídeo)
+const PALAVRAS = [['Boleto'], ['Fatura'], ['Extrato'], ['Planilha'], ['Lembrete']];
 const FRASE = ['Cada um', 'pede um', 'pedaço', 'de você'];
 // a prova: cada feature na tela de verdade (dados simulados), com o plano da câmera dela, em px do app (390 × 844):
 // entra = a pose de onde o aparelho chega; inteiro = o app todo à vista; foco = { fy, alto }: o centro e a altura do
@@ -45,9 +46,11 @@ const FEATURES = [
     graficos: true,
     entra: { rx: 6, ry: 62, dx: -0.6 }, inteiro: { rx: 6, ry: 12 }, foco: { fy: 470, alto: 420, rx: 4, ry: 5 } },
 ];
-const PROMESSA = ['Tecnologia', 'feita para não', 'ser usada'];
+// a promessa logo depois dos problemas responde a eles; o mote "Tecnologia feita para não ser usada" fica só no fim,
+// depois do "Pode fechar o app" (Sidney, 14/10/2026: logo depois dos problemas ele ficava "nada a ver")
+const PROMESSA = ['Tecnologia', 'que te devolve', 'tempo de vida'];
 const COMPASSOS_POR_FEATURE = 2;
-const T = { frase: B(6), sol: B(10), solNasce: B(11), promessa: B(14), virada: C(5) };
+const T = { frase: B(PALAVRAS.length), sol: B(10), solNasce: B(11), promessa: B(14), virada: C(5) };
 const inicioFeature = i => T.virada + C(i * COMPASSOS_POR_FEATURE);
 T.fecha = inicioFeature(FEATURES.length);   // a última tela fica de frente, apaga e a câmera entra nela
 T.folha = T.fecha + C(1);                   // a noite que era a tela apagada: o fim
@@ -89,14 +92,14 @@ export default {
   // o trecho com movimento que vai pra aprovação (aprovacao.mjs previa): o filme inteiro, com a música escolhida
   previa: {
     de: 0, ate: DURACAO, titulo: 'O filme inteiro, com a Inspired',
-    texto: 'Em qualidade de prévia (menor, mais leve). O que mudou com os seus comentários: cada feature tem dois compassos e um plano de câmera (o app entra por um ângulo, aparece inteiro, a câmera vai ao detalhe); em Conecta e Organiza o dedo aperta o botão e o próprio app confirma (a barra que sobe de baixo, capturada de verdade); a projeção é o gráfico subindo, barra por barra; o manifesto virou a tela que apaga ("Pode fechar o app"); os dias grátis (do catálogo) ficaram em letra grande no fim. E os dois defeitos: as peças que sumiam (a ordem de pintura do 3D) e as que passavam por cima da borda (agora a tela recorta). Comente nos quadros abaixo; os de ids novos começam sem aprovação.',
+    texto: 'Em qualidade de prévia (menor, mais leve). Agora sem o "Susto no dia 30" (outro problema, pra outro vídeo) e com "Tecnologia que te devolve tempo de vida" depois dos problemas; o mote fica só no fim. Antes disso, com os seus comentários: cada feature tem dois compassos e um plano de câmera (o app entra por um ângulo, aparece inteiro, a câmera vai ao detalhe); em Conecta e Organiza o dedo aperta o botão e o próprio app confirma (a barra que sobe de baixo, capturada de verdade); a projeção é o gráfico subindo, barra por barra; o manifesto virou a tela que apaga ("Pode fechar o app"); os dias grátis (do catálogo) ficaram em letra grande no fim. E os dois defeitos: as peças que sumiam (a ordem de pintura do 3D) e as que passavam por cima da borda (agora a tela recorta). Comente nos quadros abaixo; os de ids novos começam sem aprovação.',
   },
   // os quadros-chave que vão pra aprovação antes do render (estudio/aprovacao.mjs): cada cena já assentada. As
   // features têm dois: o app inteiro e o detalhe (depois do toque, quando há). Id novo = quadro novo na página.
   quadros: [
     { id: 'peso', t: B(0) + 0.35, nome: 'O peso: uma palavra por batida', texto: PALAVRAS.map(l => l.join(' ')).join(' · ') },
     { id: 'frase', t: T.sol - 0.2, nome: 'A frase', texto: FRASE.join(' ') },
-    { id: 'promessa', t: T.virada - 0.25, nome: 'O sol nasce: a promessa', texto: PROMESSA.join(' ') },
+    { id: 'promessa-2', t: T.virada - 0.25, nome: 'O sol nasce: a promessa', texto: PROMESSA.join(' ') },
     ...FEATURES.flatMap((f, i) => [
       { id: `f${i + 1}-inteiro`, t: inicioFeature(i) + 1.5, nome: `${f.titulo.join(' ')}: o app inteiro`, texto: `${f.titulo.join(' ')}. ${f.prova}` },
       { id: `f${i + 1}-foco`, t: inicioFeature(i) + C(2) - 0.3, nome: `${f.titulo.join(' ')}: ${f.depois ? 'o toque e a confirmação do app' : f.barras ? 'o gráfico subindo' : 'o detalhe'}`, texto: f.depois ? `Toque em "${f.cam.uso.tocar}"` : '' },

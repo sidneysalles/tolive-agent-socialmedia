@@ -47,6 +47,14 @@ próprios quadros. **Seja um diretor duro, não um autor orgulhoso.** Nota alta 
 - Batida morta (nada acontece por mais de 4 s, fora o fim parado).
 - O fim não para (o último 1,5 s tem que ser um quadro só).
 
+**O roteiro** (o que o Sidney já devolveu):
+- A abertura mistura dois problemas (tarefas chatas e o dinheiro que falta): um tipo de dor por vídeo.
+- O mote ("Tecnologia feita para não ser usada") antes do fim: depois dos problemas vai a resposta a eles; o mote só
+  depois do produto provar.
+- A tela parada como print (sem peças se montando, sem toque, sem confirmação do app) ou a câmera numa pose só.
+- Peça sumindo no 3D ou passando por cima da borda do celular (olhe a faixa densa da feature, não só o quadro-chave).
+- Os dias grátis pequenos no fim.
+
 ## O registro
 
 No `videos/<id>/critica.md`, uma seção por rodada: a tabela de notas e **os três piores problemas, com o tempo e o

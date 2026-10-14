@@ -25,6 +25,8 @@ E as `notas` das fichas publicadas (resultado: views, salvos, comentários), qua
 3. **O que nunca foi dito** e tem captura real (`produtos.json`, `captura`) vem antes do que não tem.
 4. **Alterne**: problema (o antes) → feature (o como) → prova (o número do exemplo) → manifesto (o porquê). Não dois
    vídeos seguidos do mesmo tipo, nem do mesmo gancho, nem com o mesmo cartão de alerta.
+   **Um problema por vídeo**: as tarefas chatas (boleto, fatura, extrato) são uma dor; o susto do fim do mês (o
+   dinheiro que falta) é outra, e rende o seu próprio vídeo (Sidney, 14/10/2026).
 5. **Série**: um nome (`ficha.serie`) e uma fórmula fixa (ex.: "Uma tarefa a menos": cada episódio, uma tarefa que o
    app tira de você, mesmo gancho de estrutura, mesmo fim). Série faz quem viu um reconhecer o próximo.
 6. Fé (em teste): no máximo teaser, e só com a frase do site. Saúde, Casa e Pessoas: só dentro de um vídeo da suíte.

@@ -147,6 +147,10 @@ node estudio/historico.mjs                            # a memória
   lançamento é aprovado). Uma sonda à mão estraga a captura seguinte: reinicie o `npm run local` antes de capturar. (out/2026)
 - A projeção de 12 meses do app, com os dados simulados, fecha no vermelho em qualquer data: o gráfico que sobe é o
   cartão do site (`capturar.mjs` com `pecas`). (out/2026)
+- Roteiro (o Propósito, out/2026): a abertura junta uma dor só (o "Susto no dia 30" no meio das tarefas chatas era
+  outro problema, saiu pra outro vídeo); depois dos problemas vem a resposta a eles ("Tecnologia que te devolve tempo
+  de vida"), e o mote "feita para não ser usada" só no fim. As decisões do Sidney ficam em `conhecimento/marca-em-video.md`
+  e os pedidos de cada quadro, no db da página de aprovação (lidos com o ArtifactData antes de mexer). (out/2026)
 - Chave de API nunca no chat: a sessão recusa usar a que foi colada (vazada no histórico). Vai nas configurações do
   ambiente. (out/2026)
 - O preço de exemplo do site ("Streaming parado, R$ 39,90 por mês") não é preço da toLive; o `texto.mjs` só reprova os
