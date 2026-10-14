@@ -1,0 +1,69 @@
+{
+  "tela": "app-aprovar",
+  "largura": 390,
+  "altura": 844,
+  "escala": 3,
+  "fundo": "fundo.png",
+  "pecas": [
+    {
+      "i": 0,
+      "tipo": "topo",
+      "x": 0,
+      "y": 0,
+      "w": 390,
+      "h": 8,
+      "texto": "",
+      "arquivo": "00-topo.png"
+    },
+    {
+      "i": 1,
+      "tipo": "topo",
+      "x": 0,
+      "y": 8,
+      "w": 390,
+      "h": 64,
+      "texto": "FINANÇAS",
+      "arquivo": "01-topo.png"
+    },
+    {
+      "i": 2,
+      "tipo": "veredito",
+      "x": 24,
+      "y": 84,
+      "w": 342,
+      "h": 47.8,
+      "texto": "Faltam dez",
+      "arquivo": "02-veredito.png"
+    },
+    {
+      "i": 3,
+      "tipo": "texto",
+      "x": 24,
+      "y": 143.8,
+      "w": 342,
+      "h": 47.6,
+      "texto": "Cerca de cinco minutos. Os outros três de outubro já estão c",
+      "arquivo": "03-texto.png"
+    },
+    {
+      "i": 4,
+      "tipo": "bloco",
+      "x": 24,
+      "y": 215.4,
+      "w": 342,
+      "h": 308.7,
+      "texto": "MAGAZINE ELETRO GELADEIRA 08/10",
+      "arquivo": "04-bloco.png"
+    },
+    {
+      "i": 5,
+      "tipo": "bloco",
+      "x": 24,
+      "y": 654,
+      "w": 342,
+      "h": 138,
+      "texto": "Certo",
+      "arquivo": "05-bloco.png"
+    }
+  ]
+}

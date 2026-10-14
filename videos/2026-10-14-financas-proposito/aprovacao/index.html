@@ -1,0 +1,218 @@
+<title>Aprovação do Propósito</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&display=swap">
+<style>
+:root {
+  --papel: #EBEAE5; --cartao: #F6F5F1; --tinta: #111111; --tinta-2: #55534E; --linha: #C8C6BF;
+  --sinal: #F26B3A; --ok: #2E6E52; --ok-fundo: #DCEBE3; --realce: #EFEDE7;
+  --display: "Archivo Black", "Arial Black", system-ui, sans-serif;
+  --texto: "Space Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --papel: #111111; --cartao: #1E1D1B; --tinta: #EBEAE5; --tinta-2: #A3A099; --linha: #33322F;
+  --sinal: #FF7A4A; --ok: #6FC29A; --ok-fundo: #17302A; --realce: #3A3936; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --papel: #111111; --cartao: #1E1D1B; --tinta: #EBEAE5; --tinta-2: #A3A099; --linha: #33322F;
+  --sinal: #FF7A4A; --ok: #6FC29A; --ok-fundo: #17302A; --realce: #3A3936; color-scheme: dark }
+body { background: var(--papel); color: var(--tinta); font: 16px/1.45 var(--texto);
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+main { max-width: 1080px; margin: 0 auto; padding-block: 32px 64px; display: grid; gap: 48px; }
+h1, h2 { font-family: var(--display); font-weight: 400; letter-spacing: -0.03em; line-height: 0.95; margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(2.4rem, 7vw, 4.2rem); }
+h2 { font-size: clamp(1.6rem, 4vw, 2.2rem); }
+.ponto { display: inline-block; width: 0.21em; height: 0.21em; border-radius: 50%; background: var(--sinal); margin-left: 0.05em; vertical-align: baseline; }
+.rotulo { font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--tinta-2); margin: 0; }
+p { margin: 0; max-width: 65ch; }
+.apoio { color: var(--tinta-2); }
+header { display: grid; gap: 14px; }
+.estado { display: flex; flex-wrap: wrap; gap: 8px; }
+.selo { border: 2px solid var(--linha); border-radius: 999px; padding: 4px 12px; font-size: 13px; font-weight: 700; }
+.selo.ok { background: var(--ok-fundo); color: var(--ok); border-color: transparent; }
+section { display: grid; gap: 20px; border-top: 2px solid var(--tinta); padding-top: 20px; }
+.cabeca { display: grid; gap: 8px; }
+.musicas { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 16px; }
+.faixa { background: var(--cartao); border: 2px solid transparent; border-radius: 20px; padding: 18px; display: grid; gap: 12px; align-content: start; min-width: 0; }
+.faixa.escolhida { border-color: var(--tinta); }
+.faixa h3 { margin: 0; font-size: 20px; font-weight: 700; }
+.dados { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 14px; color: var(--tinta-2); font-variant-numeric: tabular-nums; }
+.descricao { font-size: 14px; color: var(--tinta-2); }
+audio { width: 100%; height: 40px; }
+button { font: 700 15px var(--texto); border-radius: 999px; min-height: 44px; padding: 0 20px; cursor: pointer; border: 2px solid var(--tinta); background: transparent; color: var(--tinta); }
+button.primario { background: var(--tinta); color: var(--papel); }
+button:focus-visible, textarea:focus-visible, input:focus-visible { outline: 2px solid var(--sinal); outline-offset: 2px; }
+button:disabled { opacity: 0.5; cursor: default; }
+.mais { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.mais input { flex: 1 1 240px; min-width: 0; font: 16px var(--texto); border: 2px solid var(--linha); background: var(--cartao); color: var(--tinta); border-radius: 999px; min-height: 44px; padding: 0 16px; }
+.previa { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 20px; align-items: start; }
+.previa video { width: 100%; height: auto; aspect-ratio: 9 / 16; border-radius: 18px; background: var(--cartao); display: block; }
+@media (max-width: 640px) { .previa { grid-template-columns: 1fr; } .previa video { max-width: 320px; } }
+.quadros { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); gap: 24px 16px; }
+.quadro { display: grid; gap: 10px; align-content: start; min-width: 0; }
+.quadro img { width: 100%; height: auto; aspect-ratio: 9 / 16; object-fit: cover; border-radius: 18px; background: var(--cartao); display: block; }
+.quadro.aprovado img { outline: 3px solid var(--ok); outline-offset: 3px; }
+.quadro h3 { margin: 0; font-size: 15px; font-weight: 700; }
+.tempo { font-variant-numeric: tabular-nums; color: var(--tinta-2); font-weight: 500; }
+.na-tela { font-size: 13px; color: var(--tinta-2); }
+textarea { font: 15px/1.4 var(--texto); width: 100%; box-sizing: border-box; min-height: 72px; resize: vertical; border: 2px solid var(--linha); border-radius: 14px; background: var(--cartao); color: var(--tinta); padding: 10px 12px; }
+label.marca { display: flex; gap: 8px; align-items: center; font-size: 14px; font-weight: 600; min-height: 44px; cursor: pointer; }
+label.marca input { width: 20px; height: 20px; accent-color: var(--ok); }
+.aviso { font-size: 14px; color: var(--tinta-2); min-height: 1.4em; }
+.vazio { background: var(--cartao); border-radius: 20px; padding: 20px; color: var(--tinta-2); }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+<main>
+  <header>
+    <p class="rotulo">Estúdio toLive · aprovação antes do render</p>
+    <h1>Tecnologia feita para não ser usada<span class="ponto" aria-hidden="true"></span></h1>
+    <p class="apoio">toLive Finanças · 24,53 s. Primeiro a música, porque os cortes caem na batida dela; depois os quadros. O vídeo só é renderizado com os dois aprovados.</p>
+    <div class="estado" id="estado"></div>
+  </header>
+
+  <section aria-labelledby="t-musica">
+    <div class="cabeca">
+      <p class="rotulo">Passo 1 · rodada 1</p>
+      <h2 id="t-musica">Escolha a música</h2>
+      <p class="apoio">Cada player toca só o trecho que entraria no vídeo, já cortado: a música sobe na hora das features. Todas são de Kevin MacLeod, licença CC BY 4.0 (o crédito vai na legenda do post).</p>
+    </div>
+    <div class="musicas" id="musicas"></div>
+    <div class="mais">
+      <input id="pedido" type="text" maxlength="200" placeholder="Nenhuma serve? Diga o que procura (mais calma, mais piano, mais energia)" aria-label="O que procura nas próximas músicas">
+      <button type="button" id="pedir-mais">Quero ouvir outras 5</button>
+    </div>
+    <p class="aviso" id="aviso-musica" aria-live="polite"></p>
+  </section>
+
+  <section aria-labelledby="t-previa">
+    <div class="cabeca">
+      <p class="rotulo">Prévia do movimento · 8,68 a 15,05 s</p>
+      <h2 id="t-previa">As telas se constroem</h2>
+    </div>
+    <div class="previa">
+      <video controls playsinline preload="metadata" src="previa.mp4"></video>
+      <p class="apoio">Cada tela do app chega desmontada e se monta no celular, peça por peça, na ordem da leitura: o veredito, o cartão, os números, cada linha. São as peças da tela de verdade (dados de exemplo), não um desenho. Com som: é o trecho em que a música sobe. Comente no quadro da feature que quiser mudar.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-quadros">
+    <div class="cabeca">
+      <p class="rotulo">Passo 2</p>
+      <h2 id="t-quadros">Comente os quadros</h2>
+      <p class="apoio">Cada imagem é uma cena já assentada, no formato stories. Escreva o que mudar (texto, tela, ordem, cor) ou marque como aprovado. O movimento vem depois; aqui decidimos o que aparece.</p>
+    </div>
+    <div class="quadros" id="quadros"></div>
+    <div class="mais">
+      <button type="button" class="primario" id="aprovar-todos">Aprovar todos os quadros</button>
+    </div>
+    <p class="aviso" id="aviso-quadros" aria-live="polite"></p>
+  </section>
+</main>
+<script type="application/json" id="dados">{"video":"Tecnologia feita para não ser usada","apelido":"Propósito","id":"2026-10-14-financas-proposito","produto":"financas","duracao":24.53,"rodada":1,"gerada":"2026-10-14T21:46:56.537Z","previa":{"de":8.68,"ate":15.05,"arquivo":"previa.mp4"},"atual":{"titulo":"Our Story Begins","bpm":129.25},"faixas":[{"id":"atual","titulo":"Our Story Begins","autor":"Kevin MacLeod","bpm":129,"clima":"a que está no vídeo hoje","instrumentos":"","virada":9.284,"trecho":25.53,"licenca":"CC BY 4.0","arquivo":"musicas/atual.mp3","atual":true},{"id":"wish-background","titulo":"Wish Background","autor":"Kevin MacLeod","bpm":118,"clima":"Calming, Relaxed, Uplifting","instrumentos":"Piano, Strings, Bells, Celesta, Brass Ensemble","descricao":"A sort of holiday backdrop. Variations on a traditional holiday piece. Modulations every 5 minutes or so. VERY LARGE FILE.","virada":10.21,"subida":8.5,"trecho":28.6,"licenca":"CC BY 4.0","arquivo":"musicas/wish-background.mp3"},{"id":"inner-light","titulo":"Inner Light","autor":"Kevin MacLeod","bpm":104,"clima":"Calming, Uplifting, Relaxed","instrumentos":"Glockenspiel, Dulcimer, Bass, Drum Kit, Voice","descricao":"A chill, reverb-drenched romantic piece in 6/8","virada":11.59,"subida":3.6,"trecho":32.5,"licenca":"CC BY 4.0","arquivo":"musicas/inner-light.mp3"},{"id":"who-likes-to-party","titulo":"Who Likes to Party","autor":"Kevin MacLeod","bpm":118,"clima":"Action, Bright, Grooving, Intense, Uplifting","instrumentos":"Synths, Drum Kit, Strings, Guitar, Horns","descricao":"There are 70s bits, 80s bits, 90s bits.... all soft of mashed up in a salad-mash-soup-like thing.  Super crisp dance mix.","virada":10.21,"subida":2.7,"trecho":28.6,"licenca":"CC BY 4.0","arquivo":"musicas/who-likes-to-party.mp3"},{"id":"nonstop","titulo":"Nonstop","autor":"Kevin MacLeod","bpm":86,"clima":"Driving, Grooving, Uplifting","instrumentos":"Guitar, Percussion, Synths","descricao":"From what I can tell, this piece has no genre... it is an odd mix of a few things, but not enough of any one of them to be considered a member of that group. So, when you find a new critter which is certainly a new species... likely a new genus... probably a new family... and seriously might be a order. It has an exoskeleton, gives birth to live young (asexually somehow?), has a beak... We recognize all those parts, but it doesn't fit anything. Might be a new phylum.","virada":13.95,"subida":3.4,"trecho":39.1,"licenca":"CC BY 4.0","arquivo":"musicas/nonstop.mp3"},{"id":"porch-swing-days-faster","titulo":"Porch Swing Days - faster","autor":"Kevin MacLeod","bpm":129,"clima":"Bright, Calming, Relaxed, Uplifting","instrumentos":"Guitars, Bass, Drum Kit, Percussion, Voice","descricao":"Acoustic guitars play a constantly flowing feel-good melody, enhanced by an airy chorus that enters early in the piece. The music is bright and evokes a carefree attitude towards life and the troubles of the world.","virada":9.28,"subida":1.5,"trecho":26,"licenca":"CC BY 4.0","arquivo":"musicas/porch-swing-days-faster.mp3"}],"quadros":[{"id":"peso","t":0.35,"nome":"O peso: uma palavra por batida","texto":"Boleto · Fatura · Extrato · Planilha · Lembrete · Susto no dia 30","arquivo":"quadros/stories-peso.jpg"},{"id":"frase","t":4.44,"nome":"A frase","texto":"Cada um pede um pedaço de você","arquivo":"quadros/stories-frase.jpg"},{"id":"promessa","t":9.03,"nome":"O sol nasce: a promessa","texto":"Tecnologia feita para não ser usada","arquivo":"quadros/stories-promessa.jpg"},{"id":"feature-1","t":10.78,"nome":"Feature: Conecta","texto":"Conecta. Seus bancos pelo Open Finance. Só para ler.","arquivo":"quadros/stories-feature-1.jpg"},{"id":"feature-2","t":12.64,"nome":"Feature: Organiza","texto":"Organiza. Um lançamento por vez. Você só diz “certo”.","arquivo":"quadros/stories-feature-2.jpg"},{"id":"feature-3","t":14.5,"nome":"Feature: Avisa antes","texto":"Avisa antes. Quando o mês vai passar do limite, não depois.","arquivo":"quadros/stories-feature-3.jpg"},{"id":"feature-4","t":16.35,"nome":"Feature: Projeta o ano","texto":"Projeta o ano. Doze meses à vista, numa frase.","arquivo":"quadros/stories-feature-4.jpg"},{"id":"feature-5","t":18.21,"nome":"Feature: Soma tudo","texto":"Soma tudo. Contas e investimentos num número só.","arquivo":"quadros/stories-feature-5.jpg"},{"id":"manifesto","t":20.18,"nome":"O manifesto","texto":"O melhor elogio que podemos receber: “Esqueci que tinha o app”","arquivo":"quadros/stories-manifesto.jpg"},{"id":"fim","t":24.33,"nome":"O fim: o logo e o convite","texto":"toLive Finanças · Tecnologia feita para não ser usada · o teste grátis do catálogo · Comece em tolive.app","arquivo":"quadros/stories-fim.jpg"}]}</script>
+<script>
+(() => {
+  const dados = JSON.parse(document.getElementById('dados').textContent);
+  const estado = { escolha: null, pedido: null, quadros: {} };
+  let db = null;
+  const $ = id => document.getElementById(id);
+  const el = (tag, attrs = {}, ...filhos) => {
+    const n = document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs)) if (k === 'class') n.className = v; else if (k.startsWith('on')) n.addEventListener(k.slice(2), v); else n.setAttribute(k, v);
+    for (const f of filhos) n.append(f);
+    return n;
+  };
+  const avisar = (id, texto) => { $(id).textContent = texto; };
+
+  function pintarEstado() {
+    const caixa = $('estado'); caixa.replaceChildren();
+    const faixa = dados.faixas.find(f => f.id === estado.escolha);
+    caixa.append(el('span', { class: 'selo' + (faixa ? ' ok' : '') }, faixa ? 'Música: ' + faixa.titulo : 'Música: a escolher'));
+    const aprovados = dados.quadros.filter(q => estado.quadros[q.id]?.aprovado).length;
+    caixa.append(el('span', { class: 'selo' + (dados.quadros.length && aprovados === dados.quadros.length ? ' ok' : '') }, 'Quadros: ' + aprovados + ' de ' + dados.quadros.length + ' aprovados'));
+  }
+
+  function pintarMusicas() {
+    const caixa = $('musicas'); caixa.replaceChildren();
+    if (!dados.faixas.length) { caixa.append(el('p', { class: 'vazio' }, 'As músicas desta rodada ainda não foram buscadas.')); return; }
+    for (const f of dados.faixas) {
+      const escolhida = estado.escolha === f.id;
+      const botao = el('button', { type: 'button', class: escolhida ? 'primario' : '', 'aria-pressed': String(escolhida), onclick: () => escolher(f.id) }, escolhida ? 'Escolhida' : f.atual ? 'Manter esta' : 'Escolher esta');
+      caixa.append(el('article', { class: 'faixa' + (escolhida ? ' escolhida' : '') },
+        ...(f.atual ? [el('p', { class: 'rotulo' }, 'No vídeo hoje')] : []),
+        el('h3', {}, f.titulo),
+        el('div', { class: 'dados' }, el('span', {}, f.bpm + ' BPM'), el('span', {}, 'trecho de ' + Math.round(f.trecho) + ' s'), el('span', {}, 'sobe aos ' + String(Math.round(f.virada * 10) / 10).replace('.', ',') + ' s')),
+        ...(f.atual ? [] : [el('p', { class: 'descricao' }, (f.clima || '') + (f.instrumentos ? ' · ' + f.instrumentos : ''))]),
+        el('audio', { controls: '', preload: 'none', src: f.arquivo }),
+        botao));
+    }
+  }
+
+  function pintarQuadros() {
+    const caixa = $('quadros'); caixa.replaceChildren();
+    if (!dados.quadros.length) { caixa.append(el('p', { class: 'vazio' }, 'Os quadros aparecem aqui quando o roteiro estiver montado.')); return; }
+    dados.quadros.forEach((q, i) => {
+      const salvo = estado.quadros[q.id] ?? {};
+      const area = el('textarea', { id: 'c-' + q.id, placeholder: 'O que mudar neste quadro?', 'aria-label': 'O que mudar no quadro ' + (i + 1) });
+      area.value = salvo.comentario ?? '';
+      let espera = null;
+      area.addEventListener('input', () => { clearTimeout(espera); espera = setTimeout(() => salvarQuadro(q.id, { comentario: area.value.trim() }), 900); });
+      area.addEventListener('blur', () => { clearTimeout(espera); if ((salvo.comentario ?? '') !== area.value.trim()) salvarQuadro(q.id, { comentario: area.value.trim() }); });
+      const marca = el('input', { type: 'checkbox', id: 'a-' + q.id });
+      marca.checked = !!salvo.aprovado;
+      marca.addEventListener('change', () => salvarQuadro(q.id, { aprovado: marca.checked }));
+      caixa.append(el('article', { class: 'quadro' + (salvo.aprovado ? ' aprovado' : '') },
+        el('img', { src: q.arquivo, alt: q.nome + ': ' + q.texto, loading: 'lazy', width: '540', height: '960' }),
+        el('h3', {}, el('span', { class: 'tempo' }, (i + 1) + ' · ' + String(q.t).replace('.', ',') + ' s · '), q.nome),
+        el('p', { class: 'na-tela' }, q.texto),
+        area,
+        el('label', { class: 'marca', for: 'a-' + q.id }, marca, 'Aprovado')));
+    });
+  }
+
+  function pintar() { pintarEstado(); pintarMusicas(); pintarQuadros(); }
+
+  async function escolher(id) {
+    if (!db) { avisar('aviso-musica', 'Esta visualização não guarda escolhas. Abra a página no claude.ai, com a sua conta.'); return; }
+    estado.escolha = id; pintar();
+    try { await db.doc('musica/escolha').set({ faixa: id, rodada: dados.rodada, em: new Date().toISOString() }); avisar('aviso-musica', 'Escolha guardada. Diga no chat que escolheu e eu monto o filme na grade dela.'); }
+    catch { avisar('aviso-musica', 'Não consegui guardar a escolha. Tente de novo em instantes.'); }
+  }
+
+  async function pedirMais() {
+    if (!db) { avisar('aviso-musica', 'Esta visualização não guarda pedidos. Abra a página no claude.ai, com a sua conta.'); return; }
+    const nota = $('pedido').value.trim();
+    try { await db.doc('musica/pedido').set({ nota, rodada: dados.rodada, em: new Date().toISOString() }); avisar('aviso-musica', 'Pedido anotado' + (nota ? ' ("' + nota + '")' : '') + '. Diga no chat e eu trago outras 5 nesta mesma página.'); }
+    catch { avisar('aviso-musica', 'Não consegui guardar o pedido. Tente de novo em instantes.'); }
+  }
+
+  async function salvarQuadro(id, mudanca) {
+    if (!db) { avisar('aviso-quadros', 'Esta visualização não guarda comentários. Abra a página no claude.ai, com a sua conta.'); return; }
+    const novo = { ...(estado.quadros[id] ?? {}), ...mudanca, em: new Date().toISOString() };
+    estado.quadros[id] = novo;
+    pintarEstado();
+    try { await db.doc('quadros/' + id).set(novo); avisar('aviso-quadros', 'Guardado.'); }
+    catch { avisar('aviso-quadros', 'Não consegui guardar. Tente de novo em instantes.'); }
+  }
+
+  async function aprovarTodos() {
+    for (const q of dados.quadros) if (!estado.quadros[q.id]?.aprovado) await salvarQuadro(q.id, { aprovado: true });
+    pintarQuadros();
+    avisar('aviso-quadros', 'Todos aprovados. Diga no chat e eu renderizo.');
+  }
+
+  $('pedir-mais').addEventListener('click', pedirMais);
+  $('aprovar-todos').addEventListener('click', aprovarTodos);
+  pintar();
+
+  (async () => {
+    db = window.claude?.use ? await window.claude.use('db') : null;
+    if (!db) { avisar('aviso-musica', 'Só leitura: para escolher e comentar, abra a página no claude.ai com a sua conta.'); return; }
+    db.doc('musica/escolha').onSnapshot(s => { const d = s.data(); estado.escolha = d && d.rodada === dados.rodada ? d.faixa : null; pintarEstado(); pintarMusicas(); }, () => {});
+    db.collection('quadros').onSnapshot(s => {
+      let mudou = false;
+      for (const doc of s.docs ?? []) { const d = doc.data(); if (JSON.stringify(estado.quadros[doc.id]) !== JSON.stringify(d)) { estado.quadros[doc.id] = d; mudou = true; } }
+      if (mudou && !document.activeElement?.matches?.('textarea')) pintarQuadros();
+      pintarEstado();
+    }, () => {});
+  })();
+})();
+</script>

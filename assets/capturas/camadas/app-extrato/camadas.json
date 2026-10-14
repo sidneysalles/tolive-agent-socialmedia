@@ -1,0 +1,49 @@
+{
+  "tela": "app-extrato",
+  "largura": 390,
+  "altura": 844,
+  "escala": 3,
+  "fundo": "fundo.png",
+  "pecas": [
+    {
+      "i": 0,
+      "tipo": "topo",
+      "x": 0,
+      "y": 0,
+      "w": 390,
+      "h": 8,
+      "texto": "",
+      "arquivo": "00-topo.png"
+    },
+    {
+      "i": 1,
+      "tipo": "topo",
+      "x": 0,
+      "y": 8,
+      "w": 390,
+      "h": 64,
+      "texto": "FINANÇAS",
+      "arquivo": "01-topo.png"
+    },
+    {
+      "i": 2,
+      "tipo": "veredito",
+      "x": 24,
+      "y": 84,
+      "w": 342,
+      "h": 87.4,
+      "texto": "R$ 2.691 até hoje",
+      "arquivo": "02-veredito.png"
+    },
+    {
+      "i": 3,
+      "tipo": "texto",
+      "x": 24,
+      "y": 183.4,
+      "w": 342,
+      "h": 47.6,
+      "texto": "8 lançamentos em outubro. Cinco esperam categoria.",
+      "arquivo": "03-texto.png"
+    }
+  ]
+}

@@ -55,7 +55,28 @@ tela é de calma ou de aviso). No filme, `d.celular(g, img, x, y, w)` põe a tel
 cortar; o filme usa o BPM medido e `som: { musica, inicio, fimDe, volumeEfeitos }`; o crédito vai na `legenda.md` e
 em `ficha.musica`. Diga a quem pediu que a escolha foi pela análise, sem ouvir.
 
-## 3. Portão: o roteiro na grade de batidas
+## 3. Portão: a aprovação (a música primeiro, depois os quadros) — antes de qualquer render inteiro
+
+Pedido do Sidney (14/10/2026): nada é renderizado sem ele aprovar a música e os quadros. A ordem importa: os cortes caem
+na batida da música, então a música vem antes.
+
+```sh
+node estudio/musicas.mjs videos/<id> [--clima "mais calma, piano"]   # 5 candidatas, o trecho exato que entraria
+node estudio/aprovacao.mjs videos/<id> quadros                        # os quadros-chave (filme.quadros)
+node estudio/aprovacao.mjs videos/<id> previa                         # um trecho com movimento e som (filme.previa)
+node estudio/aprovacao.mjs videos/<id> pagina                         # a página e o mapa de arquivos
+```
+
+Publique a página (Artifact, `file_path` = `videos/<id>/aprovacao/index.html`, `files` = o mapa, `capabilities`
+`{ db: {}, user: {} }` na primeira vez) e guarde a URL em `ficha.aprovacao.pagina`; rodadas novas republicam no mesmo
+endereço. Quando a pessoa disser que escolheu ou comentou, leia (ArtifactData `get` `musica/escolha` e `musica/pedido`,
+`list` `quadros`), e:
+- **escolha** → `node estudio/musicas.mjs videos/<id> --escolher <faixa>` (vira o `musica.json`, a licença e o crédito);
+- **pedido de outras** → `musicas.mjs` de novo com o `--clima` que ela escreveu, `pagina`, republique;
+- **comentários nos quadros** → mude o filme, refaça `quadros` (e `previa` se mexeu em movimento), republique;
+- **tudo aprovado** → `aprovacao.mjs registrar` com o que leu, e só então o render inteiro.
+
+## 3b. O roteiro na grade de batidas
 
 Escreva o `roteiro.md`: tabela compasso → tempo → na tela → trilha (intro, sobe, cheio, fim) → som. Gancho no quadro 0;
 a cena nova chega **no** tempo forte; uma feature por compasso a partir da virada; um laranja por quadro; fim parado de
@@ -64,7 +85,13 @@ siga e diga que seguiu).
 
 ## 4. Animar
 
-O `filme.mjs` (o modelo já renderiza): `cenas` com `de/ate` e `desenhar(g, t, ctx, tGlobal)`. Ferramentas no `ctx`:
+O `filme.mjs` (o modelo já renderiza): `cenas` com `de/ate` e `desenhar(g, t, ctx, tGlobal)`, mais `quadros` (os
+quadros-chave da aprovação), `previa` ({ de, ate }) e `musica` ({ antes, depois, compassos }: o que a música precisa ter).
+A música vem do `musica.json` ao lado (`import musica from './musica.json' with { type: 'json' }`).
+**As telas do app se constroem** (a referência da ElevenLabs, `conhecimento/referencias.md`): importe as camadas
+(`assets/capturas/camadas/<tela>/camadas.json`), ponha `assetsDasCamadas(apelido, cam)` nos assets e desenhe com
+`d.telaMontada(g, cam, ctx.img, apelido, x, y, w, tl)`. Print parado (`d.celular`) só quando a tela não tem camadas.
+Ferramentas no `ctx`:
 - `ctx.m` (movimento.mjs): `revela` (o tipo que bate), `anima(t, inicio, dur, CURVA.forte)`, `FILME` (as durações do
   filme), `CURVA.empurra`, `trilha`, `trocaAlfa`, `MOLAS`, `DUR`, `semente`. **Só função de t.**
 - `ctx.d` (desenho.mjs): `textoRevelado` (máscara, com o ponto da marca; passe `maxW: L.seguro.w`), `camera`, `veredito`,

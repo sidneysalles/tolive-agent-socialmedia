@@ -1,0 +1,119 @@
+{
+  "tela": "app-contas",
+  "largura": 390,
+  "altura": 844,
+  "escala": 3,
+  "fundo": "fundo.png",
+  "pecas": [
+    {
+      "i": 0,
+      "tipo": "topo",
+      "x": 0,
+      "y": 0,
+      "w": 390,
+      "h": 8,
+      "texto": "",
+      "arquivo": "00-topo.png"
+    },
+    {
+      "i": 1,
+      "tipo": "topo",
+      "x": 0,
+      "y": 8,
+      "w": 390,
+      "h": 64,
+      "texto": "FINANÇAS",
+      "arquivo": "01-topo.png"
+    },
+    {
+      "i": 2,
+      "tipo": "veredito",
+      "x": 24,
+      "y": 96,
+      "w": 342,
+      "h": 43.7,
+      "texto": "Tudo lido",
+      "arquivo": "02-veredito.png"
+    },
+    {
+      "i": 3,
+      "tipo": "texto",
+      "x": 24,
+      "y": 149.7,
+      "w": 342,
+      "h": 44.8,
+      "texto": "Cinco bancos, lidos hoje às 16:19. A próxima leitura é amanh",
+      "arquivo": "03-texto.png"
+    },
+    {
+      "i": 4,
+      "tipo": "bloco",
+      "x": 24,
+      "y": 214.5,
+      "w": 342,
+      "h": 133.2,
+      "texto": "Chegou uma conta nova: Conta Corrente Exemplo. De quem ela é",
+      "arquivo": "04-bloco.png"
+    },
+    {
+      "i": 5,
+      "tipo": "bloco",
+      "x": 24,
+      "y": 369.7,
+      "w": 342,
+      "h": 37,
+      "texto": "CARTÕES · FATURA ABERTA",
+      "arquivo": "05-bloco.png"
+    },
+    {
+      "i": 6,
+      "tipo": "linha",
+      "x": 24,
+      "y": 406.7,
+      "w": 342,
+      "h": 54,
+      "texto": "CE",
+      "arquivo": "06-linha.png"
+    },
+    {
+      "i": 7,
+      "tipo": "bloco",
+      "x": 24,
+      "y": 478.7,
+      "w": 342,
+      "h": 25.4,
+      "texto": "CONEXÕES DO OPEN FINANCE",
+      "arquivo": "07-bloco.png"
+    },
+    {
+      "i": 8,
+      "tipo": "linha",
+      "x": 24,
+      "y": 504,
+      "w": 342,
+      "h": 100,
+      "texto": "CE",
+      "arquivo": "08-linha.png"
+    },
+    {
+      "i": 9,
+      "tipo": "linha",
+      "x": 24,
+      "y": 604,
+      "w": 342,
+      "h": 46,
+      "texto": "BS",
+      "arquivo": "09-linha.png"
+    },
+    {
+      "i": 10,
+      "tipo": "bloco",
+      "x": 24,
+      "y": 688,
+      "w": 342,
+      "h": 124,
+      "texto": "Conectar banco",
+      "arquivo": "10-bloco.png"
+    }
+  ]
+}

@@ -83,7 +83,7 @@ function anotarNaFicha(pasta, formato) {
   writeFileSync(arquivo, JSON.stringify(ficha, null, 2) + '\n');
 }
 
-async function abrirPalco(navegador, url, pasta, formato, fps = 30) {
+export async function abrirPalco(navegador, url, pasta, formato, fps = 30) {
   const { W, H } = FORMATOS[formato];
   const pagina = await navegador.newPage({ viewport: { width: W, height: H }, deviceScaleFactor: 1 });
   const erros = [];
@@ -96,7 +96,7 @@ async function abrirPalco(navegador, url, pasta, formato, fps = 30) {
   return pagina;
 }
 
-const quadro = (pagina, t) => pagina.evaluate(t => { window.seek(t); return document.getElementById('c').toDataURL('image/png'); }, t)
+export const quadro = (pagina, t) => pagina.evaluate(t => { window.seek(t); return document.getElementById('c').toDataURL('image/png'); }, t)
   .then(url => Buffer.from(url.slice(url.indexOf(',') + 1), 'base64'));
 
 export async function renderizar(argv) {

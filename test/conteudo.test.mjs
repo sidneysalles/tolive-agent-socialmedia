@@ -137,3 +137,31 @@ test('o novo-video cria a pasta com ficha, briefing e um filme que passa na voz'
   assert.throws(() => criarVideo({ produto: 'financas', angulo: 'nao-existe', raiz }), /ângulo desconhecido/);
   assert.throws(() => criarVideo({ produto: 'cripto', angulo: 'x', raiz }), /produto desconhecido/);
 });
+
+test('a busca de música descarta o que não combina com a marca e ouve o pedido de quem aprova', async () => {
+  const { notaDoCatalogo } = await import('../estudio/musicas.mjs');
+  const base = { title: 'X', bpm: '118', length: '00:02:30', feel: 'Uplifting, Bright', instruments: 'Piano, Strings', description: '' };
+  assert.ok(notaDoCatalogo(base) > 4);
+  assert.equal(notaDoCatalogo({ ...base, feel: 'Humorous, Bouncy' }), -Infinity);
+  assert.equal(notaDoCatalogo({ ...base, instruments: 'Bagpipes, Drums' }), -Infinity);
+  assert.equal(notaDoCatalogo({ ...base, bpm: '170' }), -Infinity);
+  assert.equal(notaDoCatalogo({ ...base, length: '00:00:40' }), -Infinity);
+  assert.ok(notaDoCatalogo(base, 'mais piano') > notaDoCatalogo(base, 'mais guitarra'));
+});
+
+test('as peças de uma tela chegam na ordem da leitura, com a faixa e o topo primeiro', async () => {
+  const { ordemDeChegada, assetsDasCamadas } = await import('../estudio/camadas.mjs');
+  const cam = { tela: 'app-mes', fundo: 'fundo.png', pecas: [
+    { i: 0, tipo: 'topo', x: 0, y: 0, arquivo: '00-topo.png' }, { i: 1, tipo: 'linha', x: 46, y: 700, arquivo: '01-linha.png' },
+    { i: 2, tipo: 'veredito', x: 24, y: 84, arquivo: '02-veredito.png' }, { i: 3, tipo: 'topo', x: 0, y: 8, arquivo: '03-topo.png' },
+  ] };
+  const ordem = ordemDeChegada(cam);
+  assert.equal(ordem.get(0), 0); assert.equal(ordem.get(3), 0);
+  assert.ok(ordem.get(2) < ordem.get(1), 'o veredito chega antes da lista');
+  assert.deepEqual(Object.keys(assetsDasCamadas('mes', cam)), ['mes:fundo', 'mes:0', 'mes:1', 'mes:2', 'mes:3']);
+  // toda tela capturada tem as peças no disco
+  for (const nome of ['app-mes', 'app-aprovar', 'app-contas']) {
+    const c = JSON.parse(readFileSync(new URL(`../assets/capturas/camadas/${nome}/camadas.json`, import.meta.url), 'utf8'));
+    for (const arq of [c.fundo, ...c.pecas.map(p => p.arquivo)]) assert.ok(existsSync(new URL(`../assets/capturas/camadas/${nome}/${arq}`, import.meta.url)), `${nome}/${arq}`);
+  }
+});

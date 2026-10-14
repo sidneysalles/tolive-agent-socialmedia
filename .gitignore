@@ -5,3 +5,7 @@ node_modules/
 videos/*/saida/**/*.mp4
 videos/*/saida/**/*.wav
 videos/*/saida/*/quadros/
+# as candidatas baixadas pra escolher (a escolhida vai pra assets/musicas/ com a licença) e os trechos de ouvir
+assets/musicas/candidatas/
+videos/*/aprovacao/musicas/
+videos/*/aprovacao/*.mp4

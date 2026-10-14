@@ -1,0 +1,109 @@
+{
+  "tela": "app-onde-foi",
+  "largura": 390,
+  "altura": 844,
+  "escala": 3,
+  "fundo": "fundo.png",
+  "pecas": [
+    {
+      "i": 0,
+      "tipo": "topo",
+      "x": 0,
+      "y": 0,
+      "w": 390,
+      "h": 8,
+      "texto": "",
+      "arquivo": "00-topo.png"
+    },
+    {
+      "i": 1,
+      "tipo": "topo",
+      "x": 0,
+      "y": 8,
+      "w": 390,
+      "h": 64,
+      "texto": "FINANÇAS",
+      "arquivo": "01-topo.png"
+    },
+    {
+      "i": 2,
+      "tipo": "veredito",
+      "x": 24,
+      "y": 84,
+      "w": 342,
+      "h": 95.7,
+      "texto": "Mais que setembro",
+      "arquivo": "02-veredito.png"
+    },
+    {
+      "i": 3,
+      "tipo": "texto",
+      "x": 24,
+      "y": 191.7,
+      "w": 342,
+      "h": 71.4,
+      "texto": "Até o dia 13, R$ 2.691. É 68% acima do mesmo trecho de setem",
+      "arquivo": "03-texto.png"
+    },
+    {
+      "i": 4,
+      "tipo": "bloco",
+      "x": 24,
+      "y": 283,
+      "w": 342,
+      "h": 52,
+      "texto": "Este mês",
+      "arquivo": "04-bloco.png"
+    },
+    {
+      "i": 5,
+      "tipo": "grafico",
+      "x": 24,
+      "y": 357,
+      "w": 342,
+      "h": 236.6,
+      "texto": "GASTO POR MÊS · R$ MIL",
+      "arquivo": "05-grafico.png"
+    },
+    {
+      "i": 6,
+      "tipo": "rotulo",
+      "x": 24,
+      "y": 617.6,
+      "w": 342,
+      "h": 33.4,
+      "texto": "ONDE FOI",
+      "arquivo": "06-rotulo.png"
+    },
+    {
+      "i": 7,
+      "tipo": "linha",
+      "x": 24,
+      "y": 651,
+      "w": 342,
+      "h": 52.8,
+      "texto": "Sem categoria · R$ 1.646",
+      "arquivo": "07-linha.png"
+    },
+    {
+      "i": 8,
+      "tipo": "linha",
+      "x": 24,
+      "y": 703.8,
+      "w": 342,
+      "h": 52.8,
+      "texto": "Alimentação · R$ 595",
+      "arquivo": "08-linha.png"
+    },
+    {
+      "i": 9,
+      "tipo": "linha",
+      "x": 24,
+      "y": 756.5,
+      "w": 342,
+      "h": 51.8,
+      "texto": "Compras · R$ 450",
+      "arquivo": "09-linha.png"
+    }
+  ]
+}

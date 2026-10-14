@@ -1,0 +1,119 @@
+{
+  "tela": "app-mes",
+  "largura": 390,
+  "altura": 844,
+  "escala": 3,
+  "fundo": "fundo.png",
+  "pecas": [
+    {
+      "i": 0,
+      "tipo": "topo",
+      "x": 0,
+      "y": 0,
+      "w": 390,
+      "h": 8,
+      "texto": "",
+      "arquivo": "00-topo.png"
+    },
+    {
+      "i": 1,
+      "tipo": "topo",
+      "x": 0,
+      "y": 8,
+      "w": 390,
+      "h": 64,
+      "texto": "FINANÇAS",
+      "arquivo": "01-topo.png"
+    },
+    {
+      "i": 2,
+      "tipo": "veredito",
+      "x": 24,
+      "y": 84,
+      "w": 342,
+      "h": 47.8,
+      "texto": "Vai passar",
+      "arquivo": "02-veredito.png"
+    },
+    {
+      "i": 3,
+      "tipo": "texto",
+      "x": 24,
+      "y": 143.8,
+      "w": 342,
+      "h": 71.4,
+      "texto": "Passou 42% do mês e você usou 55% do orçamento. Deve fechar ",
+      "arquivo": "03-texto.png"
+    },
+    {
+      "i": 4,
+      "tipo": "alerta",
+      "x": 24,
+      "y": 237.2,
+      "w": 342,
+      "h": 206.8,
+      "texto": "Quatro categorias vão passar do limite. Ajusto os limites ou",
+      "arquivo": "04-alerta.png"
+    },
+    {
+      "i": 5,
+      "tipo": "bloco",
+      "x": 24,
+      "y": 486,
+      "w": 342,
+      "h": 43.5,
+      "texto": "R$ 1.045",
+      "arquivo": "05-bloco.png"
+    },
+    {
+      "i": 6,
+      "tipo": "grafico",
+      "x": 24,
+      "y": 539.5,
+      "w": 342,
+      "h": 45.4,
+      "texto": "gasto 55%",
+      "arquivo": "06-grafico.png"
+    },
+    {
+      "i": 7,
+      "tipo": "bloco",
+      "x": 24,
+      "y": 600.9,
+      "w": 342,
+      "h": 60,
+      "texto": "já lançado para depois",
+      "arquivo": "07-bloco.png"
+    },
+    {
+      "i": 8,
+      "tipo": "rotulo",
+      "x": 24,
+      "y": 684.9,
+      "w": 342,
+      "h": 25.4,
+      "texto": "PEDEM UM OLHAR",
+      "arquivo": "08-rotulo.png"
+    },
+    {
+      "i": 9,
+      "tipo": "linha",
+      "x": 46,
+      "y": 710.3,
+      "w": 320,
+      "h": 85.8,
+      "texto": "Supermercado",
+      "arquivo": "09-linha.png"
+    },
+    {
+      "i": 10,
+      "tipo": "linha",
+      "x": 46,
+      "y": 796,
+      "w": 320,
+      "h": 85.8,
+      "texto": "Combustível",
+      "arquivo": "10-linha.png"
+    }
+  ]
+}

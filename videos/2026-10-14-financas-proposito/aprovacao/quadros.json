@@ -1,0 +1,88 @@
+{
+  "em": "2026-10-14T21:46:20.406Z",
+  "formatos": [
+    "stories"
+  ],
+  "quadros": [
+    {
+      "id": "peso",
+      "t": 0.35,
+      "nome": "O peso: uma palavra por batida",
+      "texto": "Boleto · Fatura · Extrato · Planilha · Lembrete · Susto no dia 30",
+      "formato": "stories",
+      "arquivo": "quadros/stories-peso.jpg"
+    },
+    {
+      "id": "frase",
+      "t": 4.44,
+      "nome": "A frase",
+      "texto": "Cada um pede um pedaço de você",
+      "formato": "stories",
+      "arquivo": "quadros/stories-frase.jpg"
+    },
+    {
+      "id": "promessa",
+      "t": 9.03,
+      "nome": "O sol nasce: a promessa",
+      "texto": "Tecnologia feita para não ser usada",
+      "formato": "stories",
+      "arquivo": "quadros/stories-promessa.jpg"
+    },
+    {
+      "id": "feature-1",
+      "t": 10.78,
+      "nome": "Feature: Conecta",
+      "texto": "Conecta. Seus bancos pelo Open Finance. Só para ler.",
+      "formato": "stories",
+      "arquivo": "quadros/stories-feature-1.jpg"
+    },
+    {
+      "id": "feature-2",
+      "t": 12.64,
+      "nome": "Feature: Organiza",
+      "texto": "Organiza. Um lançamento por vez. Você só diz “certo”.",
+      "formato": "stories",
+      "arquivo": "quadros/stories-feature-2.jpg"
+    },
+    {
+      "id": "feature-3",
+      "t": 14.5,
+      "nome": "Feature: Avisa antes",
+      "texto": "Avisa antes. Quando o mês vai passar do limite, não depois.",
+      "formato": "stories",
+      "arquivo": "quadros/stories-feature-3.jpg"
+    },
+    {
+      "id": "feature-4",
+      "t": 16.35,
+      "nome": "Feature: Projeta o ano",
+      "texto": "Projeta o ano. Doze meses à vista, numa frase.",
+      "formato": "stories",
+      "arquivo": "quadros/stories-feature-4.jpg"
+    },
+    {
+      "id": "feature-5",
+      "t": 18.21,
+      "nome": "Feature: Soma tudo",
+      "texto": "Soma tudo. Contas e investimentos num número só.",
+      "formato": "stories",
+      "arquivo": "quadros/stories-feature-5.jpg"
+    },
+    {
+      "id": "manifesto",
+      "t": 20.18,
+      "nome": "O manifesto",
+      "texto": "O melhor elogio que podemos receber: “Esqueci que tinha o app”",
+      "formato": "stories",
+      "arquivo": "quadros/stories-manifesto.jpg"
+    },
+    {
+      "id": "fim",
+      "t": 24.33,
+      "nome": "O fim: o logo e o convite",
+      "texto": "toLive Finanças · Tecnologia feita para não ser usada · o teste grátis do catálogo · Comece em tolive.app",
+      "formato": "stories",
+      "arquivo": "quadros/stories-fim.jpg"
+    }
+  ]
+}

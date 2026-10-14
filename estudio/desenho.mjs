@@ -3,7 +3,8 @@
 // do palco. As medidas vêm em pixels do formato (multiplique pelo L.u); as cores, de cores.mjs.
 
 import { COR, dominio } from './cores.mjs';
-import { clamp } from './movimento.mjs';
+import { clamp, anima, CURVA } from './movimento.mjs';
+import { ordemDeChegada } from './camadas.mjs';
 
 export const FONTE = Object.freeze({ display: '"Archivo Black"', texto: '"Space Grotesk"' });
 
@@ -191,6 +192,48 @@ export function celular(g, img, x, y, w, { alfa = 1, cor = COR.tinta } = {}) {
   retangulo(g, x + borda, y + borda, wt, ht, w * 0.11); g.clip();
   g.drawImage(img, x + borda, y + borda, wt, ht);
   g.restore();
+  return { w, h };
+}
+
+/**
+ * Uma tela do app sendo construída peça por peça dentro do celular (as camadas do capturar-app.mjs): o aparelho e o
+ * fundo da tela aparecem, e cada peça (o veredito, o cartão, cada linha, o gráfico) chega de uma posição afastada e
+ * encaixa no lugar exato, na ordem da leitura. No fim, a tela é idêntica à do app. As peças voam por fora da tela
+ * enquanto chegam (é a "vista explodida"); o gráfico, além disso, se desenha da esquerda pra direita.
+ * t = tempo desde o começo da montagem. Devolve { w, h } do aparelho.
+ */
+export function telaMontada(g, cam, img, apelido, x, y, w, t, { passo = 0.055, dur = 0.55, afasta = 1, cor = COR.tinta, fundoEm = -0.1 } = {}) {
+  const borda = w * 0.035, wt = w - 2 * borda, s = wt / cam.largura, ht = cam.altura * s, h = ht + 2 * borda;
+  const ax = x + borda, ay = y + borda;
+  // o aparelho e o fundo da tela
+  const pf = anima(t, fundoEm, 0.18, CURVA.forte);
+  g.save(); g.globalAlpha *= pf;
+  retangulo(g, x, y, w, h, w * 0.14); g.fillStyle = cor; g.fill();
+  g.save(); retangulo(g, ax, ay, wt, ht, w * 0.11); g.clip();
+  const fundo = img[`${apelido}:fundo`];
+  if (fundo) g.drawImage(fundo, ax, ay, wt, ht);
+  g.restore(); g.restore();
+  // as peças, na ordem da leitura
+  const ordem = ordemDeChegada(cam), meio = cam.altura / 2;
+  for (const p of cam.pecas) {
+    const im = img[`${apelido}:${p.i}`];
+    if (!im) continue;
+    const k = ordem.get(p.i), pr = anima(t, k * passo, dur, CURVA.forte);
+    if (pr <= 0) continue;
+    // de onde vem: de baixo e um pouco pro lado, mais longe quanto mais longe do meio; a linha vem da direita
+    const linha = p.tipo === 'linha';
+    const dx = (linha ? 1 : (k % 2 ? -1 : 1)) * (linha ? 160 : 46) * afasta;
+    const dy = (linha ? 20 : 120 + (p.y + p.h / 2 - meio) * 0.25) * afasta;
+    const esc = 1 - 0.08 * (1 - pr) * afasta;
+    const px = ax + p.x * s, py = ay + p.y * s, pw = p.w * s, ph = p.h * s;
+    g.save();
+    g.globalAlpha *= clamp(pr * 2.5);
+    g.translate(px + pw / 2 + dx * s * (1 - pr), py + ph / 2 + dy * s * (1 - pr));
+    g.scale(esc, esc);
+    if (p.tipo === 'grafico') { g.beginPath(); g.rect(-pw / 2, -ph / 2, pw * clamp(pr * 1.2), ph); g.clip(); }
+    g.drawImage(im, -pw / 2, -ph / 2, pw, ph);
+    g.restore();
+  }
   return { w, h };
 }
 

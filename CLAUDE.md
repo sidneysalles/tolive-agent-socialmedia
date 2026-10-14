@@ -57,6 +57,12 @@ Lento e morno (o primeiro vídeo, reprovado); título no meio sobre fundo liso o
 moldura; brilho na interface; explosão de partículas; quique; parallax; câmera flutuando; loop "perfeito" no lugar do fim
 parado; número girando; mais de um laranja no quadro; o Toly como mascote; interface redesenhada de cabeça (use a captura).
 
+## Nada se renderiza inteiro sem aprovação
+
+Decisão do Sidney (14/10/2026): a música e os quadros-chave são aprovados numa página antes do render (a skill
+`tolive-video`, passo 3). A música primeiro, porque os cortes caem na batida dela. Vídeo e tudo do estúdio ficam só neste
+repositório (nada vai pro tolive-financas, tolive-base ou outro).
+
 ## Antes de mostrar qualquer coisa
 
 1. `node estudio/render.mjs videos/<id> --batidas` e **olhe** a folha (Read).
@@ -84,6 +90,9 @@ estudio/
   conhecimento.mjs  o texto do site → conhecimento/site/ (o diff mostra o que o produto ganhou)
   historico.mjs     a memória: o que já foi dito, o que nunca foi, o que ficou velho
   novo-video.mjs    começa um vídeo a partir de estudio/modelo/filme.mjs (que já renderiza)
+  musicas.mjs       as músicas candidatas (catálogo do Incompetech, medidas e cortadas no trecho do vídeo) e a escolhida
+  aprovacao.mjs     a aprovação antes do render: quadros-chave, prévia do movimento e a página (Artifact com db)
+  camadas.mjs       as telas desmontadas no filme (os assets e a ordem de chegada das peças)
 conhecimento/       curso-motion.md, marca-em-video.md, produtos.json (features e ângulos com id), site/, planos.json
 assets/capturas/    as telas do site em 3x, fundo transparente, e indice.json
 assets/musicas/     música licenciada (CC0 ou CC BY; a licença e o crédito em LICENCAS.md; o teste confere)
@@ -124,5 +133,7 @@ node estudio/historico.mjs                            # a memória
   não serve pra vídeo (sincronizar é derivar), SA e NC também não. (out/2026)
 - As telas do app: o `npm run local` do Finanças dá o app de verdade com dado simulado, mas os membros são o Sidney e a
   Letícia de verdade; o `capturar-app.mjs` troca os nomes e recusa a foto se sobrar algum. (out/2026)
+- Quadro parado não mostra movimento: a página de aprovação leva uma prévia curta com som (`aprovacao.mjs previa`).
+  E a tela do app entra construída peça por peça (camadas), não como print (o pedido do Sidney, out/2026).
 - O preço de exemplo do site ("Streaming parado, R$ 39,90 por mês") não é preço da toLive; o `texto.mjs` só reprova os
   preços que a conta cobra e "a partir de R$" / "N dias grátis". (out/2026)

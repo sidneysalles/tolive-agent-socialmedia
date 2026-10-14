@@ -15,7 +15,7 @@ export const COR = Object.freeze({
   inversoFundo: '#111111', inversoTinta: '#EBEAE5', inversoBorda: '#6B6963',
   // noite: as cenas escuras (o tema escuro da marca usado como seção, como no site)
   noite: '#111111', noiteCartao: '#1E1D1B', noiteBorda: '#3A3936', noiteLinha: '#33322F', noiteTinta: '#EBEAE5',
-  noiteTinta2: '#A3A099', noiteSinal: '#FF7A4A',
+  noiteTinta2: '#A3A099', noiteSinal: '#FF7A4A', noitePositivo: '#6FC29A', noitePositivoFundo: '#17302A',
   // dados: só dentro de gráfico, nesta ordem
   dado1: '#111111', dado2: '#3352B8', dado3: '#C9A03A', dado4: '#8A5C8E', dado5: '#A9BDB4',
 });

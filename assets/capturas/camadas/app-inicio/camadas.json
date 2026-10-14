@@ -1,0 +1,129 @@
+{
+  "tela": "app-inicio",
+  "largura": 390,
+  "altura": 844,
+  "escala": 3,
+  "fundo": "fundo.png",
+  "pecas": [
+    {
+      "i": 0,
+      "tipo": "topo",
+      "x": 0,
+      "y": 0,
+      "w": 390,
+      "h": 8,
+      "texto": "",
+      "arquivo": "00-topo.png"
+    },
+    {
+      "i": 1,
+      "tipo": "topo",
+      "x": 0,
+      "y": 8,
+      "w": 390,
+      "h": 64,
+      "texto": "t",
+      "arquivo": "01-topo.png"
+    },
+    {
+      "i": 2,
+      "tipo": "texto",
+      "x": 24,
+      "y": 96,
+      "w": 342,
+      "h": 18.8,
+      "texto": "terça, 13 de outubro",
+      "arquivo": "02-texto.png"
+    },
+    {
+      "i": 3,
+      "tipo": "veredito",
+      "x": 24,
+      "y": 120.8,
+      "w": 342,
+      "h": 126.7,
+      "texto": "Sete coisas",
+      "arquivo": "03-veredito.png"
+    },
+    {
+      "i": 4,
+      "tipo": "texto",
+      "x": 24,
+      "y": 261.6,
+      "w": 310,
+      "h": 48.6,
+      "texto": "A atualização automática parou. Isso vem primeiro.",
+      "arquivo": "04-texto.png"
+    },
+    {
+      "i": 5,
+      "tipo": "bloco",
+      "x": 24,
+      "y": 336.2,
+      "w": 342,
+      "h": 176.4,
+      "texto": "A atualização automática está parada desde sexta: o extrato ",
+      "arquivo": "05-bloco.png"
+    },
+    {
+      "i": 6,
+      "tipo": "linha",
+      "x": 24,
+      "y": 542.5,
+      "w": 342,
+      "h": 59.5,
+      "texto": "Para aprovar",
+      "arquivo": "06-linha.png"
+    },
+    {
+      "i": 7,
+      "tipo": "linha",
+      "x": 24,
+      "y": 602.1,
+      "w": 342,
+      "h": 52,
+      "texto": "O mês vai passar",
+      "arquivo": "07-linha.png"
+    },
+    {
+      "i": 8,
+      "tipo": "linha",
+      "x": 24,
+      "y": 654.1,
+      "w": 342,
+      "h": 52,
+      "texto": "Arrumar as contas",
+      "arquivo": "08-linha.png"
+    },
+    {
+      "i": 9,
+      "tipo": "linha",
+      "x": 24,
+      "y": 706.1,
+      "w": 342,
+      "h": 52,
+      "texto": "Regras repetidas",
+      "arquivo": "09-linha.png"
+    },
+    {
+      "i": 10,
+      "tipo": "linha",
+      "x": 24,
+      "y": 759.1,
+      "w": 342,
+      "h": 52,
+      "texto": "Outubro",
+      "arquivo": "10-linha.png"
+    },
+    {
+      "i": 11,
+      "tipo": "linha",
+      "x": 24,
+      "y": 811.1,
+      "w": 342,
+      "h": 52,
+      "texto": "Próximos 12 meses",
+      "arquivo": "11-linha.png"
+    }
+  ]
+}

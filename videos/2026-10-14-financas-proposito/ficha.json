@@ -24,9 +24,9 @@
   ],
   "cta": "Comece em tolive.app (com o teste grátis do catálogo)",
   "duracao": 24.5,
-  "status": "entregue",
+  "status": "rascunho",
   "publicado": [],
-  "notas": "Versão 3 (14/10/2026): a música licenciada no lugar da trilha sintetizada, cortada pela análise (virada da música na primeira feature, o fim dela no logo), e as telas do app de verdade (npm run local do tolive-financas, dados simulados, nomes trocados). As versões 1 e 2 (trilha sintetizada, cartões do site) ficaram no histórico do git.",
+  "notas": "Versão 3 (14/10/2026): a música licenciada no lugar da trilha sintetizada, cortada pela análise (virada da música na primeira feature, o fim dela no logo), e as telas do app de verdade (npm run local do tolive-financas, dados simulados, nomes trocados). As versões 1 e 2 (trilha sintetizada, cartões do site) ficaram no histórico do git. Versão 4 (14/10/2026): as telas do app se constroem peça por peça (as camadas), a música lida de musica.json, e a primeira aprovação antes do render (a página).",
   "catalogo": {
     "lido_em": "2026-10-14T21:28:45.625Z",
     "menorPreco": "R$ 14,90 por mês",
@@ -41,5 +41,12 @@
     "arquivo": "assets/musicas/kevin-macleod-our-story-begins.mp3",
     "licenca": "CC BY 4.0",
     "credito": "Música: \"Our Story Begins\", Kevin MacLeod (incompetech.com), licença CC BY 4.0"
+  },
+  "apelido": "Propósito",
+  "aprovacao": {
+    "pagina": "https://claude.ai/artifact/2zyzdwkMXiu3Th7C3ZkVqE",
+    "aberta_em": "2026-10-14",
+    "musica": null,
+    "quadros": null
   }
 }

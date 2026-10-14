@@ -9,7 +9,9 @@
       "o_que": "O Início: 'Sete coisas.' e o cartão de alerta (o Open Finance parado), a lista do que fazer",
       "largura": 1170,
       "altura": 2532,
-      "alturaInteira": 3201
+      "alturaInteira": 3201,
+      "camadas": "assets/capturas/camadas/app-inicio/camadas.json",
+      "pecas": 12
     },
     {
       "nome": "app-aprovar",
@@ -20,7 +22,9 @@
       "o_que": "Aprovar: 'Faltam dez.', um lançamento por tela, 'Vai para Compras › Eletrodomésticos', o botão 'Certo'",
       "largura": 1170,
       "altura": 2532,
-      "alturaInteira": 2532
+      "alturaInteira": 2532,
+      "camadas": "assets/capturas/camadas/app-aprovar/camadas.json",
+      "pecas": 6
     },
     {
       "nome": "app-mes",
@@ -31,7 +35,9 @@
       "o_que": "O mês: 'Vai passar.' com o cartão 'Quatro categorias vão passar do limite' e a barra do gasto",
       "largura": 1170,
       "altura": 2532,
-      "alturaInteira": 4182
+      "alturaInteira": 4182,
+      "camadas": "assets/capturas/camadas/app-mes/camadas.json",
+      "pecas": 11
     },
     {
       "nome": "app-12-meses",
@@ -42,7 +48,9 @@
       "o_que": "Próximos 12 meses: 'Faltam R$ 27 mil.' e o gráfico do que sobra, somado",
       "largura": 1170,
       "altura": 2532,
-      "alturaInteira": 2718
+      "alturaInteira": 2718,
+      "camadas": "assets/capturas/camadas/app-12-meses/camadas.json",
+      "pecas": 11
     },
     {
       "nome": "app-patrimonio",
@@ -53,7 +61,9 @@
       "o_que": "Patrimônio: 'Oscilação normal.', o total, a evolução e a composição",
       "largura": 1170,
       "altura": 2532,
-      "alturaInteira": 2979
+      "alturaInteira": 2979,
+      "camadas": "assets/capturas/camadas/app-patrimonio/camadas.json",
+      "pecas": 13
     },
     {
       "nome": "app-extrato",
@@ -64,7 +74,9 @@
       "o_que": "O extrato classificado, por dia",
       "largura": 1170,
       "altura": 2532,
-      "alturaInteira": 3780
+      "alturaInteira": 3780,
+      "camadas": "assets/capturas/camadas/app-extrato/camadas.json",
+      "pecas": 4
     },
     {
       "nome": "app-onde-foi",
@@ -75,7 +87,9 @@
       "o_que": "Onde foi o dinheiro no mês",
       "largura": 1170,
       "altura": 2532,
-      "alturaInteira": 2655
+      "alturaInteira": 2655,
+      "camadas": "assets/capturas/camadas/app-onde-foi/camadas.json",
+      "pecas": 10
     },
     {
       "nome": "app-contas",
@@ -86,10 +100,12 @@
       "o_que": "Contas e bancos: os cartões e as contas com a marca do banco",
       "largura": 1170,
       "altura": 2532,
-      "alturaInteira": 2532
+      "alturaInteira": 2532,
+      "camadas": "assets/capturas/camadas/app-contas/camadas.json",
+      "pecas": 11
     }
   ],
-  "capturado_em": "2026-10-14T21:21:31.183Z",
+  "capturado_em": "2026-10-14T21:44:35.050Z",
   "app": "toLive Finanças (npm run local, dados simulados)",
   "dia": "2026-10-13",
   "escala": 3
