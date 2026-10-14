@@ -5,6 +5,7 @@
 import { COR, dominio } from './cores.mjs';
 import { clamp, anima, CURVA } from './movimento.mjs';
 import { ordemDeChegada } from './camadas.mjs';
+import { pintar3d } from './cena3d.mjs';
 
 export const FONTE = Object.freeze({ display: '"Archivo Black"', texto: '"Space Grotesk"' });
 
@@ -235,6 +236,54 @@ export function telaMontada(g, cam, img, apelido, x, y, w, t, { passo = 0.055, d
     g.restore();
   }
   return { w, h };
+}
+
+// o corpo do celular com o fundo da tela, desenhado uma vez por tela e tamanho (vira a textura do plano de trás)
+const corpos = new Map();
+function corpoDoCelular(cam, fundo, w, cor) {
+  const chave = `${cam.tela}:${Math.round(w)}:${cor}`;
+  if (corpos.has(chave)) return corpos.get(chave);
+  const borda = w * 0.035, wt = w - 2 * borda, ht = cam.altura * (wt / cam.largura), h = ht + 2 * borda;
+  const c = document.createElement('canvas'); c.width = Math.ceil(w); c.height = Math.ceil(h);
+  const k = c.getContext('2d');
+  retangulo(k, 0, 0, w, h, w * 0.14); k.fillStyle = cor; k.fill();
+  k.save(); retangulo(k, borda, borda, wt, ht, w * 0.11); k.clip(); if (fundo) k.drawImage(fundo, borda, borda, wt, ht); k.restore();
+  const r = { canvas: c, w, h, borda, s: wt / cam.largura };
+  corpos.set(chave, r);
+  return r;
+}
+
+/**
+ * A tela do app se construindo em 3D (a referência da ElevenLabs): o celular é um plano inclinado no espaço; cada peça
+ * da tela começa flutuando à frente dele (mais perto de quem olha, cada uma numa profundidade) e pousa no lugar exato,
+ * na ordem da leitura, enquanto o aparelho endireita até a pose de descanso. No fim, a tela é idêntica à do app, vista
+ * com uma leve inclinação. cx = centro horizontal; topo = onde começa o aparelho; w = largura; t = tempo da montagem.
+ * pose: { rx, ry } no começo e no fim (graus). Devolve { w, h }.
+ */
+export function telaMontada3d(g, L, cam, img, apelido, cx, topo, w, t, { passo = 0.055, dur = 0.6, inicio = { rx: 22, ry: -30 }, fim = { rx: 8, ry: -12 }, profundidade = 520, cor = COR.tinta, distancia = 2600 } = {}) {
+  const corpo = corpoDoCelular(cam, img[`${apelido}:fundo`], w, cor);
+  const pg = anima(t, -0.05, passo * cam.pecas.length + dur, CURVA.forte);
+  const rx = inicio.rx + (fim.rx - inicio.rx) * pg, ry = inicio.ry + (fim.ry - inicio.ry) * pg;
+  const planos = [{ fonte: corpo.canvas, x: 0, y: 0, w: corpo.w, h: corpo.h, z: 0, alfa: anima(t, -0.1, 0.18, CURVA.forte) }];
+  const ordem = ordemDeChegada(cam), meio = cam.altura / 2;
+  for (const p of cam.pecas) {
+    const fonte = img[`${apelido}:${p.i}`];
+    const k = ordem.get(p.i), pr = anima(t, k * passo, dur, CURVA.forte);
+    if (!fonte || pr <= 0) continue;
+    const linha = p.tipo === 'linha';
+    const vem = 1 - pr;
+    planos.push({
+      fonte,
+      x: corpo.borda + p.x * corpo.s + vem * (linha ? 140 : (k % 2 ? -40 : 40)),
+      y: corpo.borda + p.y * corpo.s + vem * (linha ? 10 : 60 + (p.y + p.h / 2 - meio) * 0.15),
+      w: p.w * corpo.s, h: p.h * corpo.s,
+      z: 1 + vem * (profundidade + (k % 3) * 160),
+      alfa: clamp(pr * 2.5),
+      corte: p.tipo === 'grafico' ? clamp(pr * 1.2) : 1,
+    });
+  }
+  pintar3d(g, L.W, L.H, planos, { largura: corpo.w, altura: corpo.h, cx, cy: topo + corpo.h / 2, rx, ry, distancia });
+  return { w: corpo.w, h: corpo.h };
 }
 
 /** O logo (um dos SVGs de marca/logo) com altura h; x pela esquerda (ou centro). Área de proteção é sua. */

@@ -90,7 +90,9 @@ quadros-chave da aprovação), `previa` ({ de, ate }) e `musica` ({ antes, depoi
 A música vem do `musica.json` ao lado (`import musica from './musica.json' with { type: 'json' }`).
 **As telas do app se constroem** (a referência da ElevenLabs, `conhecimento/referencias.md`): importe as camadas
 (`assets/capturas/camadas/<tela>/camadas.json`), ponha `assetsDasCamadas(apelido, cam)` nos assets e desenhe com
-`d.telaMontada(g, cam, ctx.img, apelido, x, y, w, tl)`. Print parado (`d.celular`) só quando a tela não tem camadas.
+`d.telaMontada3d(g, L, cam, ctx.img, apelido, cx, topo, w, tl, { inicio: { rx, ry }, fim: { rx, ry } })`: o celular
+inclinado em perspectiva 3D (WebGL), as peças pousando nele (decisão do Sidney). `d.telaMontada` é a versão plana.
+Print parado (`d.celular`) só quando a tela não tem camadas.
 Ferramentas no `ctx`:
 - `ctx.m` (movimento.mjs): `revela` (o tipo que bate), `anima(t, inicio, dur, CURVA.forte)`, `FILME` (as durações do
   filme), `CURVA.empurra`, `trilha`, `trocaAlfa`, `MOLAS`, `DUR`, `semente`. **Só função de t.**

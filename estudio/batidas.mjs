@@ -58,22 +58,27 @@ export function curvaDeAtaques(amostras) {
   return { curva, grave };
 }
 
-/** Andamento, batidas, compassos e picos (em segundos) a partir das amostras mono. */
-export function estimarBatidas(amostras, sr = SR) {
+/**
+ * Andamento, batidas, compassos e picos (em segundos) a partir das amostras mono. `bpmPerto`: o andamento que a fonte
+ * informa (o catálogo do Incompetech diz o de cada faixa): a busca fica a 6% dele, o que evita medir a metade ou o
+ * dobro (a rodada 2 do "Propósito" mediu 60 numa faixa de 120 e esticou o trecho pra 56 s).
+ */
+export function estimarBatidas(amostras, sr = SR, { bpmPerto } = {}) {
   const { curva, grave } = curvaDeAtaques(amostras);
   const qps = sr / PASSO; // quadros por segundo
   const media = curva.reduce((a, b) => a + b, 0) / (curva.length || 1);
   const c = Float32Array.from(curva, v => Math.max(0, v - media));
   // autocorrelação nos períodos de 60 a 180 BPM, com preferência suave em torno de 100 (evita o dobro e a metade)
   let melhor = { bpm: 120, nota: -Infinity };
-  for (let bpm = 60; bpm <= 180; bpm += 0.25) {
+  const [bpmMin, bpmMax] = bpmPerto ? [bpmPerto * 0.94, bpmPerto * 1.06] : [60, 180];
+  for (let bpm = bpmMin; bpm <= bpmMax; bpm += 0.25) {
     const lag = (60 / bpm) * qps;
     let soma = 0;
     for (let i = 0; i + lag + 1 < c.length; i++) {
       const j = i + lag, j0 = Math.floor(j), f = j - j0;
       soma += c[i] * (c[j0] * (1 - f) + c[j0 + 1] * f);
     }
-    const nota = soma * Math.exp(-0.5 * (Math.log2(bpm / 100) / 0.9) ** 2);
+    const nota = soma * (bpmPerto ? 1 : Math.exp(-0.5 * (Math.log2(bpm / 100) / 0.9) ** 2));
     if (nota > melhor.nota) melhor = { bpm, nota };
   }
   const periodo = (60 / melhor.bpm) * qps;

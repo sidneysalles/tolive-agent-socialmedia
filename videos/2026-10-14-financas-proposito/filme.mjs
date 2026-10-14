@@ -129,11 +129,12 @@ export default {
           // sai do quadro embaixo de propósito (o que importa é o veredito no topo da tela)
           const topo = yProva + prova.h + 50 * u;
           const w = Math.min(S.w * 0.74, 700 * u, (L.H - topo) * 0.62);
-          const pc = m.anima(tl, -0.1, m.FILME.camera, m.CURVA.forte);
-          g.save();
-          d.camera(g, { escala: 1.1 - 0.1 * pc, fx: S.cx, fy: topo, dy: (1 - pc) * 220 * u });
-          d.telaMontada(g, f.cam, ctx.img, f.img, S.cx - w / 2, topo, w, tl + 0.05);
-          g.restore();
+          // em 3D (decisão do Sidney): o aparelho inclinado no espaço, as peças pousando nele; a inclinação alterna
+          // de lado a cada feature, pra o empurrão entre elas não repetir a mesma pose
+          const lado = i % 2 ? -1 : 1;
+          d.telaMontada3d(g, L, f.cam, ctx.img, f.img, S.cx, topo + 40 * u, w * 1.05, tl + 0.05, {
+            inicio: { rx: 24, ry: -32 * lado }, fim: { rx: 9, ry: -13 * lado },
+          });
           g.restore();
         });
       },

@@ -83,7 +83,7 @@ export async function sugerir(pasta, { quantas = 5, clima = '' } = {}) {
   for (const { p, nota } of lista) {
     try {
       const mp3 = await baixar(p);
-      const analise = estimarBatidas(lerAudio(mp3));
+      const analise = estimarBatidas(lerAudio(mp3), undefined, { bpmPerto: Number(p.bpm) || undefined });
       const [trecho] = melhoresTrechos(analise, { antes, depois });
       if (!trecho) continue;
       const fimDaFaixa = analise.compassos.at(-1) ?? 0;

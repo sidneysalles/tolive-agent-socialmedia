@@ -86,6 +86,7 @@ export async function pagina(pasta) {
   const qs = lerJson(join(pasta, 'aprovacao', 'quadros.json'), { quadros: [] });
   const atual = lerJson(join(pasta, 'musica.json'), null);
   const prev = lerJson(join(pasta, 'aprovacao', 'previa.json'), null);
+  const paraPagina = f => ({ id: f.id, titulo: f.titulo, autor: f.autor, bpm: Math.round(f.bpm), clima: f.clima, instrumentos: f.instrumentos, descricao: f.descricao, virada: f.virada, subida: f.subida, trecho: f.trecho, licenca: f.licenca, arquivo: `musicas/${f.id}.mp3` });
   const rodada = musicas.rodadas.at(-1);
   // a música de hoje, cortada do mesmo jeito, pra comparar com as candidatas
   let atualNaPagina = null;
@@ -100,10 +101,13 @@ export async function pagina(pasta) {
     video: ficha.titulo ?? filme.titulo, apelido: ficha.apelido ?? ficha.titulo ?? filme.titulo, id: filme.id, produto: ficha.produto ?? filme.produto, duracao: filme.duracao,
     rodada: rodada?.n ?? 0, gerada: new Date().toISOString(), previa: prev && { de: prev.de, ate: prev.ate, arquivo: prev.arquivo },
     atual: atual && { titulo: atual.titulo, bpm: atual.bpm },
-    faixas: [...(atualNaPagina ? [atualNaPagina] : []), ...(rodada?.faixas ?? []).map(f => ({ id: f.id, titulo: f.titulo, autor: f.autor, bpm: Math.round(f.bpm), clima: f.clima, instrumentos: f.instrumentos, descricao: f.descricao, virada: f.virada, subida: f.subida, trecho: f.trecho, licenca: f.licenca, arquivo: `musicas/${f.id}.mp3` }))],
+    faixas: [...(atualNaPagina ? [atualNaPagina] : []), ...(rodada?.faixas ?? []).map(paraPagina)],
+    // as rodadas de antes continuam valendo: dá pra escolher uma faixa de qualquer rodada
+    anteriores: musicas.rodadas.slice(0, -1).reverse().map(r => ({ n: r.n, clima: r.clima, faixas: r.faixas.map(paraPagina) })),
     quadros: qs.quadros.filter(q => q.formato === (qs.formatos?.[0] ?? 'stories')).map(q => ({ id: q.id, t: q.t, nome: q.nome, texto: q.texto, arquivo: q.arquivo })),
   };
   const files = Object.fromEntries([
+    ...dados.anteriores.flatMap(r => r.faixas).map(f => [f.arquivo, relative(RAIZ, join(pasta, 'aprovacao', f.arquivo))]),
     ...dados.faixas.map(f => [f.arquivo, relative(RAIZ, join(pasta, 'aprovacao', f.arquivo))]),
     ...dados.quadros.map(q => [q.arquivo, relative(RAIZ, join(pasta, 'aprovacao', q.arquivo))]),
     ...(dados.previa ? [[dados.previa.arquivo, relative(RAIZ, join(pasta, 'aprovacao', dados.previa.arquivo))]] : []),
@@ -185,6 +189,10 @@ textarea { font: 15px/1.4 var(--texto); width: 100%; box-sizing: border-box; min
 label.marca { display: flex; gap: 8px; align-items: center; font-size: 14px; font-weight: 600; min-height: 44px; cursor: pointer; }
 label.marca input { width: 20px; height: 20px; accent-color: var(--ok); }
 .aviso { font-size: 14px; color: var(--tinta-2); min-height: 1.4em; }
+details.rodadas { border-top: 1px solid var(--linha); padding-top: 12px; }
+details.rodadas summary { cursor: pointer; font-weight: 700; min-height: 44px; display: flex; align-items: center; }
+details.rodadas .musicas { margin-top: 12px; }
+.espera { background: var(--cartao); border-left: 0; border-radius: 20px; padding: 14px 18px; font-weight: 600; }
 .vazio { background: var(--cartao); border-radius: 20px; padding: 20px; color: var(--tinta-2); }
 @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
 </style>
@@ -202,7 +210,9 @@ label.marca input { width: 20px; height: 20px; accent-color: var(--ok); }
       <h2 id="t-musica">Escolha a música</h2>
       <p class="apoio">Cada player toca só o trecho que entraria no vídeo, já cortado: a música sobe na hora das features. Todas são de Kevin MacLeod, licença CC BY 4.0 (o crédito vai na legenda do post).</p>
     </div>
+    <p class="espera" id="espera" hidden></p>
     <div class="musicas" id="musicas"></div>
+    <details class="rodadas" id="rodadas" hidden><summary id="rodadas-titulo"></summary><div id="anteriores"></div></details>
     <div class="mais">
       <input id="pedido" type="text" maxlength="200" placeholder="Nenhuma serve? Diga o que procura (mais calma, mais piano, mais energia)" aria-label="O que procura nas próximas músicas">
       <button type="button" id="pedir-mais">Quero ouvir outras 5</button>
@@ -251,16 +261,25 @@ label.marca input { width: 20px; height: 20px; accent-color: var(--ok); }
 
   function pintarEstado() {
     const caixa = $('estado'); caixa.replaceChildren();
-    const faixa = dados.faixas.find(f => f.id === estado.escolha);
+    const faixa = [...dados.faixas, ...dados.anteriores.flatMap(r => r.faixas)].find(f => f.id === estado.escolha);
     caixa.append(el('span', { class: 'selo' + (faixa ? ' ok' : '') }, faixa ? 'Música: ' + faixa.titulo : 'Música: a escolher'));
     const aprovados = dados.quadros.filter(q => estado.quadros[q.id]?.aprovado).length;
     caixa.append(el('span', { class: 'selo' + (dados.quadros.length && aprovados === dados.quadros.length ? ' ok' : '') }, 'Quadros: ' + aprovados + ' de ' + dados.quadros.length + ' aprovados'));
   }
 
-  function pintarMusicas() {
-    const caixa = $('musicas'); caixa.replaceChildren();
-    if (!dados.faixas.length) { caixa.append(el('p', { class: 'vazio' }, 'As músicas desta rodada ainda não foram buscadas.')); return; }
-    for (const f of dados.faixas) {
+  // o player: se o visualizador não carregar o áudio direto, busca o arquivo e toca de um blob
+  function player(f) {
+    const a = el('audio', { controls: '', preload: 'none', src: f.arquivo });
+    let tentou = false;
+    a.addEventListener('error', async () => {
+      if (tentou) return; tentou = true;
+      try { const r = await fetch(f.arquivo); a.src = URL.createObjectURL(await r.blob()); } catch { a.replaceWith(el('p', { class: 'descricao' }, 'Este visualizador não toca o áudio. A música também foi mandada no chat.')); }
+    });
+    return a;
+  }
+
+  function cartoes(caixa, faixas) {
+    for (const f of faixas) {
       const escolhida = estado.escolha === f.id;
       const botao = el('button', { type: 'button', class: escolhida ? 'primario' : '', 'aria-pressed': String(escolhida), onclick: () => escolher(f.id) }, escolhida ? 'Escolhida' : f.atual ? 'Manter esta' : 'Escolher esta');
       caixa.append(el('article', { class: 'faixa' + (escolhida ? ' escolhida' : '') },
@@ -268,9 +287,25 @@ label.marca input { width: 20px; height: 20px; accent-color: var(--ok); }
         el('h3', {}, f.titulo),
         el('div', { class: 'dados' }, el('span', {}, f.bpm + ' BPM'), el('span', {}, 'trecho de ' + Math.round(f.trecho) + ' s'), el('span', {}, 'sobe aos ' + String(Math.round(f.virada * 10) / 10).replace('.', ',') + ' s')),
         ...(f.atual ? [] : [el('p', { class: 'descricao' }, (f.clima || '') + (f.instrumentos ? ' · ' + f.instrumentos : ''))]),
-        el('audio', { controls: '', preload: 'none', src: f.arquivo }),
+        player(f),
         botao));
     }
+  }
+
+  function pintarMusicas() {
+    const caixa = $('musicas'); caixa.replaceChildren();
+    if (!dados.faixas.length) { caixa.append(el('p', { class: 'vazio' }, 'As músicas desta rodada ainda não foram buscadas.')); return; }
+    cartoes(caixa, dados.faixas);
+    const ant = $('anteriores'); ant.replaceChildren();
+    $('rodadas').hidden = !dados.anteriores.length;
+    $('rodadas-titulo').textContent = 'Rodadas anteriores (' + dados.anteriores.reduce((n, r) => n + r.faixas.length, 0) + ' músicas)';
+    for (const r of dados.anteriores) {
+      ant.append(el('p', { class: 'rotulo' }, 'Rodada ' + r.n + (r.clima ? ' · ' + r.clima : '')));
+      const grade = el('div', { class: 'musicas' }); cartoes(grade, r.faixas); ant.append(grade);
+    }
+    const esp = $('espera');
+    esp.hidden = !(estado.pedido && estado.pedido.rodada === dados.rodada);
+    if (!esp.hidden) esp.textContent = 'Você pediu outras 5' + (estado.pedido.nota ? ' ("' + estado.pedido.nota + '")' : '') + '. Elas aparecem aqui quando eu buscar: me diga no chat.';
   }
 
   function pintarQuadros() {
@@ -307,7 +342,7 @@ label.marca input { width: 20px; height: 20px; accent-color: var(--ok); }
   async function pedirMais() {
     if (!db) { avisar('aviso-musica', 'Esta visualização não guarda pedidos. Abra a página no claude.ai, com a sua conta.'); return; }
     const nota = $('pedido').value.trim();
-    try { await db.doc('musica/pedido').set({ nota, rodada: dados.rodada, em: new Date().toISOString() }); avisar('aviso-musica', 'Pedido anotado' + (nota ? ' ("' + nota + '")' : '') + '. Diga no chat e eu trago outras 5 nesta mesma página.'); }
+    try { await db.doc('musica/pedido').set({ nota, rodada: dados.rodada, em: new Date().toISOString() }); avisar('aviso-musica', ''); }
     catch { avisar('aviso-musica', 'Não consegui guardar o pedido. Tente de novo em instantes.'); }
   }
 
@@ -333,7 +368,9 @@ label.marca input { width: 20px; height: 20px; accent-color: var(--ok); }
   (async () => {
     db = window.claude?.use ? await window.claude.use('db') : null;
     if (!db) { avisar('aviso-musica', 'Só leitura: para escolher e comentar, abra a página no claude.ai com a sua conta.'); return; }
-    db.doc('musica/escolha').onSnapshot(s => { const d = s.data(); estado.escolha = d && d.rodada === dados.rodada ? d.faixa : null; pintarEstado(); pintarMusicas(); }, () => {});
+    const todas = new Set([...dados.faixas, ...dados.anteriores.flatMap(r => r.faixas)].map(f => f.id));
+    db.doc('musica/escolha').onSnapshot(s => { const d = s.data(); estado.escolha = d && todas.has(d.faixa) ? d.faixa : null; pintarEstado(); pintarMusicas(); }, () => {});
+    db.doc('musica/pedido').onSnapshot(s => { estado.pedido = s.data() ?? null; pintarMusicas(); }, () => {});
     db.collection('quadros').onSnapshot(s => {
       let mudou = false;
       for (const doc of s.docs ?? []) { const d = doc.data(); if (JSON.stringify(estado.quadros[doc.id]) !== JSON.stringify(d)) { estado.quadros[doc.id] = d; mudou = true; } }

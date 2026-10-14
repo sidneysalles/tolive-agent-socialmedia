@@ -93,6 +93,7 @@ estudio/
   musicas.mjs       as músicas candidatas (catálogo do Incompetech, medidas e cortadas no trecho do vídeo) e a escolhida
   aprovacao.mjs     a aprovação antes do render: quadros-chave, prévia do movimento e a página (Artifact com db)
   camadas.mjs       as telas desmontadas no filme (os assets e a ordem de chegada das peças)
+  cena3d.mjs        perspectiva 3D pelo WebGL (planos com textura, câmera): o celular inclinado e as peças em profundidade
 conhecimento/       curso-motion.md, marca-em-video.md, produtos.json (features e ângulos com id), site/, planos.json
 assets/capturas/    as telas do site em 3x, fundo transparente, e indice.json
 assets/musicas/     música licenciada (CC0 ou CC BY; a licença e o crédito em LICENCAS.md; o teste confere)
@@ -135,5 +136,11 @@ node estudio/historico.mjs                            # a memória
   Letícia de verdade; o `capturar-app.mjs` troca os nomes e recusa a foto se sobrar algum. (out/2026)
 - Quadro parado não mostra movimento: a página de aprovação leva uma prévia curta com som (`aprovacao.mjs previa`).
   E a tela do app entra construída peça por peça (camadas), não como print (o pedido do Sidney, out/2026).
+- A medição de andamento erra pela metade em faixas calmas (60 numa de 120, trecho de 56 s): com o andamento do catálogo
+  como dica (`estimarBatidas(…, { bpmPerto })`), a busca fica a 6% dele. (out/2026)
+- O pedido "quero outras 5" fica guardado na página, mas quem busca é o Claude: a página diz que está esperando, e a
+  pessoa precisa avisar no chat (o Sidney pediu e não viu nada, out/2026).
+- Chave de API nunca no chat: a sessão recusa usar a que foi colada (vazada no histórico). Vai nas configurações do
+  ambiente. (out/2026)
 - O preço de exemplo do site ("Streaming parado, R$ 39,90 por mês") não é preço da toLive; o `texto.mjs` só reprova os
   preços que a conta cobra e "a partir de R$" / "N dias grátis". (out/2026)

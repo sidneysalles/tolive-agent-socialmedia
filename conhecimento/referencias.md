@@ -12,7 +12,7 @@ descreveu:
 | No vídeo | No estúdio | Por quê |
 | --- | --- | --- |
 | A interface quebrada em peças que se constroem | **Feito**: `capturar-app.mjs` desmonta cada tela do app nas peças que o próprio app anima ao abrir (`.entra`), com as listas linha a linha e o gráfico à parte; `desenho.telaMontada` remonta peça por peça na ordem da leitura, vindo de uma vista explodida | É a tela de verdade (as peças são recortes dela, com a posição exata), não um redesenho de cabeça |
-| A interface inclinada em perspectiva 3D | **A decidir** (Sidney) | A marca não fala de perspectiva; "nada gira" é do logo. O canvas 2D faria só uma inclinação falsa |
+| A interface inclinada em perspectiva 3D | **Feito** (Sidney, 14/10/2026: "a perspectiva 3D podemos usar"): `cena3d.mjs` (WebGL, planos com textura e câmera com perspectiva) e `desenho.telaMontada3d`: o celular inclinado no espaço, as peças flutuando à frente dele em profundidades diferentes e pousando no lugar enquanto ele endireita | A marca não fala de perspectiva; "nada gira" é do logo, que continua de frente |
 | Brilho (glow) em volta do painel, gradiente no fundo | **Não** | O guia proíbe brilho e degradê (seção 6 e "Visual proibido") |
 | Desfoque de profundidade nas linhas de trás | **A decidir** | Ajuda a focar; não está no guia nem proibido |
 | Fundo escuro com o produto em destaque | Já é a "noite" da marca | — |
@@ -26,4 +26,6 @@ A ElevenLabs gera efeitos sonoros por texto (o SFX v2 do vídeo), música (Eleve
 - **Música**: hoje licenciada do Incompetech (CC BY). A da ElevenLabs serve se o plano cobrir uso comercial.
 - **Voz**: a marca "fala pouco"; locução não está definida. A decidir.
 - **O que falta**: a chave da API no ambiente (variável `ELEVENLABS_API_KEY`, nas configurações do ambiente da nuvem,
-  nunca no chat) e confirmar que o plano permite uso comercial. Sem a chave, nada disso foi implementado nem testado.
+  nunca no chat) e um plano que permita uso comercial. Em 14/10/2026 o Sidney colou uma chave de conta grátis no chat: a
+  segurança da sessão recusou usá-la (credencial vazada no histórico), e o plano grátis não serve pra anúncio. Sem a
+  chave no ambiente, nada disso foi implementado nem testado.
