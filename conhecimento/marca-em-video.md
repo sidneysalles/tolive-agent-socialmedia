@@ -21,6 +21,7 @@ no mesmo dia com o segundo (`videos/2026-10-14-financas-proposito`), depois das 
 | 7 | O manifesto | "O melhor elogio: esqueci que tinha o app" foi reprovado ("pensa em outra coisa"). Ficou a tela que apaga: "Pode fechar o app". |
 | 8 | Os dias grátis | No fim, **chamativos**: em letra de veredito, grande, do catálogo, nunca escritos à mão. |
 | 9 | A narração | **A fala e a imagem conectadas**: a voz diz o que a tela escreve, na hora em que escreve. Roteiro de locução gerado do filme (`estudio/narracao.mjs`), um arquivo por fala; os cortes seguem a voz. |
+| 10 | O processo | **Roteiro primeiro**, numa conversa de vendas (quem, dor, desejo, objeção, prova, oferta); depois a fala pra gravar com IA e dez músicas; só então as telas e o vídeo. O Propósito, narrado, foi aprovado como versão final assim ("ficou excelente"). |
 
 
 ## A ideia que o vídeo vende

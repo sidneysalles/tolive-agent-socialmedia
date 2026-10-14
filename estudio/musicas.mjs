@@ -4,7 +4,7 @@
 // vídeo, pra quem aprova ouvir o que vai sair e não a faixa inteira. Nunca repete uma faixa já oferecida no vídeo.
 //
 //   node estudio/musicas.mjs videos/<id>              cinco candidatas (a primeira rodada, ou mais uma)
-//   node estudio/musicas.mjs videos/<id> --quantas 5 --clima "piano, calmo"   (o pedido de quem aprova, em palavras)
+//   node estudio/musicas.mjs videos/<id> --quantas 10 --clima "piano, calmo"   (o pedido de quem aprova, em palavras)
 //   node estudio/musicas.mjs videos/<id> --escolher <idDaFaixa>               a escolhida vira a música do filme
 //
 // Escreve videos/<id>/aprovacao/musicas.json (as rodadas) e aprovacao/musicas/<faixa>.mp3 (os trechos, fora do git).
@@ -68,7 +68,7 @@ async function baixar(p) {
 const lerJson = (arq, padrao) => (existsSync(arq) ? JSON.parse(readFileSync(arq, 'utf8')) : padrao);
 
 /** Mais `quantas` candidatas pro vídeo, que nunca foram oferecidas nele. */
-export async function sugerir(pasta, { quantas = 5, clima = '' } = {}) {
+export async function sugerir(pasta, { quantas = 10, clima = '' } = {}) {
   const filme = (await import(pathToFileURL(join(pasta, 'filme.mjs')).href)).default;
   const { antes = 5, depois = 6, compassos = 13 } = filme.musica ?? {};
   const dir = join(pasta, 'aprovacao'), arq = join(dir, 'musicas.json');
@@ -144,9 +144,9 @@ export function escolher(pasta, id) {
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const pasta = process.argv[2] && resolve(process.argv[2]);
   const op = k => { const i = process.argv.indexOf(`--${k}`); return i > 0 ? process.argv[i + 1] : undefined; };
-  if (!pasta || !existsSync(join(pasta, 'filme.mjs'))) { console.error('uso: node estudio/musicas.mjs videos/<id> [--quantas 5] [--clima "…"] [--escolher <faixa>]'); process.exit(2); }
+  if (!pasta || !existsSync(join(pasta, 'filme.mjs'))) { console.error('uso: node estudio/musicas.mjs videos/<id> [--quantas 10] [--clima "…"] [--escolher <faixa>]'); process.exit(2); }
   if (op('escolher')) console.log(JSON.stringify(escolher(pasta, op('escolher')), null, 2));
-  else for (const f of await sugerir(pasta, { quantas: Number(op('quantas') ?? 5), clima: op('clima') ?? '' })) {
+  else for (const f of await sugerir(pasta, { quantas: Number(op('quantas') ?? 10), clima: op('clima') ?? '' })) {
     console.log(`${f.titulo.padEnd(34)} ${String(f.bpm).padStart(6)} BPM  sobe ${String(f.subida).padStart(4)} dB  trecho ${f.trecho}s  [${f.clima}]`);
   }
 }

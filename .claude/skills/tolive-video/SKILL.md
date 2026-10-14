@@ -14,11 +14,38 @@ mostra que o vídeo bom sai do laço, não do prompt. Filme novo vale esforço a
 corte na batida, o sol nascendo atrás do horizonte como assinatura. O primeiro vídeo (calmo, lento, trilha de colchão)
 foi **reprovado**: não volte a ele. O "registro do filme" está em `conhecimento/marca-em-video.md`; o modelo já nasce nele.
 
-## 0. O que perguntar (só o que faltar)
+## O jeito de trabalhar (Sidney, 14/10/2026: "a partir de agora sempre assim")
+
+Três etapas, nessa ordem, cada uma esperando a pessoa. **Nenhuma tela, captura ou filme antes da etapa C.**
+
+**A. O roteiro, como especialista em vendas e roteiro.** Antes de qualquer outra coisa, pergunte até chegar no roteiro
+ideal. Leia a memória primeiro (passo 1: `historico.mjs`, o site de hoje) pra não perguntar o que dá pra saber, e pergunte
+**duas ou três coisas por vez**, nunca um questionário:
+- **Quem** assiste (quem é, em que momento da vida, o que já tentou) e **onde** (stories, reels, feed, anúncio pago ou
+  orgânico; isso muda o gancho e a duração).
+- **A dor** (uma só por vídeo: decisão 5 de `marca-em-video.md`) e **o desejo** (o que a pessoa ganha: tempo, calma, controle).
+- **A objeção** que faz a pessoa não começar (é difícil? é seguro? é caro? mais um app?) e **a prova** que a desmonta (a
+  feature, a tela de verdade).
+- **A oferta e o pedido** (o teste grátis e o preço só do catálogo; o que a pessoa faz no fim).
+- O tom, e o que **não** pode ser dito.
+A cada rodada, mostre o roteiro como está (gancho, problema, virada, prova, fecho, convite) e o que ainda falta decidir.
+Recomende, discorde quando for o caso, e só passe pra B quando a pessoa disser que o roteiro está fechado.
+
+**B. A fala e as músicas.** Com o roteiro fechado, entregue, no mesmo envio:
+- **A fala pra gravar com IA** (`narracao: [...]` no filme e `node estudio/narracao.mjs videos/<id>` → `narracao.md`): uma
+  fala por cena, o texto exato, a janela e o limite de palavras, a pronúncia ("toLive" é "tu-láiv"), o tom. A dos dias
+  grátis à parte (vem do catálogo; muda, regrava só ela). Avise da licença: voz de IA em anúncio pede o plano comercial.
+- **Dez músicas** pra escolher (`node estudio/musicas.mjs videos/<id>`: dez por padrão, o trecho exato que entraria, CC0 ou
+  CC BY) na página de aprovação, com "quero outras".
+Espere a pessoa mandar a voz (ou dizer que não quer voz, ou o que não quer na fala) e escolher a música.
+
+**C. As telas e o vídeo.** Só agora: as capturas, o filme na grade da música e na fala gravada (transcreva e meça: a
+seção Narração), os quadros e a prévia com voz na página, os comentários, e o render final depois do OK.
+
+## 0. O que perguntar (só o que faltar, dentro da etapa A)
 
 - **Produto**: financas, fe (só teaser) ou suite (a marca). **Formato**: stories, reels, feed (vários saem da mesma linha
-  do tempo). Duração, se a pessoa tiver preferência (padrão: 12 a 16 s).
-- O ângulo é opcional: se não vier, você propõe (passo 1). Não pergunte o que dá pra decidir pela memória.
+  do tempo). Duração: com narração e telas em uso, ~40 s (o Propósito, 42,8 s); sem voz, 15 a 30 s.
 
 ## 1. Ler antes de propor (sem isso o vídeo repete o anterior)
 
@@ -61,7 +88,7 @@ Pedido do Sidney (14/10/2026): nada é renderizado sem ele aprovar a música e o
 na batida da música, então a música vem antes.
 
 ```sh
-node estudio/musicas.mjs videos/<id> [--clima "mais calma, piano"]   # 5 candidatas, o trecho exato que entraria
+node estudio/musicas.mjs videos/<id> [--clima "mais calma, piano"]   # 10 candidatas, o trecho exato que entraria
 node estudio/aprovacao.mjs videos/<id> quadros                        # os quadros-chave (filme.quadros)
 node estudio/aprovacao.mjs videos/<id> previa                         # um trecho com movimento e som (filme.previa)
 node estudio/aprovacao.mjs videos/<id> pagina                         # a página e o mapa de arquivos

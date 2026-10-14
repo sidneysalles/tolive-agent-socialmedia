@@ -16,6 +16,12 @@ nas features, o sol nascendo atrás do horizonte como assinatura. A referência 
 
 ## Como pedir e como fazer
 
+**O jeito de trabalhar** (Sidney, 14/10/2026: "a partir de agora sempre assim"): **A.** como especialista em vendas e
+roteiro, perguntar (duas ou três coisas por vez) até o roteiro ideal; **B.** com o roteiro fechado, a fala pra ele gravar
+com IA e dez músicas pra escolher; **C.** só depois da voz (ou do "sem voz") e da música escolhida, as telas e o vídeo.
+O detalhe está na skill `tolive-video`.
+
+
 - Vídeo novo: a skill **`tolive-video`** (o caminho com os portões). O que dizer: a **`tolive-video-pauta`**. Antes de
   mostrar ou entregar: a **`tolive-video-critica`**. Marca: **`tolive-marca`** (o guia inteiro vem junto).
 - Esforço: filme novo em alto (xhigh); ajuste e re-render, médio. "Uma sessão por marca" (o curso): este repositório é
