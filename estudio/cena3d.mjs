@@ -39,7 +39,7 @@ function textura(fonte) {
 
 /**
  * Projeta um ponto do plano (x, y em px a partir do centro do plano, z em px na direção de quem olha) pela câmera:
- * gira em Y (ry, graus: positivo leva a borda direita pra longe) e em X (rx: positivo leva o topo pra longe),
+ * gira em Y (ry, graus: positivo traz a borda direita pra perto) e em X (rx: positivo traz o topo pra perto),
  * perspectiva pela distância. Devolve { x, y, w } no quadro (w é o divisor da perspectiva).
  */
 export function projetar(px, py, pz, { rx = 0, ry = 0, distancia = 2400, cx = 0, cy = 0, escala = 1 }) {

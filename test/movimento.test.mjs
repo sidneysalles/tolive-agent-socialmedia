@@ -61,7 +61,7 @@ test('a grade de batidas e a troca de texto', () => {
   assert.equal(trocaAlfa(3, 1, 3), 0);
 });
 
-test('a projeção 3D: de frente é a identidade; mais perto aparece maior; inclinar afasta um lado', async () => {
+test('a projeção 3D: de frente é a identidade; mais perto aparece maior; inclinar aproxima um lado', async () => {
   const { projetar } = await import('../estudio/cena3d.mjs');
   const cam = { cx: 500, cy: 900, distancia: 2400 };
   const p = projetar(100, -50, 0, cam);
@@ -69,7 +69,7 @@ test('a projeção 3D: de frente é a identidade; mais perto aparece maior; incl
   const perto = projetar(100, 0, 400, cam);
   assert.ok(perto.x - 500 > 100, 'o que vem pra perto aparece maior');
   const dir = projetar(200, 0, 0, { ...cam, ry: 30 }), esq = projetar(-200, 0, 0, { ...cam, ry: 30 });
-  assert.ok(dir.x - 500 < 500 - esq.x, 'com ry positivo, a borda direita vai pra longe (fica menor)');
+  assert.ok(dir.x - 500 > 500 - esq.x, 'com ry positivo, a borda direita vem pra perto (fica maior)');
   const alto = projetar(0, -200, 0, { ...cam, rx: 20 }), baixo = projetar(0, 200, 0, { ...cam, rx: 20 });
-  assert.ok(900 - alto.y < baixo.y - 900, 'com rx positivo, o topo vai pra longe');
+  assert.ok(900 - alto.y > baixo.y - 900, 'com rx positivo, o topo vem pra perto');
 });
