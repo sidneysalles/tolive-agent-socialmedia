@@ -1,0 +1,22 @@
+{
+  "name": "tolive-agent-socialmedia",
+  "private": true,
+  "type": "module",
+  "description": "O estúdio de vídeo da toLive: motion graphics renderizados de código, com a marca, os produtos e a memória do que já foi dito.",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test",
+    "render": "node estudio/render.mjs",
+    "previa": "node estudio/servidor.mjs",
+    "novo": "node estudio/novo-video.mjs",
+    "historico": "node estudio/historico.mjs",
+    "conhecimento": "node estudio/conhecimento.mjs",
+    "capturar": "node estudio/capturar.mjs",
+    "catalogo": "node estudio/catalogo.mjs",
+    "texto": "node estudio/texto.mjs",
+    "base": "node ../tolive-base/ferramentas/sincronizar.mjs . --marca marca",
+    "base:conferir": "node ../tolive-base/ferramentas/sincronizar.mjs . --marca marca --conferir"
+  }
+}

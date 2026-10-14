@@ -1,0 +1,35 @@
+{
+  "lido_em": "2026-10-14T20:46:49.837Z",
+  "resposta": {
+    "app": "financas",
+    "planos": [
+      {
+        "tipo": "plano",
+        "ordem": 1,
+        "codigo": "ate2",
+        "titulo": "Até 2 conexões",
+        "teste_dias": 30,
+        "valor_centavos": 1490,
+        "limite_conexoes": 2
+      },
+      {
+        "tipo": "plano",
+        "ordem": 2,
+        "codigo": "ate5",
+        "titulo": "Até 5 conexões",
+        "teste_dias": 0,
+        "valor_centavos": 3190,
+        "limite_conexoes": 5
+      },
+      {
+        "tipo": "plano",
+        "ordem": 3,
+        "codigo": "ate10",
+        "titulo": "Até 10 conexões",
+        "teste_dias": 0,
+        "valor_centavos": 5990,
+        "limite_conexoes": 10
+      }
+    ]
+  }
+}

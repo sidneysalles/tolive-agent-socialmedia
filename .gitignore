@@ -1,0 +1,7 @@
+node_modules/
+.env
+# os vídeos renderizados: refazem-se do filme.mjs (render determinístico). Ficam o pôster e as folhas da crítica,
+# que são a memória visual do que já saiu (a próxima pauta olha pra não repetir).
+videos/*/saida/**/*.mp4
+videos/*/saida/**/*.wav
+videos/*/saida/*/quadros/

@@ -1,0 +1,32 @@
+/* As cores de domínio de cada app (guia, seção 3): faixa, etiqueta, ícone e foco; nunca botão, fundo de
+   tela, veredito nem sinal. O app põe data-dominio="<app>" no <html> e carrega este arquivo depois do
+   tokens.css; nenhum app escreve a própria cor. O Finanças é o padrão do tokens.css. */
+/* Finanças · ameixa */
+:root[data-dominio="financas"] { --dominio: #7A4A7E; --dominio-fundo: #EBDFEC; --dominio-texto: #6A3E6E; --dominio-horizonte: #CC9DCF; }
+/* Fé · cobalto */
+:root[data-dominio="fe"] { --dominio: #3352B8; --dominio-fundo: #DDE3F5; --dominio-texto: #2C4BA8; --dominio-horizonte: #8EA4F0; }
+/* Saúde · petróleo */
+:root[data-dominio="saude"] { --dominio: #2F6B73; --dominio-fundo: #D9E9EA; --dominio-texto: #255A61; --dominio-horizonte: #7FC2C9; }
+/* Casa · ocre */
+:root[data-dominio="casa"] { --dominio: #8C6510; --dominio-fundo: #F1E6C7; --dominio-texto: #7A570C; --dominio-horizonte: #E0B65A; }
+/* Pessoas · rosa */
+:root[data-dominio="pessoas"] { --dominio: #A3416A; --dominio-fundo: #F5DFE8; --dominio-texto: #8E3359; --dominio-horizonte: #E89BBA; }
+/* Conta · tinta (a conta é a toLive: a faixa, a etiqueta e o foco em tinta; o laranja fica no ícone e na
+   abertura, porque na faixa ele estaria em toda tela e o sinal deixaria de ser um por tela) */
+:root[data-dominio="conta"] { --dominio: #111111; --dominio-fundo: #E2E0D9; --dominio-texto: #111111; --dominio-horizonte: #F26B3A; }
+
+@media (prefers-color-scheme: dark) {
+  :root[data-dominio="financas"]:not([data-tema="claro"]) { --dominio: #CC9DCF; --dominio-fundo: #2E1F30; --dominio-texto: #CC9DCF; --dominio-horizonte: #CC9DCF; }
+  :root[data-dominio="fe"]:not([data-tema="claro"]) { --dominio: #8EA4F0; --dominio-fundo: #1D2440; --dominio-texto: #8EA4F0; --dominio-horizonte: #8EA4F0; }
+  :root[data-dominio="saude"]:not([data-tema="claro"]) { --dominio: #7FC2C9; --dominio-fundo: #13292C; --dominio-texto: #7FC2C9; --dominio-horizonte: #7FC2C9; }
+  :root[data-dominio="casa"]:not([data-tema="claro"]) { --dominio: #E0B65A; --dominio-fundo: #33280F; --dominio-texto: #E0B65A; --dominio-horizonte: #E0B65A; }
+  :root[data-dominio="pessoas"]:not([data-tema="claro"]) { --dominio: #E89BBA; --dominio-fundo: #3A1A27; --dominio-texto: #E89BBA; --dominio-horizonte: #E89BBA; }
+  :root[data-dominio="conta"]:not([data-tema="claro"]) { --dominio: #ECEAE4; --dominio-fundo: #2A2927; --dominio-texto: #ECEAE4; --dominio-horizonte: #F26B3A; }
+}
+
+:root[data-dominio="financas"][data-tema="escuro"] { --dominio: #CC9DCF; --dominio-fundo: #2E1F30; --dominio-texto: #CC9DCF; --dominio-horizonte: #CC9DCF; }
+:root[data-dominio="fe"][data-tema="escuro"] { --dominio: #8EA4F0; --dominio-fundo: #1D2440; --dominio-texto: #8EA4F0; --dominio-horizonte: #8EA4F0; }
+:root[data-dominio="saude"][data-tema="escuro"] { --dominio: #7FC2C9; --dominio-fundo: #13292C; --dominio-texto: #7FC2C9; --dominio-horizonte: #7FC2C9; }
+:root[data-dominio="casa"][data-tema="escuro"] { --dominio: #E0B65A; --dominio-fundo: #33280F; --dominio-texto: #E0B65A; --dominio-horizonte: #E0B65A; }
+:root[data-dominio="pessoas"][data-tema="escuro"] { --dominio: #E89BBA; --dominio-fundo: #3A1A27; --dominio-texto: #E89BBA; --dominio-horizonte: #E89BBA; }
+:root[data-dominio="conta"][data-tema="escuro"] { --dominio: #ECEAE4; --dominio-fundo: #2A2927; --dominio-texto: #ECEAE4; --dominio-horizonte: #F26B3A; }

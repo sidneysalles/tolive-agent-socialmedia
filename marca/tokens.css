@@ -1,0 +1,223 @@
+/* Tokens da marca toLive — a fonte única das cores, do tipo, da forma e do movimento.
+   Tirado do Finanças (tolive-financas/publico/css/tokens.css, out/2026), que é onde a
+   marca foi desenhada e validada; o site (tolive.app) usa os mesmos valores.
+
+   Como usar num app: o robô copia (ferramentas/sincronizar.mjs; não importe
+   por URL: a CSP dos apps só aceita o que é deles). A cor de domínio vem de dominios.css pelo
+   data-dominio do <html>; os tokens que só um app usa ficam num arquivo dele, nunca aqui. Nenhum
+   outro CSS do app escreve hexadecimal (o conferir-marca.mjs confere).
+
+   Claro no :root; escuro duas vezes com os mesmos nomes: pelo sistema (a menos que a pessoa
+   tenha escolhido claro) e escolhido à mão (data-tema="escuro" na raiz, posto antes de pintar).
+   light-dark() pouparia a cópia, mas pede iOS 17.5. */
+:root {
+  color-scheme: light;
+
+  /* 0 · base: 90% de qualquer tela */
+  --pagina: #EBEAE5;
+  --cartao: #F6F5F1;
+  --tinta: #111111;
+  --tinta-2: #55534E;
+  --tinta-apoio: #2E2D2A;
+  --linha: #C8C6BF;
+
+  /* 1 · sinal: "aja agora", um por tela (o ponto do veredito, o alerta, a cabeça do Toly, o sol do logo) */
+  --sinal: #F26B3A;
+  --negativo: #B4421A;
+  --negativo-fundo: #FBE1D6;
+
+  /* 2 · veredito */
+  --positivo: #2E6E52;
+  --positivo-fundo: #DCEBE3;
+
+  /* 3 · domínio: a cor do app (faixa, etiqueta, ícone e foco; nunca fundo nem botão).
+     O padrão é o do Finanças; os outros apps põem data-dominio="<app>" no <html> e carregam
+     dominios.css depois deste arquivo. Nenhum app escreve a própria cor. */
+  --dominio: #7A4A7E;
+  --dominio-fundo: #EBDFEC;
+  --dominio-texto: #6A3E6E;
+  --dominio-horizonte: #CC9DCF;
+
+  /* o cartão de alerta: o único bloco escuro da tela (claro, no escuro) */
+  --inverso-fundo: #111111;
+  --inverso-tinta: #EBEAE5;
+  --inverso-rotulo: #D9BEDB;
+  --inverso-ponto: #F26B3A;
+  --inverso-borda: #6B6963;
+
+  /* 4 · dados: só dentro de gráficos, nesta ordem (validada para daltonismo nos dois temas) */
+  --dado-1: #111111;
+  --dado-2: #3352B8;
+  --dado-3: #C9A03A;
+  --dado-4: #8A5C8E;
+  --dado-5: #A9BDB4;
+
+  /* estados */
+  --hover: #E2E0D9;
+  --pressionado: #C8C6BF;
+  --trilho: #D6D4CD;
+  --desativado-fundo: #D6D4CD;
+  --desativado-tinta: #6B6963;
+  --selecionado: #EFEDE7;
+  --esqueleto: #DAD8D1;
+  --veu: rgba(17, 17, 17, 0.62);
+
+  /* tipo: Archivo Black grita o veredito, Space Grotesk explica */
+  --fonte: "Space Grotesk", system-ui, sans-serif;
+  --fonte-veredito: "Archivo Black", system-ui, sans-serif;
+  --t-veredito: 52px;
+  --t-veredito-linha: 0.92;
+  --t-veredito-letra: -0.04em;
+  --t-veredito-computador: 5.5rem;
+  --t-veredito-computador-linha: 0.9;
+  --ponto: 0.21em;
+  --ponto-margem: 0.05em;
+  --t-numero: 30px;
+  --t-numero-letra: -0.03em;
+  --t-destaque: 18px;
+  --t-destaque-linha: 1.35;
+  --t-corpo: 16px;
+  --t-lista: 15px;
+  --t-pequeno: 14px;
+  --t-rotulo: 13px;
+  --t-rotulo-letra: 0.08em;
+  --t-etiqueta: 12px;
+  --t-etiqueta-letra: 0.06em;
+  --t-legenda: 12px;
+  --t-botao: 15px;
+  --t-campo: 16px; /* nunca menos: o Safari dá zoom no campo abaixo de 16 px */
+
+  /* espaço */
+  --tela-topo: 48px;
+  --tela-lado: 24px;
+  --tela-base: 32px;
+  --bloco: 24px;
+
+  /* forma: o círculo é da marca; gráfico, barra, painel e linha são retos. Sem sombra. */
+  --raio-pilula: 999px;
+  --raio-cartao: 20px; /* só o cartão de alerta, o do Toly, a folha e o balão do tour; painel e cartão de conteúdo são retos (guia, seções 5 e 10) */
+  --raio-folha: 20px 20px 0 0;
+  --faixa: 8px;
+  --toque: 48px;
+  --botao: 52px;
+
+  /* movimento */
+  --rapido: 150ms;
+  --padrao: 250ms;
+  --entrada: 400ms;
+  --expressivo: 600ms;
+  --chegada: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --saida: cubic-bezier(0.6, 0, 0.8, 0.4);
+  --troca: ease-in-out;
+  --passo: 60ms;
+  --sobe: 8px;
+}
+
+/* Escuro: cores clareadas e menos saturadas; o que pede ação é o único bloco claro. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-tema="claro"]) {
+    color-scheme: dark;
+    --pagina: #121211;
+    --cartao: #1E1D1B;
+    --tinta: #ECEAE4;
+    --tinta-2: #A3A099;
+    --tinta-apoio: #D6D3CC;
+    --linha: #33322F;
+    --sinal: #FF7A4A;
+    --negativo: #FF9468;
+    --negativo-fundo: #3A2117;
+    --positivo: #6FC29A;
+    --positivo-fundo: #17302A;
+    --dominio: #CC9DCF;
+    --dominio-fundo: #2E1F30;
+    --dominio-texto: #CC9DCF;
+    --dominio-horizonte: #CC9DCF;
+    --inverso-fundo: #ECEAE4;
+    --inverso-tinta: #121211;
+    --inverso-rotulo: #7A4A7E;
+    --inverso-ponto: #E2582A;
+    --inverso-borda: #8E8C86;
+    --dado-1: #ECEAE4;
+    --dado-2: #7F98EC;
+    --dado-3: #D9B04A;
+    --dado-4: #B88DBC;
+    --dado-5: #5E6B66;
+    --hover: #2A2927;
+    --pressionado: #3A3936;
+    --trilho: #33322F;
+    --desativado-fundo: #33322F;
+    --desativado-tinta: #5E5C58;
+    --selecionado: #2A2927;
+    --esqueleto: #2A2927;
+  }
+}
+
+:root[data-tema="escuro"] {
+  color-scheme: dark;
+  --pagina: #121211;
+  --cartao: #1E1D1B;
+  --tinta: #ECEAE4;
+  --tinta-2: #A3A099;
+  --tinta-apoio: #D6D3CC;
+  --linha: #33322F;
+  --sinal: #FF7A4A;
+  --negativo: #FF9468;
+  --negativo-fundo: #3A2117;
+  --positivo: #6FC29A;
+  --positivo-fundo: #17302A;
+  --dominio: #CC9DCF;
+  --dominio-fundo: #2E1F30;
+  --dominio-texto: #CC9DCF;
+  --dominio-horizonte: #CC9DCF;
+  --inverso-fundo: #ECEAE4;
+  --inverso-tinta: #121211;
+  --inverso-rotulo: #7A4A7E;
+  --inverso-ponto: #E2582A;
+  --inverso-borda: #8E8C86;
+  --dado-1: #ECEAE4;
+  --dado-2: #7F98EC;
+  --dado-3: #D9B04A;
+  --dado-4: #B88DBC;
+  --dado-5: #5E6B66;
+  --hover: #2A2927;
+  --pressionado: #3A3936;
+  --trilho: #33322F;
+  --desativado-fundo: #33322F;
+  --desativado-tinta: #5E5C58;
+  --selecionado: #2A2927;
+  --esqueleto: #2A2927;
+}
+
+/* Reduzir movimento: tudo vira um fade de 150 ms, nada sobe nem desliza. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --padrao: 150ms;
+    --entrada: 150ms;
+    --expressivo: 150ms;
+    --passo: 0ms;
+    --sobe: 0px;
+  }
+}
+
+/* As fontes, servidas pelo próprio app (a CSP não aceita fonte de fora). O caminho é relativo a
+   este arquivo; o sincronizar.mjs põe fontes/ ao lado dele. Subconjunto latino do Google Fonts, com as
+   features OpenType (tnum nas tabelas); o unicode-range é o dele, que cobre ·, ›, …, − e –. SIL OFL 1.1
+   (fontes/OFL-*.txt). Vieram do Finanças (out/2026). */
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("./fontes/space-grotesk-latin.woff2") format("woff2");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* block: o veredito de 72 px não pode trocar de fonte no meio da entrada (Finanças, out/2026). */
+@font-face {
+  font-family: "Archivo Black";
+  src: url("./fontes/archivo-black-latin.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}

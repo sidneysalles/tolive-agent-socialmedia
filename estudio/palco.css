@@ -1,0 +1,5 @@
+/* Só a moldura da prévia: o filme é o canvas. Fora do canvas, nada aparece no render. */
+html, body { margin: 0; height: 100%; background: #111111; color: #A3A099; font: 14px system-ui, sans-serif; }
+canvas { display: block; margin: 0 auto; max-width: 100vw; max-height: 100vh; }
+#tempo { position: fixed; left: 12px; bottom: 8px; margin: 0; }
+.render #tempo { display: none; }

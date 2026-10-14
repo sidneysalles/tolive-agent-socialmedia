@@ -1,0 +1,124 @@
+{
+  "comentario": "O que o capturar.mjs tira do site (tolive.app), em 3x e fundo transparente. Os seletores são (de preferência pelo texto, que sobrevive a cartão novo no meio) do HTML do site (tolive/backend/paginas/*.mjs); quando o site muda e um some, o capturar diz qual. 'cliques' aperta botões antes (o palco do Como funciona tem três estados).",
+  "largura": 420,
+  "escala": 3,
+  "capturas": [
+    {
+      "nome": "celular-inicio",
+      "pagina": "/",
+      "seletor": ".hero .celular",
+      "o_que": "O celular do Finanças no Início: 'Tudo em ordem.' com Outubro, 12 meses e Patrimônio"
+    },
+    {
+      "nome": "aviso-luz",
+      "pagina": "/",
+      "seletor": "#problema .calma-aviso",
+      "o_que": "O cartão de alerta: 'A conta de luz veio 22% acima da média. Pago mesmo assim?'",
+      "cliques": [
+        "#problema button[data-calma]"
+      ]
+    },
+    {
+      "nome": "pilha-12",
+      "pagina": "/",
+      "seletor": "#problema .pilha",
+      "o_que": "Os 12 papelzinhos da semana comum (o antes)"
+    },
+    {
+      "nome": "app-comum",
+      "pagina": "/",
+      "seletor": "#diferente .camada--outros",
+      "o_que": "O celular de 'um app comum' (sequência, nível, alertas, anúncio): o contraste",
+      "cliques": [
+        "#diferente button[data-tela=\"outros\"]"
+      ]
+    },
+    {
+      "nome": "celular-tolive",
+      "pagina": "/",
+      "seletor": "#diferente .camada--tolive",
+      "o_que": "O celular do toLive na comparação: 'Uma coisa é sua', o pedido da conta de luz",
+      "cliques": [
+        "#diferente button[data-tela=\"tolive\"]"
+      ]
+    },
+    {
+      "nome": "como-1-conectar",
+      "pagina": "/",
+      "seletor": "#como .palco",
+      "cliques": [
+        "#como button.passo >> nth=0"
+      ],
+      "o_que": "Conectando pelo Open Finance (três bancos, 12 meses lidos)"
+    },
+    {
+      "nome": "como-2-ia",
+      "pagina": "/",
+      "seletor": "#como .palco",
+      "cliques": [
+        "#como button.passo >> nth=1"
+      ],
+      "o_que": "A IA leu seu histórico e sugere (regra IFOOD/RAPPI, pergunta do aluguel)"
+    },
+    {
+      "nome": "como-3-decide",
+      "pagina": "/",
+      "seletor": "#como .palco",
+      "cliques": [
+        "#como button.passo >> nth=2"
+      ],
+      "o_que": "Você só decide: 'Restaurantes vai passar do limite'"
+    },
+    {
+      "nome": "faz-veredito",
+      "pagina": "/",
+      "seletor": ".veredito-faixa",
+      "o_que": "Cartão: Veredito, 'Tudo em ordem.'"
+    },
+    {
+      "nome": "faz-orcamento",
+      "pagina": "/",
+      "seletor": ".cartao--pagina:has(.rotulo:text-is(\"Orçamento no ritmo\"))",
+      "o_que": "Cartão: Orçamento no ritmo (Mercado, Restaurantes, Transporte)"
+    },
+    {
+      "nome": "faz-projecao",
+      "pagina": "/",
+      "seletor": ".cartao--pagina:has(.rotulo:text-is(\"Projeção de 12 meses\"))",
+      "o_que": "Cartão: Projeção de 12 meses, 'Chega a R$ 46 mil em setembro.'"
+    },
+    {
+      "nome": "faz-vazamentos",
+      "pagina": "/",
+      "seletor": ".cartao--pagina:has(.rotulo:text-is(\"Vazamentos\"))",
+      "o_que": "Cartão: Vazamentos, três assinaturas paradas"
+    },
+    {
+      "nome": "faz-casa",
+      "pagina": "/",
+      "seletor": ".cartao--pagina:has(.rotulo:text-is(\"A casa toda\"))",
+      "o_que": "Cartão: A casa toda, 'A casa está no ritmo.'"
+    },
+    {
+      "nome": "faz-patrimonio",
+      "pagina": "/",
+      "seletor": ".cartao--pagina:has(.rotulo:text-is(\"Patrimônio\"))",
+      "o_que": "Cartão: Patrimônio, R$ 182 mil"
+    },
+    {
+      "nome": "toly-balao",
+      "pagina": "/",
+      "seletor": ".toly-secao .toly-balao",
+      "o_que": "O cartão do Toly: três assinaturas sem uso, com a fonte e o 'Agora não'"
+    },
+    {
+      "nome": "toly-tres",
+      "pagina": "/",
+      "seletor": ".toly-secao .toly-balao",
+      "cliques": [
+        ".toly-secao button[data-toly-acao=\"ver\"]"
+      ],
+      "o_que": "O Toly depois do 'Ver as três': as três assinaturas e 'Se a cobrança voltar, eu aviso.'"
+    }
+  ]
+}

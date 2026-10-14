@@ -1,0 +1,136 @@
+{
+  "capturado_em": "2026-10-14T20:41:14.046Z",
+  "site": "https://tolive.app",
+  "escala": 3,
+  "largura": 420,
+  "capturas": [
+    {
+      "nome": "celular-inicio",
+      "arquivo": "assets/capturas/celular-inicio.png",
+      "o_que": "O celular do Finanças no Início: 'Tudo em ordem.' com Outubro, 12 meses e Patrimônio",
+      "pagina": "/",
+      "largura": 1020,
+      "altura": 1800
+    },
+    {
+      "nome": "aviso-luz",
+      "arquivo": "assets/capturas/aviso-luz.png",
+      "o_que": "O cartão de alerta: 'A conta de luz veio 22% acima da média. Pago mesmo assim?'",
+      "pagina": "/",
+      "largura": 948,
+      "altura": 472
+    },
+    {
+      "nome": "pilha-12",
+      "arquivo": "assets/capturas/pilha-12.png",
+      "o_que": "Os 12 papelzinhos da semana comum (o antes)",
+      "pagina": "/",
+      "largura": 1116,
+      "altura": 1680
+    },
+    {
+      "nome": "app-comum",
+      "arquivo": "assets/capturas/app-comum.png",
+      "o_que": "O celular de 'um app comum' (sequência, nível, alertas, anúncio): o contraste",
+      "pagina": "/",
+      "largura": 900,
+      "altura": 1860
+    },
+    {
+      "nome": "celular-tolive",
+      "arquivo": "assets/capturas/celular-tolive.png",
+      "o_que": "O celular do toLive na comparação: 'Uma coisa é sua', o pedido da conta de luz",
+      "pagina": "/",
+      "largura": 900,
+      "altura": 1860
+    },
+    {
+      "nome": "como-1-conectar",
+      "arquivo": "assets/capturas/como-1-conectar.png",
+      "o_que": "Conectando pelo Open Finance (três bancos, 12 meses lidos)",
+      "pagina": "/",
+      "largura": 1116,
+      "altura": 1560
+    },
+    {
+      "nome": "como-2-ia",
+      "arquivo": "assets/capturas/como-2-ia.png",
+      "o_que": "A IA leu seu histórico e sugere (regra IFOOD/RAPPI, pergunta do aluguel)",
+      "pagina": "/",
+      "largura": 1116,
+      "altura": 1560
+    },
+    {
+      "nome": "como-3-decide",
+      "arquivo": "assets/capturas/como-3-decide.png",
+      "o_que": "Você só decide: 'Restaurantes vai passar do limite'",
+      "pagina": "/",
+      "largura": 1116,
+      "altura": 1560
+    },
+    {
+      "nome": "faz-veredito",
+      "arquivo": "assets/capturas/faz-veredito.png",
+      "o_que": "Cartão: Veredito, 'Tudo em ordem.'",
+      "pagina": "/",
+      "largura": 1116,
+      "altura": 1030
+    },
+    {
+      "nome": "faz-orcamento",
+      "arquivo": "assets/capturas/faz-orcamento.png",
+      "o_que": "Cartão: Orçamento no ritmo (Mercado, Restaurantes, Transporte)",
+      "pagina": "/",
+      "largura": 1116,
+      "altura": 854
+    },
+    {
+      "nome": "faz-projecao",
+      "arquivo": "assets/capturas/faz-projecao.png",
+      "o_que": "Cartão: Projeção de 12 meses, 'Chega a R$ 46 mil em setembro.'",
+      "pagina": "/",
+      "largura": 1116,
+      "altura": 846
+    },
+    {
+      "nome": "faz-vazamentos",
+      "arquivo": "assets/capturas/faz-vazamentos.png",
+      "o_que": "Cartão: Vazamentos, três assinaturas paradas",
+      "pagina": "/",
+      "largura": 1116,
+      "altura": 842
+    },
+    {
+      "nome": "faz-casa",
+      "arquivo": "assets/capturas/faz-casa.png",
+      "o_que": "Cartão: A casa toda, 'A casa está no ritmo.'",
+      "pagina": "/",
+      "largura": 1116,
+      "altura": 750
+    },
+    {
+      "nome": "faz-patrimonio",
+      "arquivo": "assets/capturas/faz-patrimonio.png",
+      "o_que": "Cartão: Patrimônio, R$ 182 mil",
+      "pagina": "/",
+      "largura": 1116,
+      "altura": 710
+    },
+    {
+      "nome": "toly-balao",
+      "arquivo": "assets/capturas/toly-balao.png",
+      "o_que": "O cartão do Toly: três assinaturas sem uso, com a fonte e o 'Agora não'",
+      "pagina": "/",
+      "largura": 1116,
+      "altura": 774
+    },
+    {
+      "nome": "toly-tres",
+      "arquivo": "assets/capturas/toly-tres.png",
+      "o_que": "O Toly depois do 'Ver as três': as três assinaturas e 'Se a cobrança voltar, eu aviso.'",
+      "pagina": "/",
+      "largura": 1116,
+      "altura": 1100
+    }
+  ]
+}

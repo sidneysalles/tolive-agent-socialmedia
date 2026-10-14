@@ -1,0 +1,36 @@
+{
+  "data": "2026-10-14",
+  "produto": "financas",
+  "titulo": "Tudo em ordem.",
+  "serie": "uma-tarefa-a-menos",
+  "angulo": "antes-depois",
+  "gancho": "12 coisas pedindo você esta semana",
+  "mensagens": [
+    "A semana comum tem 12 coisas pedindo você.",
+    "O toLive Finanças resolve onze sem você e diz: Tudo em ordem.",
+    "Só uma é sua, e vem como pergunta: a conta de luz veio 22% acima da média.",
+    "Arrume uma vez. Depois, vá viver."
+  ],
+  "features": [
+    "veredito",
+    "excecao"
+  ],
+  "usa": [
+    "teste"
+  ],
+  "cta": "Comece em tolive.app (com o teste grátis do catálogo)",
+  "duracao": 16,
+  "status": "entregue",
+  "publicado": [],
+  "notas": "O primeiro vídeo do estúdio, feito junto com o motor. A crítica (critica.md) lista o que fica pro próximo.",
+  "catalogo": {
+    "lido_em": "2026-10-14T20:46:49.837Z",
+    "menorPreco": "R$ 14,90 por mês",
+    "teste": "30 dias grátis com até duas conexões"
+  },
+  "formatos": [
+    "stories",
+    "feed"
+  ],
+  "renderizado_em": "2026-10-14T20:47:25.708Z"
+}
