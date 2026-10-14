@@ -4,9 +4,17 @@
 // catálogo da conta, por extenso.
 //
 //   node estudio/narracao.mjs videos/<id>
+//   node estudio/narracao.mjs videos/<id> --medir <audio> <transcricao.json>
+//
+// Com o áudio de volta (um arquivo só, com as falas na ordem do `narracao` do filme), --medir lê a transcrição do
+// estudio/transcrever.py e o volume do próprio áudio e escreve videos/<id>/narracao.json: onde cada fala começa e acaba
+// no arquivo (o corte no silêncio entre duas falas, pelo volume, nunca no meio de uma consoante), quando a voz entra e
+// o tempo de cada palavra. O filme importa esse arquivo e põe cada fala na hora da cena dela (as palavras puxam os
+// cortes); o som.mjs corta e mistura a voz, com a música baixando por baixo.
 
 import { writeFileSync, readFileSync, existsSync } from 'node:fs';
-import { join, resolve, basename } from 'node:path';
+import { execFileSync } from 'node:child_process';
+import { join, resolve, basename, relative } from 'node:path';
 import { pathToFileURL, fileURLToPath } from 'node:url';
 import { oQueDizer } from './catalogo-navegador.mjs';
 
@@ -34,7 +42,13 @@ export function roteiroDeLocucao(filme, catalogo) {
 Gerado de \`filme.mjs\` (\`node estudio/narracao.mjs videos/${filme.id}\`): não edite à mão; mude a fala no filme.
 ${linhas.length} falas, ${total} palavras em ${virgula(filme.duracao)} s. A fala diz o que a tela escreve, na hora em que ela escreve.
 
-## Como gravar
+${filme.som?.narracao ? `## A gravação
+
+Gravada (um arquivo só, \`${filme.som.narracao.arquivo}\`), transcrita (\`estudio/transcrever.py\`) e medida
+(\`--medir\`): a tabela abaixo é o que foi dito e a hora em que cada fala entra no filme. Pra regravar uma fala, grave
+de novo o arquivo inteiro na mesma ordem (ou só ela, e meça de novo).
+
+` : ''}## Como gravar
 
 - **Um arquivo por fala**, com o nome da tabela (\`01-abertura.mp3\`…), a mesma voz e os mesmos ajustes em todos. Sem
   música, sem silêncio sobrando no começo e no fim (até 0,2 s). MP3 ou WAV, 44,1 ou 48 kHz.
@@ -60,11 +74,56 @@ ${linhas.map(l => `| \`${l.arquivo}\` | ${virgula(l.de)}–${virgula(l.ate)} | $
 `;
 }
 
+/** O volume (RMS) do áudio em janelas de 20 ms. */
+function volume(audio) {
+  const pcm = execFileSync('ffmpeg', ['-v', 'error', '-i', audio, '-f', 's16le', '-ac', '1', '-ar', '1000', '-'], { maxBuffer: 1 << 28 });
+  const amostras = new Int16Array(pcm.buffer, pcm.byteOffset, pcm.length >> 1), rms = [];
+  for (let i = 0; i < amostras.length; i += 20) {
+    let soma = 0; const fim = Math.min(amostras.length, i + 20);
+    for (let k = i; k < fim; k++) soma += amostras[k] * amostras[k];
+    rms.push(Math.sqrt(soma / Math.max(1, fim - i)));
+  }
+  return rms;
+}
+
+/**
+ * As falas medidas: cada trecho da transcrição vira uma fala do filme (na ordem), com o corte no ponto mais quieto entre
+ * o fim de uma e o começo da outra, e a entrada da voz (o primeiro trecho acima do limiar depois do corte).
+ */
+export function medirFalas(trechos, rms, ids) {
+  if (trechos.length !== ids.length) throw new Error(`a transcrição tem ${trechos.length} falas e o filme, ${ids.length}: confira a ordem e junte ou separe trechos`);
+  const t = i => i * 0.02, idx = s => Math.max(0, Math.min(rms.length - 1, Math.round(s / 0.02)));
+  const limiar = Math.max(...rms) * 0.06;
+  const cortes = [0];
+  for (let k = 1; k < trechos.length; k++) {
+    let melhor = idx(trechos[k - 1].fim - 0.1);
+    for (let i = melhor; i <= idx(trechos[k].inicio + 0.25); i++) if (rms[i] < rms[melhor]) melhor = i;
+    cortes.push(+t(melhor).toFixed(2));
+  }
+  cortes.push(+t(rms.length).toFixed(2));
+  return ids.map((id, k) => {
+    let voz = idx(cortes[k]);
+    while (voz < rms.length - 1 && rms[voz] < limiar) voz++;
+    // a transcrição escreve a marca do jeito dela ("ToLive", "2Live"): é toLive
+    const marca = s => s.replace(/\b(To|2)Live\b/g, 'toLive');
+    return { id, de: cortes[k], ate: cortes[k + 1], voz: +t(voz).toFixed(2), texto: marca(trechos[k].texto), palavras: trechos[k].palavras.map(p => ({ ...p, p: marca(p.p) })) };
+  });
+}
+
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const pasta = resolve(process.argv[2] ?? '');
-  if (!existsSync(join(pasta, 'filme.mjs'))) { console.error('uso: node estudio/narracao.mjs videos/<id>'); process.exit(2); }
+  if (!existsSync(join(pasta, 'filme.mjs'))) { console.error('uso: node estudio/narracao.mjs videos/<id> [--medir <audio> <transcricao.json>]'); process.exit(2); }
   const filme = (await import(pathToFileURL(join(pasta, 'filme.mjs')).href)).default;
   if (!filme.narracao) { console.error(`${basename(pasta)} não tem narracao no filme.mjs`); process.exit(1); }
+  const i = process.argv.indexOf('--medir');
+  if (i > 0) {
+    const [audio, transcricao] = process.argv.slice(i + 1).map(a => resolve(a));
+    const falas = medirFalas(JSON.parse(readFileSync(transcricao, 'utf8')), volume(audio), filme.narracao.map(l => l.id));
+    const raiz = fileURLToPath(new URL('..', import.meta.url));
+    writeFileSync(join(pasta, 'narracao.json'), JSON.stringify({ arquivo: relative(raiz, audio), transcricao: relative(raiz, transcricao), falas }, null, 1) + '\n');
+    for (const f of falas) console.log(`${f.id.padEnd(12)} ${f.de.toFixed(2).padStart(6)}–${f.ate.toFixed(2).padEnd(6)} voz ${f.voz.toFixed(2)}  ${f.texto}`);
+    process.exit(0);
+  }
   const guardado = JSON.parse(readFileSync(new URL('../conhecimento/planos.json', import.meta.url), 'utf8'));
   writeFileSync(join(pasta, 'narracao.md'), roteiroDeLocucao(filme, oQueDizer(guardado.resposta)));
   for (const l of linhasDaNarracao(filme, oQueDizer(guardado.resposta))) console.log(`${l.arquivo.padEnd(18)} ${virgula(l.de).padStart(5)} s  ${String(l.palavras).padStart(2)}/${l.cabe}  ${l.texto}`);

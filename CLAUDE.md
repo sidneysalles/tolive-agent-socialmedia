@@ -94,7 +94,8 @@ estudio/
   aprovacao.mjs     a aprovação antes do render: quadros-chave, prévia do movimento e a página (Artifact com db)
   camadas.mjs       as telas desmontadas no filme (os assets e a ordem de chegada das peças)
   cena3d.mjs        perspectiva 3D pelo WebGL (planos com textura, câmera com foco, a tela recortando): o app em uso
-  narracao.mjs      o roteiro de locução (narracao.md) do `narracao` do filme: a fala de cada cena, a janela e o arquivo
+  narracao.mjs      o roteiro de locução (narracao.md) e, com o áudio, a medida de cada fala e palavra (--medir)
+  transcrever.py    a transcrição da narração com o tempo das palavras (faster-whisper, ferramenta da máquina)
 conhecimento/       curso-motion.md, marca-em-video.md, produtos.json (features e ângulos com id), site/, planos.json
 assets/capturas/    as telas do site em 3x, fundo transparente, e indice.json
 assets/musicas/     música licenciada (CC0 ou CC BY; a licença e o crédito em LICENCAS.md; o teste confere)
@@ -152,6 +153,10 @@ node estudio/historico.mjs                            # a memória
   outro problema, saiu pra outro vídeo); depois dos problemas vem a resposta a eles ("A tecnologia precisa nos devolver tempo
   de vida", com o logo inteiro), e o mote "feita para não ser usada" só no fim. As decisões do Sidney ficam em `conhecimento/marca-em-video.md`
   e os pedidos de cada quadro, no db da página de aprovação (lidos com o ArtifactData antes de mexer). (out/2026)
+- Narração (o Propósito, out/2026): com voz, a fala manda na linha do tempo e a tela escreve o que ela diz (o Sidney
+  mudou metade das frases na hora de gravar, e a tela foi atrás). A voz mais rápida que o roteiro não encurta o filme:
+  ele cresceu (38 → 43 s) porque cada feature precisa dos seus dois compassos pra mostrar o toque. No foco, o texto fica
+  compacto no topo em vez de sumir (sumia enquanto a voz ainda o dizia). (out/2026)
 - Chave de API nunca no chat: a sessão recusa usar a que foi colada (vazada no histórico). Vai nas configurações do
   ambiente. (out/2026)
 - O preço de exemplo do site ("Streaming parado, R$ 39,90 por mês") não é preço da toLive; o `texto.mjs` só reprova os

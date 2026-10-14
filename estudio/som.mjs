@@ -171,7 +171,8 @@ export function wav([E, D]) {
 /**
  * O som do vídeo em saida/som.wav. Com som.musica (um arquivo licenciado em assets/musicas/, ver o LICENCAS.md de
  * lá), a música entra a partir de som.inicio, com fade no fim, e os sons de interface por cima; sem, a trilha
- * sintetizada no estilo do filme.
+ * sintetizada no estilo do filme. Com som.narracao ({ arquivo, falas: [{ de, ate, em }] }), a voz entra por cima e a
+ * música baixa sob ela.
  */
 export async function somDoVideo(pasta) {
   const filme = (await import(pathToFileURL(resolve(pasta, 'filme.mjs')).href)).default;
@@ -181,11 +182,24 @@ export async function somDoVideo(pasta) {
   if (!som.musica) { writeFileSync(destino, wav(sintetizar(som))); return destino; }
   const efeitos = join(pasta, 'saida', 'efeitos.wav');
   writeFileSync(efeitos, wav(sintetizar({ ...som, estilo: 'nenhuma' })));
-  const musica = resolve(fileURLToPath(new URL('..', import.meta.url)), som.musica);
+  const raiz = fileURLToPath(new URL('..', import.meta.url));
+  const musica = resolve(raiz, som.musica);
   const fim = Math.max(0, som.duracao - (som.fimDe ?? 1.8));
-  execFileSync('ffmpeg', ['-y', '-v', 'error', '-ss', String(som.inicio ?? 0), '-t', String(som.duracao), '-i', musica, '-i', efeitos,
-    '-filter_complex', `[0:a]aresample=${SR},afade=t=out:st=${fim}:d=${som.fimDe ?? 1.8}[m];[1:a]volume=${som.volumeEfeitos ?? 0.5}[e];[m][e]amix=inputs=2:normalize=0[s]`,
-    '-map', '[s]', '-ac', '2', '-ar', String(SR), destino]);
+  const entradas = ['-ss', String(som.inicio ?? 0), '-t', String(som.duracao), '-i', musica, '-i', efeitos];
+  let filtro = `[0:a]aresample=${SR},volume=${som.volumeMusica ?? 1},afade=t=out:st=${fim}:d=${som.fimDe ?? 1.8}[m0];[1:a]volume=${som.volumeEfeitos ?? 0.5}[e];`;
+  const n = som.narracao;
+  if (n?.falas?.length) {
+    // a voz: cada fala cortada no arquivo dela e posta na hora da cena; a música baixa enquanto a voz fala (sidechain)
+    entradas.push('-i', resolve(raiz, n.arquivo));
+    n.falas.forEach((f, k) => {
+      const atraso = Math.round(f.em * 1000);
+      filtro += `[2:a]atrim=start=${f.de}:end=${f.ate},asetpts=PTS-STARTPTS,aresample=${SR},afade=t=in:d=0.02,afade=t=out:st=${(f.ate - f.de - 0.03).toFixed(3)}:d=0.03,adelay=${atraso}:all=1[v${k}];`;
+    });
+    filtro += `${n.falas.map((_, k) => `[v${k}]`).join('')}amix=inputs=${n.falas.length}:normalize=0,volume=${n.volume ?? 1},apad=whole_dur=${som.duracao},aformat=channel_layouts=stereo,asplit=2[voz][chave];`;
+    filtro += `[m0][chave]sidechaincompress=threshold=${n.limiar ?? 0.03}:ratio=${n.razao ?? 5}:attack=25:release=450:makeup=1[m];`;
+    filtro += '[m][e][voz]amix=inputs=3:normalize=0[s]';
+  } else filtro += '[m0][e]amix=inputs=2:normalize=0[s]';
+  execFileSync('ffmpeg', ['-y', '-v', 'error', ...entradas, '-filter_complex', filtro, '-map', '[s]', '-t', String(som.duracao), '-ac', '2', '-ar', String(SR), destino]);
   return destino;
 }
 

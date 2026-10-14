@@ -89,7 +89,12 @@ A fala diz **o que a tela escreve, na hora em que ela escreve** (Sidney, 14/10/2
 quem vê sem som, a maioria no feed, lê a mesma coisa). Ponha `narracao: [{ id, de, ate, texto, nota }]` no filme
 (a do teste grátis com `catalogo: true`, arquivo à parte) e rode `node estudio/narracao.mjs videos/<id>`: o
 `narracao.md` é o roteiro de locução, com o limite de palavras de cada janela. Fala que não cabe faz a cena crescer
-em batidas inteiras. O áudio volta um arquivo por fala; aí os cortes seguem a fala e a música baixa sob a voz.
+em batidas inteiras. Com o áudio de volta (um arquivo só serve, com as falas na ordem): transcreva com
+`estudio/transcrever.py` (faster-whisper, fora do repositório; o medium marca melhor o tempo, o large-v3 erra menos o
+texto: rode os dois e compare), meça com `node estudio/narracao.mjs videos/<id> --medir <audio> <transcricao>` e importe
+o `narracao.json` no filme: `EM[id]` é a hora da fala no filme, `W(id, k)` a da palavra k, e o texto da tela entra na
+palavra dele. A pessoa muda o texto ao gravar: a tela passa a escrever o que a voz disse. `som.narracao` mistura a voz e
+baixa a música (`volumeMusica` uns 4 dB abaixo, sidechain sob a voz). O Propósito é a referência.
 
 ## 4. Animar
 

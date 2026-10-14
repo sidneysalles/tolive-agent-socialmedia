@@ -1,31 +1,25 @@
-# Roteiro · Tecnologia feita para não ser usada (37,98 s, na grade da música: 117,55 BPM, batida = 0,510 s, compasso = 2,042 s)
+# Roteiro · Tecnologia feita para não ser usada (42,76 s, narrado; a música na grade de 117,55 BPM)
 
-Música: "Inspired", Kevin MacLeod, a partir de 69,649 s (a escolhida na página de aprovação, rodada 2): cinco compassos
-calmos, a virada no compasso 5, e ela some nos últimos 2,2 s do fim parado.
+Versão 6 (14/10/2026): a narração do Sidney (`narracao.md`, medida em `narracao.json`) manda na linha do tempo. A tela
+escreve o que a voz diz, na palavra em que ela diz. Música: "Inspired", Kevin MacLeod, a partir de 67,607 s (um
+compasso antes do corte aprovado, pra a promessa caber antes da virada), a virada no compasso 6 (12,25 s), baixando
+sob a voz; some nos últimos 2,2 s.
 
-Versão 5 (14/10/2026, os pedidos do Sidney depois da página de aprovação): cada feature com dois compassos e um plano de
-câmera (o app entra por um ângulo diferente, a câmera mostra o app inteiro, vai até um detalhe), as telas sendo usadas
-(o toque no botão e a confirmação do próprio app, capturas de antes e depois), o gráfico da projeção subindo, a tela que
-apaga no lugar do manifesto, e os dias grátis em letra grande no fim.
+| Tempo | Voz | Na tela |
+| --- | --- | --- |
+| 0,0–4,3 | "Boleto, fatura, extrato, planilha, lembrete." | Uma palavra por fala, papel e noite alternando: cada palavra troca a tela |
+| 4,4–6,5 | "Cada um pede um pedaço de você." | A frase, uma linha por palavra (Cada um · pede um · pedaço · de você), o ponto no fim |
+| 6,6–7,9 | — | Noite: o horizonte corre, o sol nasce, o símbolo encolhe até o lugar do "o" |
+| 7,9–11,7 | "toLive Finanças, nosso app que te devolve tempo para viver." | As letras de toLive abrem no "toLive"; FINANÇAS no "Finanças"; "Nosso app que / te devolve / tempo para viver", com a voz |
+| 12,25 | (a virada da música) | Corte seco: o celular entra de lado; Contas e bancos se monta |
+| 12,1–15,1 | "Ele conecta e lê seus bancos pelo Open Finance." | "Conecta." no "conecta"; "E lê seus bancos pelo Open Finance."; o foco no cartão, o toque em "Rafael", a confirmação do app |
+| 16,4–18,9 | "Organiza seus lançamentos aprendendo com você." | "Organiza." / "Seus lançamentos, aprendendo com você."; o toque em "Certo", "Faltam nove", a confirmação |
+| 20,5–22,7 | "Avisa antes quando o mês vai estourar." | "Avisa antes." / "Quando o mês vai estourar."; o foco no alerta, a barra do gasto se desenha |
+| 24,6–27,8 | "Projeta seu ano antecipando os seus próximos 12 meses." | "Projeta seu ano." / "Antecipando os seus próximos 12 meses."; as barras sobem no "antecipando" |
+| 28,6–31,2 | "Acompanhe todo o seu patrimônio em um lugar só." | "Acompanhe." / "Todo o seu patrimônio em um lugar só."; o foco no total, a linha sobe |
+| 32,8–34,0 | "E pode fechar o app." | A tela de frente; "E pode fechar / o app" com a voz; a tela apaga depois do "app", o ponto assenta, a câmera entra nela |
+| 35,4–38,7 | "toLive, tecnologia feita para não ser usada." | O logo com o sol nascendo no "toLive", FINANÇAS, o mote linha por linha com a voz |
+| 38,9–40,9 | "30 dias grátis com até duas conexões." | "30 dias / grátis" em letra grande (do catálogo), "com até duas conexões" |
+| 40,9–42,8 | — | "Comece em tolive.app". Parado |
 
-| Compasso | Tempo | Na tela | Música | Som |
-| --- | --- | --- | --- | --- |
-| batidas 0–4 | 0,00–2,6 | Uma palavra por batida, papel e noite alternando: Boleto · Fatura · Extrato · Planilha · Lembrete (só tarefas chatas; o "Susto no dia 30" é outro problema, pra outro vídeo) | calma | bate em cada palavra |
-| batidas 5–9 | 2,6–5,1 | "Cada um pede um pedaço de você" + o ponto | calma | — |
-| batidas 10–13 | 5,1–7,1 | Noite. O horizonte corre; o sol nasce atrás dele | calma | — |
-| batidas 13–19 | 6,6–10,2 | O símbolo encolhe até o lugar do "o" e o "t" e o "Live" se abrem a partir dele: o logo inteiro. "A tecnologia precisa nos devolver tempo de vida", uma linha por batida (responde aos problemas; o mote fica pro fim) | calma, subindo | — |
-| 5–6 | 10,21 | **A virada.** Corte seco: "Conecta." O celular entra de lado (da direita), Contas e bancos se monta peça por peça; a câmera vai ao cartão "Chegou uma conta nova"; o dedo aperta "Rafael"; o cartão sai, "Em conta" entra e a barra "Dono: Rafael · Conta Corrente Exemplo · Trocar" sobe | a energia sobe | toque, entra |
-| 7–8 | 14,3 | Empurra: "Organiza." O celular sobe de baixo; Aprovar ("Faltam dez."); a câmera chega no lançamento e no "Certo"; o dedo aperta; o lançamento sai, o próximo entra, "Faltam nove.", e a barra da confirmação sobe | sobe | passa, toque, entra |
-| 9–10 | 18,4 | Empurra: "Avisa antes." O celular desce do alto; o mês ("Vai passar."); a câmera vai ao cartão de alerta e a barra do gasto se desenha | sobe | passa |
-| 11–12 | 22,5 | Empurra: "Projeta o ano." O cartão da projeção do site vem de baixo, de longe; as doze barras crescem da base, uma por vez (as seis do passado, depois as seis projetadas); a câmera chega perto | sobe | passa |
-| 13–14 | 26,5 | Empurra: "Soma tudo." O celular entra da esquerda; o patrimônio ("Oscilação normal."); a câmera vai ao total e a linha dos cinco meses se desenha, subindo | sobe | passa |
-| 15 | 30,6 | A mesma tela fica de frente; "Pode fechar o app"; na batida 2 a tela apaga e só então o ponto assenta; a câmera entra na tela apagada | o auge | toque, passa |
-| 16 | 32,7 | A tela apagada é a noite do fim: o logo, o sol nasce nele (a assinatura), FINANÇAS e o mote, "Tecnologia feita para não ser usada" (a única vez no filme) | o fim | — |
-| 16–18 | 35,2–38 | "30 dias / grátis" em letra grande (do catálogo), "com até duas conexões", "Comece em tolive.app". Parado | a música some | bate nos dias grátis |
-
-Um laranja por quadro: o ponto de cada título ou o sol (a bolinha de alerta e o ponto dentro da tela do app são da
-captura). No "Pode fechar o app", o ponto só assenta depois que a tela apaga.
-As telas: `npm run local` do tolive-financas, dados simulados de um casal fictício, nomes trocados (capturar-app.mjs);
-os toques são de verdade (capturas de antes e depois, `uso` em capturas-app.json). O gráfico que sobe é o cartão
-"Projeção de 12 meses" do site (capturar.mjs com `pecas`): a projeção do app com os dados simulados fecha no vermelho
-em qualquer data, e o pedido era o gráfico subindo.
+No foco de cada feature o texto fica compacto no topo (a voz ainda o está dizendo) e o celular, recortado embaixo dele.
