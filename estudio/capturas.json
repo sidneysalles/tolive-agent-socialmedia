@@ -37,10 +37,11 @@
       "nome": "celular-tolive",
       "pagina": "/",
       "seletor": "#diferente .camada--tolive",
-      "o_que": "O celular do toLive na comparação: 'Uma coisa é sua', o pedido da conta de luz",
+      "o_que": "O celular do toLive na comparação: 'Uma coisa é sua', o pedido da conta de luz (desmontado: o Manifesto, out/2026)",
       "cliques": [
         "#diferente button[data-tela=\"tolive\"]"
-      ]
+      ],
+      "pecas": ".camada-marca, .camada-data, .camada-veredito, .camada-sub, .camada-pedido, .camada-fecho"
     },
     {
       "nome": "como-1-conectar",
@@ -111,7 +112,18 @@
       "nome": "toly-balao",
       "pagina": "/",
       "seletor": ".toly-secao .toly-balao",
-      "o_que": "O cartão do Toly: três assinaturas sem uso, com a fonte e o 'Agora não'"
+      "o_que": "O cartão do Toly: três assinaturas sem uso, com a fonte e o 'Agora não' (desmontado: o Manifesto, out/2026)",
+      "pecas": ".toly-estado:first-child > *"
+    },
+    {
+      "nome": "toly-balao-depois",
+      "pagina": "/",
+      "seletor": ".toly-secao .toly-balao",
+      "o_que": "O cartão do Toly depois do 'Agora não': 'O Toly voltou a trabalhar em silêncio.' (desmontado: o Manifesto, out/2026)",
+      "cliques": [
+        ".toly-secao .toly-balao .btn--fantasma"
+      ],
+      "pecas": ".toly-estado:last-child > *"
     },
     {
       "nome": "toly-tres",

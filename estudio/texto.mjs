@@ -43,9 +43,13 @@ export function conferirTexto(texto, { precos = PRECOS } = {}) {
   return achados;
 }
 
-/** As strings de um módulo JS (aspas simples, duplas e crase), sem os comentários nem o código em volta. */
+/**
+ * As strings de um módulo JS (aspas simples, duplas e crase), sem os comentários nem o código em volta. O trecho entre
+ * `// <voz-de-fora>` e `// </voz-de-fora>` fica de fora: é a fala do inimigo que o filme mostra pra criticar (o
+ * Manifesto, out/2026: "Não perca sua sequência" no aviso do caos). Use só pra isso.
+ */
 export function stringsDoCodigo(codigo) {
-  const semComentario = codigo.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:'"`\\])\/\/.*$/gm, '$1');
+  const semComentario = codigo.replace(/\/\/ <voz-de-fora>[\s\S]*?\/\/ <\/voz-de-fora>/g, '').replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:'"`\\])\/\/.*$/gm, '$1');
   const out = [];
   const re = /'((?:[^'\\\n]|\\.)*)'|"((?:[^"\\\n]|\\.)*)"|`((?:[^`\\]|\\.)*)`/g;
   for (const m of semComentario.matchAll(re)) {

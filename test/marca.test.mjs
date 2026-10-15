@@ -62,6 +62,7 @@ test('a voz: o que a marca proíbe vira erro, o que ela pede passa', () => {
 });
 
 test('a conferência lê só as strings do código, não o código', () => {
+  assert.deepEqual(stringsDoCodigo("const a = 'Tudo em ordem';\n// <voz-de-fora>\nconst b = ['Não perca sua sequência'];\n// </voz-de-fora>\nconst c = 'Você vive';"), ['Tudo em ordem', 'Você vive'], 'a fala do inimigo, marcada, fica de fora');
   const s = stringsDoCodigo(`if (!a) x = 'Tudo em ordem'; // não perca!\nconst c = "#111111"; d.texto(g, \`Faltam \${n}\`)`);
   assert.deepEqual(s, ['Tudo em ordem', 'Faltam 0']);
 });

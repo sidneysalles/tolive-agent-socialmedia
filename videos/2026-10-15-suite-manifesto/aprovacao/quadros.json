@@ -1,0 +1,88 @@
+{
+  "em": "2026-10-15T02:30:17.798Z",
+  "formatos": [
+    "reels"
+  ],
+  "quadros": [
+    {
+      "id": "caos",
+      "t": 4.58,
+      "nome": "O caos: a tecnologia que prende",
+      "texto": "Bolinhas, avisos, chama, medalha, confete · \"Mais um alerta\"",
+      "formato": "reels",
+      "arquivo": "quadros/reels-caos.jpg"
+    },
+    {
+      "id": "noite",
+      "t": 9.62,
+      "nome": "A noite: o silêncio depois do caos",
+      "texto": "Todo dia surge algo novo · Nenhum pra você viver melhor · Todas pra te prender mais",
+      "formato": "reels",
+      "arquivo": "quadros/reels-noite.jpg"
+    },
+    {
+      "id": "sol",
+      "t": 15.48,
+      "nome": "O sol nasce e vira o logo",
+      "texto": "toLive · nasceu pro contrário: pra você viver fora da tela",
+      "formato": "reels",
+      "arquivo": "quadros/reels-sol.jpg"
+    },
+    {
+      "id": "rotinas",
+      "t": 18.74,
+      "nome": "As rotinas",
+      "texto": "Dinheiro · Casa · Agendas · Organização",
+      "formato": "reels",
+      "arquivo": "quadros/reels-rotinas.jpg"
+    },
+    {
+      "id": "cuida",
+      "t": 20.41,
+      "nome": "A gente cuida e você vive",
+      "texto": "A gente cuida e você vive",
+      "formato": "reels",
+      "arquivo": "quadros/reels-cuida.jpg"
+    },
+    {
+      "id": "app",
+      "t": 25.62,
+      "nome": "O Finanças: a decisão pronta, o toque",
+      "texto": "Uma coisa é sua · O resto está resolvido · \"Ver a conta\"",
+      "formato": "reels",
+      "arquivo": "quadros/reels-app.jpg"
+    },
+    {
+      "id": "restante",
+      "t": 29.23,
+      "nome": "O restante deixa conosco",
+      "texto": "O restante deixa conosco",
+      "formato": "reels",
+      "arquivo": "quadros/reels-restante.jpg"
+    },
+    {
+      "id": "toly",
+      "t": 32.28,
+      "nome": "O Toly: só chama quando a decisão é sua",
+      "texto": "\"Agora não\" → \"Tudo bem. Não pergunto de novo este mês.\"",
+      "formato": "reels",
+      "arquivo": "quadros/reels-toly.jpg"
+    },
+    {
+      "id": "sem",
+      "t": 34.09,
+      "nome": "Sem sequência, sem medalha (o caos riscado)",
+      "texto": "Sem sequência · Sem medalha",
+      "formato": "reels",
+      "arquivo": "quadros/reels-sem.jpg"
+    },
+    {
+      "id": "fim",
+      "t": 38.52,
+      "nome": "O fim: o logo, a frase, os dias grátis",
+      "texto": "Tecnologia pra você viver · o teste grátis do catálogo · Comece em tolive.app",
+      "formato": "reels",
+      "arquivo": "quadros/reels-fim.jpg"
+    }
+  ]
+}

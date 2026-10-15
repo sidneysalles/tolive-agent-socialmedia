@@ -1,17 +1,15 @@
 # Roteiro · Tecnologia pra você viver melhor (o Manifesto)
 
-Fechado com o Sidney em 15/10/2026 (etapa A). Tempos na fala calma, a 116 BPM; o filme acelera 4/3 (~33 s). A grade
-final sai da música escolhida e da voz gravada.
+Fechado com o Sidney em 15/10/2026 (etapa A); a voz gravada por ele mudou o texto e manda na linha do tempo
+(narracao.json). Tempos no filme acelerado 4/3 (38,7 s). Música: "Light Thought var 1" (136 BPM), entrando no silêncio
+da noite e virando no "toLive"; depois da virada, cada corte de cena numa batida.
 
-| Parte | Tempo | Na tela | Voz |
-| --- | --- | --- | --- |
-| Gancho | 0–3,6 | O caos (só aqui): bolhas vermelhas pulando, "99+", chama de sequência, medalha, confete, "Sentimos sua falta" | "Quase toda tecnologia foi feita pra te prender." |
-| Problema | 3,6–7,2 | O caos cresce, um corte por batida | "Mais um alerta. Mais um motivo pra voltar." |
-| Fundo do poço | 7,2–12,4 | Tudo some de uma vez. Noite, silêncio, a frase | "Todo dia surge um app novo. Quase nenhum pra você viver melhor." |
-| Virada | 12,4–17,6 | O sol nasce atrás do horizonte e vira o logo; a música vira | "A toLive nasceu pro contrário: pra você viver fora da tela." |
-| Os pilares | 17,6–23,8 | Na linha do horizonte, uma palavra por batida, sem cor de app | "Dinheiro, casa, saúde, fé: a gente cuida da rotina. Você fica com a vida." |
-| Prova 1 | 23,8–27,9 | O Finanças abre: "Tudo em ordem. Nada exige sua atenção hoje." | "Começamos pelo dinheiro. Você abre, lê uma frase e fecha." |
-| Prova 2 | 27,9–32,1 | Um pedido só do Toly, com o "Agora não"; o toque | "E ele só te chama quando a decisão é sua." |
-| A rima | 32,1–36,2 | A chama e a medalha do começo voltam e são riscadas; a frase | "Sem sequência. Sem medalha. Tecnologia pra você viver melhor." |
-| Fecho | 36,2–38,3 | Logo com o sol, "Tecnologia feita para não ser usada." (só escrito) | — |
-| Convite | 38,3–44,5 | Os dias grátis do catálogo, tolive.app, parado | (a fala do catálogo) "Comece em tolive.app." |
+| Tempo | Voz | Na tela |
+| --- | --- | --- |
+| 0,0–6,9 | "Quase toda a tecnologia foi feita pra te prender. Mais um alerta, bolinha vermelha, mais um motivo pra voltar." | O caos (só aqui): bolinhas com número, avisos, chama, medalha, confete crescendo; a frase grande no meio; a bolinha gigante "99+" no "bolinha". Só os avisos tocando, sem música |
+| 6,9–11,6 | "Todo dia surge algo novo. Nenhum pra você viver melhor. Todas pra te prender mais." | Corte seco pra noite. Uma frase por fala, branca. A música entra por baixo |
+| 11,6–15,7 | "A toLive nasceu pro contrário, pra você viver fora da tela." | O horizonte, o sol nasce, o símbolo vira o logo no "toLive"; a música vira |
+| 15,7–20,5 | "Rotinas de dinheiro, da casa, agendas, organização. A gente cuida e você vive." | As quatro palavras, uma por palavra da voz; "A gente cuida e você vive." com o ponto |
+| 20,5–29,3 | "Nós começamos pelo dinheiro. Você abre, nós te trazemos o mais importante pronto pra você decidir, e depois, fecha. É isso. O restante deixa conosco." | O celular do site chega de lado e se monta ("Uma coisa é sua. O resto está resolvido."); o app toma o quadro; o foco na decisão; o dedo em "Ver a conta" no "decidir"; a tela apaga no "fecha" e o aparelho desce; "É isso." / "O restante deixa conosco." |
+| 29,3–34,2 | "E a nossa tecnologia só te chama quando a decisão é sua, sem sequência, sem medalha." | "Só te chama quando a decisão é sua."; o cartão do Toly se monta; o dedo em "Agora não"; "Tudo bem. Não pergunto de novo este mês."; a chama e a medalha do começo riscadas |
+| 34,2–38,7 | "Tecnologia pra você viver." | Noite: o logo com o sol nascendo, a frase, "30 dias grátis" (do catálogo) grande, "Comece em tolive.app". Parado |

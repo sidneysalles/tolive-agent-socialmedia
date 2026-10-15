@@ -94,6 +94,13 @@ export function mola(t, k = 170, d = 27) {
   return 1 - (r2 * Math.exp(r1 * t) - r1 * Math.exp(r2 * t)) / (r2 - r1);
 }
 
+/**
+ * O quique, de propósito: o retrato do inimigo (o Manifesto, out/2026: a abertura mostra a tecnologia que prende, com
+ * bolinha pulando, medalha e confete; o Sidney liberou o caos só ali). Escala 0 → 1 passando do alvo e voltando. Fora
+ * dessa abertura a marca não quica: nenhuma cena da toLive usa isto.
+ */
+export const quica = (t, inicio, k = 260, d = 9) => mola(t - inicio, k, d);
+
 /** As molas que o estúdio usa. Todas com z >= 1 (o teste confere). */
 export const MOLAS = Object.freeze({
   ui: { k: 320, d: 36 },      // botão, seletor, borda que lidera

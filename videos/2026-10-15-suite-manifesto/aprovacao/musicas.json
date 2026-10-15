@@ -208,5 +208,8 @@
       ]
     }
   ],
-  "escolhida": null
+  "escolhida": {
+    "id": "light-thought-var-1",
+    "em": "2026-10-15T02:19:28.035Z"
+  }
 }

@@ -15,6 +15,7 @@ export function acelerar(filme, k, { musicaInicio } = {}) {
   const som = filme.som && {
     ...filme.som,
     ...(musicaInicio !== undefined ? { inicio: musicaInicio } : {}),
+    ...(filme.som.musicaEm !== undefined ? { musicaEm: div(filme.som.musicaEm) } : {}),
     sons: (filme.som.sons ?? []).map(s => ({ ...s, t: div(s.t) })),
     ...(filme.som.narracao ? { narracao: { ...filme.som.narracao, tempo: k, falas: filme.som.narracao.falas.map(f => ({ ...f, em: div(f.em) })) } } : {}),
   };

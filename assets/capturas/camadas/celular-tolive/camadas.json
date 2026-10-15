@@ -1,0 +1,76 @@
+{
+  "tela": "celular-tolive",
+  "largura": 300,
+  "altura": 620,
+  "escala": 3,
+  "fundo": "fundo.png",
+  "semAparelho": true,
+  "pecas": [
+    {
+      "i": 0,
+      "tipo": "peca",
+      "arquivo": "00-peca.png",
+      "x": 18,
+      "y": 18,
+      "w": 264,
+      "h": 39,
+      "texto": "",
+      "conteudo": ""
+    },
+    {
+      "i": 1,
+      "tipo": "peca",
+      "arquivo": "01-peca.png",
+      "x": 18,
+      "y": 89,
+      "w": 264,
+      "h": 19.5,
+      "texto": "",
+      "conteudo": ""
+    },
+    {
+      "i": 2,
+      "tipo": "peca",
+      "arquivo": "02-peca.png",
+      "x": 18,
+      "y": 118.5,
+      "w": 264,
+      "h": 75.6,
+      "texto": "",
+      "conteudo": ""
+    },
+    {
+      "i": 3,
+      "tipo": "peca",
+      "arquivo": "03-peca.png",
+      "x": 18,
+      "y": 204.1,
+      "w": 264,
+      "h": 19.6,
+      "texto": "",
+      "conteudo": ""
+    },
+    {
+      "i": 4,
+      "tipo": "peca",
+      "arquivo": "04-peca.png",
+      "x": 18,
+      "y": 243.7,
+      "w": 264,
+      "h": 148.5,
+      "texto": "",
+      "conteudo": ""
+    },
+    {
+      "i": 5,
+      "tipo": "peca",
+      "arquivo": "05-peca.png",
+      "x": 18,
+      "y": 561,
+      "w": 264,
+      "h": 39,
+      "texto": "",
+      "conteudo": ""
+    }
+  ]
+}

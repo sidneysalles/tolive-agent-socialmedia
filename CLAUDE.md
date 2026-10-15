@@ -181,3 +181,9 @@ node estudio/historico.mjs                            # a memória
   memória conta a feature no app dela). E a busca de música (o Manifesto, out/2026) trouxe Jingle Bells, uma ária
   cantada e duas valsas: voz cantada briga com a narração, valsa não cabe em compasso de quatro, e a música de outro
   vídeo não volta (cada filme com a sua). (out/2026)
+- O Manifesto (out/2026): a fala do inimigo na tela ("Não perca sua sequência" no aviso do caos) vai entre
+  `// <voz-de-fora>` e `// </voz-de-fora>`, que o `texto.mjs` pula; o quique só do caos é `m.quica`, fora das MOLAS. A
+  música pode entrar depois do começo (`som.musicaEm`, com `musicaSobe`): o caos abre só com o som `aviso`. E cartão do
+  site vira camadas com `pecas` no `capturas.json` (o celular do toLive, o Toly antes e depois do "Agora não"); no filme,
+  `semAparelho: false` põe a tela num aparelho, e peças com `texto` único trocam no lugar no toque. (out/2026)
+

@@ -1,0 +1,54 @@
+{
+  "tela": "toly-balao",
+  "largura": 372,
+  "altura": 258,
+  "escala": 3,
+  "fundo": "fundo.png",
+  "semAparelho": true,
+  "pecas": [
+    {
+      "i": 0,
+      "tipo": "peca",
+      "arquivo": "00-peca.png",
+      "x": 24,
+      "y": 24,
+      "w": 324,
+      "h": 22.5,
+      "texto": "",
+      "conteudo": ""
+    },
+    {
+      "i": 1,
+      "tipo": "peca",
+      "arquivo": "01-peca.png",
+      "x": 24,
+      "y": 58.5,
+      "w": 324,
+      "h": 84,
+      "texto": "",
+      "conteudo": ""
+    },
+    {
+      "i": 2,
+      "tipo": "peca",
+      "arquivo": "02-peca.png",
+      "x": 24,
+      "y": 154.5,
+      "w": 324,
+      "h": 19.5,
+      "texto": "",
+      "conteudo": ""
+    },
+    {
+      "i": 3,
+      "tipo": "peca",
+      "arquivo": "03-peca.png",
+      "x": 24,
+      "y": 186,
+      "w": 324,
+      "h": 48,
+      "texto": "",
+      "conteudo": ""
+    }
+  ]
+}

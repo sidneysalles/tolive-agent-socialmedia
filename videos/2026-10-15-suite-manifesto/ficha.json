@@ -4,14 +4,15 @@
   "titulo": "Tecnologia pra você viver melhor",
   "serie": null,
   "angulo": "manifesto",
-  "gancho": "Quase toda tecnologia foi feita pra te prender.",
+  "gancho": "Quase toda a tecnologia foi feita pra te prender.",
   "mensagens": [
-    "Quase toda tecnologia foi feita pra te prender: mais um alerta, mais um motivo pra voltar (o caos de notificações, sequências e medalhas, só nos primeiros segundos).",
-    "Todo dia surge um app novo; quase nenhum pra você viver melhor (o silêncio antes da virada).",
-    "A toLive nasceu pro contrário: pra você viver fora da tela (o sol nasce e vira o logo).",
-    "Dinheiro, casa, saúde, fé: a gente cuida da rotina, você fica com a vida (os pilares como partes da vida, nunca como apps).",
-    "Começamos pelo dinheiro: abre, lê uma frase, fecha; só chama quando a decisão é sua (o Finanças, Tudo em ordem e o Toly).",
-    "Sem sequência. Sem medalha. Tecnologia pra você viver melhor (as peças do caos voltam riscadas). O mote só escrito; os dias grátis do catálogo."
+    "Quase toda a tecnologia foi feita pra te prender: mais um alerta, bolinha vermelha, mais um motivo pra voltar (o caos: bolinhas, avisos, chama, medalha, confete, só aqui).",
+    "Todo dia surge algo novo. Nenhum pra você viver melhor. Todas pra te prender mais (a noite, em silêncio).",
+    "A toLive nasceu pro contrário, pra você viver fora da tela (o sol nasce e vira o logo; a música vira).",
+    "Rotinas de dinheiro, da casa, agendas, organização. A gente cuida e você vive (sem nome de app).",
+    "Nós começamos pelo dinheiro: você abre, a decisão vem pronta, decide e fecha. É isso. O restante deixa conosco (o celular do site: Uma coisa é sua).",
+    "Só te chama quando a decisão é sua (o Toly, o Agora não respeitado); sem sequência, sem medalha (o caos riscado).",
+    "Tecnologia pra você viver. O logo, os dias grátis do catálogo, Comece em tolive.app."
   ],
   "features": [
     "financas:veredito",
@@ -24,7 +25,7 @@
   "cta": "Comece em tolive.app (com o teste grátis do catálogo)",
   "status": "rascunho",
   "publicado": [],
-  "notas": "Etapa A fechada com o Sidney em 15/10/2026 (roteiro em roteiro.md). Etapa B: a fala (narracao.md) e as dez músicas na página de aprovação; esperando a voz e a escolha.",
+  "notas": "Etapa A fechada em 15/10/2026. Etapa B: a fala e as dez músicas (a escolhida: Light Thought var 1). Etapa C (15/10/2026): a voz do Sidney manda (o texto mudou na gravação: 'bolinha vermelha', três frases na noite, 'Rotinas de dinheiro, da casa, agendas, organização', 'Você abre, nós te trazemos o mais importante pronto pra você decidir, e depois, fecha. É isso. O restante deixa conosco.', a rima dentro da fala do Toly, 'Tecnologia pra você viver' no fim; sem a fala dos dias grátis, que ficam só escritos). O mote 'Tecnologia feita para não ser usada' saiu do fim: a frase da voz ocupa o lugar dele (perguntado ao Sidney na aprovação). A prova é o celular do site ('Uma coisa é sua. O resto está resolvido.') e o cartão do Toly, desmontados (capturar.mjs com pecas). A música entra no silêncio da noite (som.musicaEm) e vira no 'toLive'; o caos é só aviso tocando. Acelerado 4/3: 38,7 s.",
   "apelido": "Manifesto",
   "duracao": 33,
   "formatos": [
@@ -34,7 +35,17 @@
   "aprovacao": {
     "pagina": "https://claude.ai/artifact/2pTyks4gYE7UECRHAf6xPn",
     "aberta_em": "2026-10-15",
-    "musica": null,
+    "musica": "light-thought-var-1 (escolhida na página, 15/10/2026)",
     "quadros": null
+  },
+  "musica": {
+    "arquivo": "assets/musicas/kevin-macleod-light-thought-var-1.mp3",
+    "licenca": "CC BY 4.0",
+    "credito": "Música: \"Light Thought var 1\", Kevin MacLeod (incompetech.com), licença CC BY 4.0"
+  },
+  "narracao": {
+    "arquivo": "assets/narracao/2026-10-15-suite-manifesto/narracao.mp3",
+    "voz": "enviada pelo Sidney (15/10/2026), com o texto mudado na gravação",
+    "diz_o_teste": null
   }
 }

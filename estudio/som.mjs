@@ -37,6 +37,8 @@ function vozes(r) {
     troca: [0.5, t => Math.sin(2 * Math.PI * midi(81) * t + 1.2 * Math.exp(-t * 9) * Math.sin(2 * Math.PI * midi(81) * t)) * Math.exp(-t * 7) * 0.09],
     // do registro do filme: a cena que empurra a outra e o tipo que bate
     passa: [0.5, (() => { let y = 0; return t => { const x = r() * 2 - 1; y += (0.05 + 0.4 * Math.sin(Math.PI * Math.min(1, t / 0.5))) * (x - y); return y * Math.sin(Math.PI * Math.min(1, t / 0.5)) ** 1.5 * 0.5; }; })()],
+    // a notificação do caos (o Manifesto, out/2026): dois tons curtos subindo, genérico (não imita o som de app nenhum)
+    aviso: [0.32, t => (Math.sin(2 * Math.PI * (t < 0.09 ? 1318.5 : 1760) * t) * Math.exp(-(t < 0.09 ? t : t - 0.09) * 18) * (t < 0.09 ? 0.7 : 1)) * Math.min(1, t / 0.003) * 0.16],
     bate: [0.18, t => (Math.sin(2 * Math.PI * (160 - 90 * t) * t) * 0.6 + (r() * 2 - 1) * Math.exp(-t * 90) * 0.4) * Math.exp(-t * 22) * 0.4],
   };
 }
@@ -185,9 +187,13 @@ export async function somDoVideo(pasta) {
   writeFileSync(efeitos, wav(sintetizar({ ...som, estilo: 'nenhuma' })));
   const raiz = fileURLToPath(new URL('..', import.meta.url));
   const musica = resolve(raiz, som.musica);
-  const fim = Math.max(0, som.duracao - (som.fimDe ?? 1.8));
-  const entradas = ['-ss', String(som.inicio ?? 0), '-t', String(som.duracao), '-i', musica, '-i', efeitos];
-  let filtro = `[0:a]aresample=${SR},volume=${som.volumeMusica ?? 1},afade=t=out:st=${fim}:d=${som.fimDe ?? 1.8}[m0];[1:a]volume=${som.volumeEfeitos ?? 0.5}[e];`;
+  // a música pode entrar depois do começo (som.musicaEm, com fade de som.musicaSobe s): o Manifesto abre só com os
+  // avisos do caos e o silêncio, e a música chega por baixo das frases da noite
+  const em = som.musicaEm ?? 0;
+  const fim = Math.max(0, som.duracao - em - (som.fimDe ?? 1.8));
+  const entradas = ['-ss', String(som.inicio ?? 0), '-t', String(som.duracao - em), '-i', musica, '-i', efeitos];
+  const entra = em > 0 ? `,afade=t=in:d=${som.musicaSobe ?? 0.8},adelay=${Math.round(em * 1000)}:all=1,apad=whole_dur=${som.duracao}` : '';
+  let filtro = `[0:a]aresample=${SR},volume=${som.volumeMusica ?? 1},afade=t=out:st=${fim}:d=${som.fimDe ?? 1.8}${entra}[m0];[1:a]volume=${som.volumeEfeitos ?? 0.5}[e];`;
   const n = som.narracao;
   if (n?.falas?.length) {
     // a voz: cada fala cortada no arquivo dela e posta na hora da cena; a música baixa enquanto a voz fala (sidechain)

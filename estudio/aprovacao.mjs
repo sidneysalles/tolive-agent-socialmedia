@@ -27,8 +27,11 @@ import { execFileSync } from 'node:child_process';
 const RAIZ = fileURLToPath(new URL('..', import.meta.url));
 const lerJson = (arq, padrao) => (existsSync(arq) ? JSON.parse(readFileSync(arq, 'utf8')) : padrao);
 
+// o formato da aprovação é o primeiro da ficha (o Manifesto é só reels); sem ficha, stories
+const formatosDoVideo = pasta => lerJson(join(pasta, 'ficha.json'), {}).formatos?.length ? lerJson(join(pasta, 'ficha.json'), {}).formatos : ['stories'];
+
 /** Os quadros-chave do filme (filme.quadros: [{ id, t, nome, texto }]) em JPEG de 540 px, por formato. */
-export async function quadros(pasta, { formatos = ['stories'] } = {}) {
+export async function quadros(pasta, { formatos = formatosDoVideo(pasta).slice(0, 1) } = {}) {
   const filme = (await import(pathToFileURL(join(pasta, 'filme.mjs')).href)).default;
   if (!filme.quadros?.length) throw new Error('o filme não diz os quadros-chave (export default { quadros: [{ id, t, nome, texto }] })');
   const dir = join(pasta, 'aprovacao', 'quadros');
@@ -67,7 +70,7 @@ export async function previa(pasta) {
   const filme = (await import(pathToFileURL(join(pasta, 'filme.mjs')).href)).default;
   const { de = 0, ate = Math.min(filme.duracao, 6) } = filme.previa ?? {};
   // o rascunho (meia resolução, JPEG, sem borrão, em paralelo): a prévia é pra aprovar ritmo e conteúdo, e sai em segundos
-  const [mudo] = await renderizar([pasta, '--de', String(de), '--ate', String(ate), '--rascunho']);
+  const [mudo] = await renderizar([pasta, '--de', String(de), '--ate', String(ate), '--rascunho', '--formato', formatosDoVideo(pasta)[0]]);
   const som = await somDoVideo(pasta);
   const destino = join(pasta, 'aprovacao', 'previa.mp4');
   mkdirSync(join(pasta, 'aprovacao'), { recursive: true });

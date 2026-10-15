@@ -1,7 +1,13 @@
-# Roteiro de locução · A maior parte da tecnologia pede mais atenção
+# Roteiro de locução · Tecnologia pra você viver melhor
 
 Gerado de `filme.mjs` (`node estudio/narracao.mjs videos/2026-10-15-suite-manifesto`): não edite à mão; mude a fala no filme.
-9 falas, 92 palavras em 16,0 s. A fala diz o que a tela escreve, na hora em que ela escreve.
+14 falas, 103 palavras em 38,7 s. A fala diz o que a tela escreve, na hora em que ela escreve.
+
+## A gravação
+
+Gravada (um arquivo só, `assets/narracao/2026-10-15-suite-manifesto/narracao.mp3`), transcrita (`estudio/transcrever.py`) e medida
+(`--medir`): a tabela abaixo é o que foi dito e a hora em que cada fala entra no filme. Pra regravar uma fala, grave
+de novo o arquivo inteiro na mesma ordem (ou só ela, e meça de novo).
 
 ## Como gravar
 
@@ -12,7 +18,7 @@ Gerado de `filme.mjs` (`node estudio/narracao.mjs videos/2026-10-15-suite-manife
 - **Pronúncia**: "toLive" é "tu-láiv"; "tolive.app" é "tu-láiv ponto app"; "Open Finance" em inglês.
 - **Caber na janela**: a coluna "cabe" é o máximo de palavras numa fala calma. Passou, a cena cresce em batidas inteiras
   e o filme fica mais longo; ficou curta, a cena segura a imagem.
-- **A fala 9 (o teste grátis) é do catálogo da conta**: se o teste mudar na conta, só ela se grava de novo.
+- **A fala 0 (o teste grátis) é do catálogo da conta**: se o teste mudar na conta, só ela se grava de novo.
 - Os arquivos vão em `assets/narracao/2026-10-15-suite-manifesto/` (ou numa pasta do Google Drive: o Claude baixa de lá).
 
 ## O que o estúdio faz com o áudio
@@ -25,12 +31,17 @@ a voz fala.
 
 | Arquivo | Janela (s) | Fala | Palavras / cabe | Na tela, junto |
 | --- | --- | --- | --- | --- |
-| `01-gancho.mp3` | 0,0–3,6 | Quase toda tecnologia foi feita pra te prender. | 8 / 8 | Calma, por cima do caos: a voz é o contraste. Sem indignação. |
-| `02-problema.mp3` | 3,6–7,2 | Mais um alerta. Mais um motivo pra voltar. | 8 / 8 | Duas frases, ponto final de verdade em cada uma. |
-| `03-fundo.mp3` | 7,2–12,4 | Todo dia surge um app novo. Quase nenhum pra você viver melhor. | 12 / 12 | No silêncio (o caos acabou de sumir). Mais baixa, mais perto, uma pausa no ponto. |
-| `04-virada.mp3` | 12,4–17,6 | A toLive nasceu pro contrário: pra você viver fora da tela. | 11 / 12 | Com o sol nascendo. A primeira frase que sobe: decidida, sem anúncio. |
-| `05-pilares.mp3` | 17,6–23,8 | Dinheiro, casa, saúde, fé: a gente cuida da rotina. Você fica com a vida. | 14 / 14 | As quatro palavras uma por batida (a tela escreve cada uma na hora); "Você fica com a vida" sorrindo. |
-| `06-dinheiro.mp3` | 23,8–27,9 | Começamos pelo dinheiro. Você abre, lê uma frase e fecha. | 10 / 9 ⚠ | Simples, quase rindo da simplicidade. |
-| `07-toly.mp3` | 27,9–32,1 | E ele só te chama quando a decisão é sua. | 10 / 9 ⚠ | "Ele" é o app. Ênfase leve em "sua". |
-| `08-rima.mp3` | 32,1–36,2 | Sem sequência. Sem medalha. Tecnologia pra você viver melhor. | 9 / 9 | As duas primeiras curtas, secas (a tela risca cada uma); a última aberta, é a frase do filme. |
-| `09-teste.mp3` | 38,3–42,4 | Trinta dias grátis, com até duas conexões. Comece em tolive.app. | 10 / 9 ⚠ | A parte dos dias grátis vem do catálogo: se mudar na conta, só esta se regrava. |
+| `01-gancho.mp3` | 0,1–3,0 | Quase toda a tecnologia foi feita pra te prender. | 9 / 6 ⚠ | gravada |
+| `02-alerta.mp3` | 3,0–7,3 | Mais um alerta, bolinha vermelha, mais um motivo pra voltar. | 10 / 9 ⚠ | gravada |
+| `03-surge.mp3` | 7,3–8,8 | Todo dia surge algo novo. | 5 / 2 ⚠ | gravada |
+| `04-nenhum.mp3` | 8,8–10,2 | Nenhum pra você viver melhor. | 5 / 2 ⚠ | gravada |
+| `05-todas.mp3` | 10,2–12,6 | Todas pra te prender mais. | 5 / 4 ⚠ | gravada |
+| `06-virada.mp3` | 12,6–15,7 | A toLive nasceu pro contrário, pra você viver fora da tela. | 11 / 6 ⚠ | gravada |
+| `07-rotinas.mp3` | 15,7–18,9 | Rotinas de dinheiro, da casa, agendas, organização. | 7 / 6 ⚠ | gravada |
+| `08-cuida.mp3` | 18,9–20,6 | A gente cuida e você vive. | 6 / 3 ⚠ | gravada |
+| `09-comecamos.mp3` | 20,6–21,9 | Nós começamos pelo dinheiro. | 4 / 2 ⚠ | gravada |
+| `10-abre.mp3` | 21,9–27,1 | Você abre, nós te trazemos o mais importante pronto pra você decidir, e depois, fecha. | 15 / 12 ⚠ | gravada |
+| `11-isso.mp3` | 27,1–27,6 | É isso. | 2 / 0 ⚠ | gravada |
+| `12-restante.mp3` | 27,6–29,5 | O restante deixa conosco. | 4 / 3 ⚠ | gravada |
+| `13-decisao.mp3` | 29,5–34,8 | E a nossa tecnologia só te chama quando a decisão é sua, sem sequência, sem medalha. | 16 / 12 ⚠ | gravada |
+| `14-viver.mp3` | 34,8–38,7 | Tecnologia pra você viver. | 4 / 8 | gravada |

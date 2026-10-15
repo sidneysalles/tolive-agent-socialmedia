@@ -1,0 +1,43 @@
+{
+  "tela": "toly-balao-depois",
+  "largura": 372,
+  "altura": 230,
+  "escala": 3,
+  "fundo": "fundo.png",
+  "semAparelho": true,
+  "pecas": [
+    {
+      "i": 0,
+      "tipo": "peca",
+      "arquivo": "00-peca.png",
+      "x": 24,
+      "y": 24,
+      "w": 324,
+      "h": 59.4,
+      "texto": "",
+      "conteudo": ""
+    },
+    {
+      "i": 1,
+      "tipo": "peca",
+      "arquivo": "01-peca.png",
+      "x": 24,
+      "y": 95.4,
+      "w": 324,
+      "h": 21,
+      "texto": "",
+      "conteudo": ""
+    },
+    {
+      "i": 2,
+      "tipo": "peca",
+      "arquivo": "02-peca.png",
+      "x": 24,
+      "y": 128.4,
+      "w": 84.7,
+      "h": 44,
+      "texto": "",
+      "conteudo": ""
+    }
+  ]
+}
