@@ -186,4 +186,10 @@ node estudio/historico.mjs                            # a memória
   música pode entrar depois do começo (`som.musicaEm`, com `musicaSobe`): o caos abre só com o som `aviso`. E cartão do
   site vira camadas com `pecas` no `capturas.json` (o celular do toLive, o Toly antes e depois do "Agora não"); no filme,
   `semAparelho: false` põe a tela num aparelho, e peças com `texto` único trocam no lugar no toque. (out/2026)
+- O Manifesto, v2 (out/2026, a v1 levou 6: "acelerada demais pro tom da voz e da música, pouca câmera e 3D, muito
+  branco", os efeitos "estourando"): a crítica deu 8 em movimento olhando quadro parado, e quadro parado não mostra
+  ritmo nem câmera; a nota de movimento só vale na prévia ou na faixa. Câmera em qualquer cena: `d.filmar(g, L, pose,
+  camadas)` põe a cena num plano 3D (camadas com z dão profundidade) e a pose chega inclinada e assenta devagar. Voz
+  calma não acelera. A trilha dos efeitos sai a −1 dBFS: `volumeEfeitos` uns 0,16 com voz. Duas prévias na página:
+  `aprovacao.mjs previa --nome … --titulo …`. Foto: só CC0, de costas ou em silhueta (assets/fotos/LICENCAS.md). (out/2026)
 

@@ -1,6 +1,20 @@
 {
-  "em": "2026-10-15T02:30:34.846Z",
-  "de": 0,
-  "ate": 38.67,
-  "arquivo": "previa.mp4"
+  "previas": [
+    {
+      "em": "2026-10-15T02:48:43.910Z",
+      "de": 0,
+      "ate": 53.74,
+      "arquivo": "previa-light-thought.mp4",
+      "titulo": "Prévia A · com a Light Thought (a escolhida)",
+      "texto": "No tempo da sua voz, sem acelerar. A música calma entra no silêncio da noite e vira quando o sol forma o logo. Rascunho em meia resolução."
+    },
+    {
+      "em": "2026-10-15T02:49:41.651Z",
+      "de": 0,
+      "ate": 53.85,
+      "arquivo": "previa-i-feel-you.mp4",
+      "titulo": "Prévia B · com a I Feel You",
+      "texto": "A mesma montagem, com a outra música: mais pulso (117 BPM, sobe 9 dB na virada). Os cortes depois da virada se ajustam à batida dela. Rascunho em meia resolução."
+    }
+  ]
 }

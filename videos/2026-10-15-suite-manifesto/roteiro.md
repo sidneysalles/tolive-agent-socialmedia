@@ -4,7 +4,7 @@ Fechado com o Sidney em 15/10/2026 (etapa A); a voz gravada por ele mudou o text
 (narracao.json). Tempos no filme acelerado 4/3 (38,7 s). Música: "Light Thought var 1" (136 BPM), entrando no silêncio
 da noite e virando no "toLive"; depois da virada, cada corte de cena numa batida.
 
-| Tempo | Voz | Na tela |
+| Tempo (v2, sem acelerar: 53,7 s) | Voz | Na tela |
 | --- | --- | --- |
 | 0,0–6,9 | "Quase toda a tecnologia foi feita pra te prender. Mais um alerta, bolinha vermelha, mais um motivo pra voltar." | O caos (só aqui): bolinhas com número, avisos, chama, medalha, confete crescendo; a frase grande no meio; a bolinha gigante "99+" no "bolinha". Só os avisos tocando, sem música |
 | 6,9–11,6 | "Todo dia surge algo novo. Nenhum pra você viver melhor. Todas pra te prender mais." | Corte seco pra noite. Uma frase por fala, branca. A música entra por baixo |

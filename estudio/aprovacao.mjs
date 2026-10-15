@@ -65,18 +65,24 @@ export async function quadros(pasta, { formatos = formatosDoVideo(pasta).slice(0
   return estado;
 }
 
-/** Um trecho do filme com o movimento e a música, em 540 px, pra quem aprova ver como as cenas se constroem. */
-export async function previa(pasta) {
+/**
+ * Um trecho do filme com o movimento e a música, em 540 px, pra quem aprova ver como as cenas se constroem. Com nome,
+ * mais de uma prévia na página (o Manifesto, out/2026: a mesma montagem com duas músicas, lado a lado).
+ */
+export async function previa(pasta, { nome = 'previa', titulo, texto } = {}) {
   const filme = (await import(pathToFileURL(join(pasta, 'filme.mjs')).href)).default;
   const { de = 0, ate = Math.min(filme.duracao, 6) } = filme.previa ?? {};
   // o rascunho (meia resolução, JPEG, sem borrão, em paralelo): a prévia é pra aprovar ritmo e conteúdo, e sai em segundos
   const [mudo] = await renderizar([pasta, '--de', String(de), '--ate', String(ate), '--rascunho', '--formato', formatosDoVideo(pasta)[0]]);
   const som = await somDoVideo(pasta);
-  const destino = join(pasta, 'aprovacao', 'previa.mp4');
+  const destino = join(pasta, 'aprovacao', `${nome}.mp4`);
   mkdirSync(join(pasta, 'aprovacao'), { recursive: true });
   execFileSync('ffmpeg', ['-y', '-v', 'error', '-i', mudo, '-ss', String(de), '-t', String(ate - de), '-i', som,
     '-vf', 'scale=540:-2', '-c:v', 'libx264', '-crf', '24', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '128k', '-shortest', '-movflags', '+faststart', destino]);
-  writeFileSync(join(pasta, 'aprovacao', 'previa.json'), JSON.stringify({ em: new Date().toISOString(), de, ate, arquivo: 'previa.mp4' }, null, 2) + '\n');
+  const antes = lerJson(join(pasta, 'aprovacao', 'previa.json'), {});
+  const previas = (antes.previas ?? (antes.arquivo ? [antes] : [])).filter(p => p.arquivo !== `${nome}.mp4`);
+  previas.push({ em: new Date().toISOString(), de, ate, arquivo: `${nome}.mp4`, titulo: titulo ?? filme.previa?.titulo, texto: texto ?? filme.previa?.texto });
+  writeFileSync(join(pasta, 'aprovacao', 'previa.json'), JSON.stringify({ previas }, null, 2) + '\n');
   return destino;
 }
 
@@ -103,7 +109,8 @@ export async function pagina(pasta) {
   }
   const dados = {
     video: ficha.titulo ?? filme.titulo, apelido: ficha.apelido ?? ficha.titulo ?? filme.titulo, id: filme.id, produto: ficha.produto ?? filme.produto, duracao: ficha.duracao ?? filme.duracao,
-    rodada: rodada?.n ?? 0, gerada: new Date().toISOString(), previa: prev && { de: prev.de, ate: prev.ate, arquivo: prev.arquivo, titulo: filme.previa?.titulo, texto: filme.previa?.texto },
+    rodada: rodada?.n ?? 0, gerada: new Date().toISOString(),
+    previas: (prev?.previas ?? (prev?.arquivo ? [prev] : [])).map(p => ({ de: p.de, ate: p.ate, arquivo: p.arquivo, titulo: p.titulo ?? filme.previa?.titulo, texto: p.texto ?? filme.previa?.texto })),
     atual: atual && { titulo: atual.titulo, bpm: atual.bpm },
     faixas: [...(atualNaPagina ? [atualNaPagina] : []), ...(rodada?.faixas ?? []).map(paraPagina)],
     // as rodadas de antes continuam valendo: dá pra escolher uma faixa de qualquer rodada
@@ -114,7 +121,7 @@ export async function pagina(pasta) {
     ...dados.anteriores.flatMap(r => r.faixas).map(f => [f.arquivo, relative(RAIZ, join(pasta, 'aprovacao', f.arquivo))]),
     ...dados.faixas.map(f => [f.arquivo, relative(RAIZ, join(pasta, 'aprovacao', f.arquivo))]),
     ...dados.quadros.map(q => [q.arquivo, relative(RAIZ, join(pasta, 'aprovacao', q.arquivo))]),
-    ...(dados.previa ? [[dados.previa.arquivo, relative(RAIZ, join(pasta, 'aprovacao', dados.previa.arquivo))]] : []),
+    ...dados.previas.map(p => [p.arquivo, relative(RAIZ, join(pasta, 'aprovacao', p.arquivo))]),
   ]);
   for (const origem of Object.values(files)) if (!existsSync(join(RAIZ, origem))) throw new Error(`falta ${origem}`);
   writeFileSync(join(pasta, 'aprovacao', 'index.html'), html(dados));
@@ -224,16 +231,16 @@ details.rodadas .musicas { margin-top: 12px; }
     <p class="aviso" id="aviso-musica" aria-live="polite"></p>
   </section>
 
-  ${dados.previa ? `<section aria-labelledby="t-previa">
+  ${dados.previas.map((p, n) => `<section aria-labelledby="t-previa-${n}">
     <div class="cabeca">
-      <p class="rotulo">Prévia do movimento · ${String(dados.previa.de).replace('.', ',')} a ${String(dados.previa.ate).replace('.', ',')} s</p>
-      <h2 id="t-previa">${esc(dados.previa.titulo ?? 'As telas se constroem')}</h2>
+      <p class="rotulo">Prévia${dados.previas.length > 1 ? ` ${n + 1} de ${dados.previas.length}` : ' do movimento'} · ${String(p.de).replace('.', ',')} a ${String(p.ate).replace('.', ',')} s</p>
+      <h2 id="t-previa-${n}">${esc(p.titulo ?? 'As telas se constroem')}</h2>
     </div>
     <div class="previa">
-      <video controls playsinline preload="metadata" src="${esc(dados.previa.arquivo)}"></video>
-      <p class="apoio">${esc(dados.previa.texto ?? 'Cada tela do app chega desmontada e se monta no celular, peça por peça, na ordem da leitura: o veredito, o cartão, os números, cada linha. São as peças da tela de verdade (dados de exemplo), não um desenho. Com som: é o trecho em que a música sobe. Comente no quadro da feature que quiser mudar.')}</p>
+      <video controls playsinline preload="metadata" src="${esc(p.arquivo)}"></video>
+      <p class="apoio">${esc(p.texto ?? 'Cada tela do app chega desmontada e se monta no celular, peça por peça, na ordem da leitura: o veredito, o cartão, os números, cada linha. São as peças da tela de verdade (dados de exemplo), não um desenho. Com som: é o trecho em que a música sobe. Comente no quadro da feature que quiser mudar.')}</p>
     </div>
-  </section>` : ''}
+  </section>`).join('\n  ')}
 
   <section aria-labelledby="t-quadros">
     <div class="cabeca">
@@ -395,7 +402,8 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     process.exit(2);
   }
   if (comando === 'quadros') { const e = await quadros(pasta); console.log(`${e.quadros.length} quadros em ${relative(RAIZ, join(pasta, 'aprovacao', 'quadros'))}`); }
-  if (comando === 'previa') console.log(relative(RAIZ, await previa(pasta)));
+  const op = k => { const i = process.argv.indexOf(`--${k}`); return i > 0 ? process.argv[i + 1] : undefined; };
+  if (comando === 'previa') console.log(relative(RAIZ, await previa(pasta, { nome: op('nome'), titulo: op('titulo'), texto: op('texto') })));
   if (comando === 'pagina') console.log(JSON.stringify(await pagina(pasta), null, 2));
   if (comando === 'registrar') console.log(JSON.stringify(registrar(pasta, JSON.parse(readFileSync(extra, 'utf8'))), null, 2));
 }

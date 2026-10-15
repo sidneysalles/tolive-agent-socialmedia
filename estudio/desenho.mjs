@@ -392,6 +392,34 @@ export function telaMontada3d(g, L, cam, img, apelido, cx, topo, w, t, { passo =
   return app3d(g, L, { cam, img, apelido, w, t, pose, montagem: { passo, dur, profundidade }, cor, distancia });
 }
 
+// os planos do quadro (um canvas por camada e tamanho), limpos e redesenhados a cada quadro
+const planosDoQuadro = new Map();
+
+/**
+ * A câmera em qualquer cena (o pedido do Sidney, out/2026: "pouca câmera, 3D; mais elegância, sutileza com movimento"):
+ * o que cada camada desenha vai pra um plano do tamanho do quadro (fundo transparente), e os planos são vistos em 3D
+ * pela câmera, como o celular do app3d. pose: { rx, ry, escala, fx, fy (o ponto do plano que a câmera olha), x, y (onde
+ * ele cai no quadro) }; anime com m.poses (anda e para). camadas: uma função (k) => desenha, ou [{ z, alfa, pintar }]
+ * (z em px do formato cheio, positivo pra perto: o caos em profundidade). O fundo da cena fica fora (chapado, atrás).
+ * Inclinação pequena (até uns 12°) e escala perto de 1: o texto continua na área segura.
+ */
+export function filmar(g, L, pose, camadas, { distancia = 2600 } = {}) {
+  const lista = typeof camadas === 'function' ? [{ z: 0, pintar: camadas }] : camadas;
+  const planos = lista.map((c, i) => {
+    const chave = `${L.W}x${L.H}:${i}`;
+    let cv = planosDoQuadro.get(chave);
+    if (!cv) { cv = document.createElement('canvas'); cv.width = L.W; cv.height = L.H; planosDoQuadro.set(chave, cv); }
+    const k = cv.getContext('2d');
+    k.setTransform(1, 0, 0, 1, 0, 0); k.globalAlpha = 1; k.clearRect(0, 0, L.W, L.H);
+    c.pintar(k);
+    return { fonte: cv, x: 0, y: 0, w: L.W, h: L.H, z: (c.z ?? 0) * L.u, alfa: c.alfa ?? 1, vivo: true };
+  });
+  pintar3d(g, L.W, L.H, planos, {
+    largura: L.W, altura: L.H, foco: [pose.fx ?? L.W / 2, pose.fy ?? L.H / 2], cx: pose.x ?? L.W / 2, cy: pose.y ?? L.H / 2,
+    rx: pose.rx ?? 0, ry: pose.ry ?? 0, escala: pose.escala ?? 1, distancia: distancia * L.u,
+  });
+}
+
 /** O logo (um dos SVGs de marca/logo) com altura h; x pela esquerda (ou centro). Área de proteção é sua. */
 export function logo(g, img, x, y, h, { alfa = 1, alinhar = 'left' } = {}) {
   const w = (h * img.naturalWidth) / img.naturalHeight;

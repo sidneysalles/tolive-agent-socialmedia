@@ -28,9 +28,16 @@ function iniciar(W, H) {
   gl.viewport(0, 0, W, H);
 }
 
-function textura(fonte) {
+// vivo: o canvas é redesenhado a cada quadro (a cena filmada por desenho.filmar), então a textura sobe de novo
+function textura(fonte, vivo = false) {
   let t = texturas.get(fonte);
-  if (t) return t;
+  if (t && !vivo) return t;
+  if (t) {
+    gl.bindTexture(gl.TEXTURE_2D, t);
+    gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, fonte);
+    return t;
+  }
   t = gl.createTexture();
   gl.bindTexture(gl.TEXTURE_2D, t);
   gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
@@ -85,7 +92,7 @@ export function pintar3d(g, W, H, planos, camera) {
       .map(([x, y, u, v]) => ({ ...projetar(x - ox, y - oy, p.z ?? 0, camera), u, v }));
     const dados = new Float32Array(cantos.flatMap(c => [((c.x / W) * 2 - 1) * c.w, (1 - (c.y / H) * 2) * c.w, 0, c.w, c.u, c.v]));
     gl.bufferData(gl.ARRAY_BUFFER, dados, gl.DYNAMIC_DRAW);
-    gl.bindTexture(gl.TEXTURE_2D, textura(p.fonte));
+    gl.bindTexture(gl.TEXTURE_2D, textura(p.fonte, p.vivo));
     gl.uniform1f(uA, p.alfa ?? 1);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
   };

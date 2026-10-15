@@ -1,88 +1,88 @@
 {
-  "em": "2026-10-15T02:30:17.798Z",
+  "em": "2026-10-15T02:50:27.169Z",
   "formatos": [
     "reels"
   ],
   "quadros": [
     {
-      "id": "caos",
-      "t": 4.58,
-      "nome": "O caos: a tecnologia que prende",
+      "id": "caos-2",
+      "t": 6.16,
+      "nome": "O caos: a tecnologia que prende, em profundidade",
       "texto": "Bolinhas, avisos, chama, medalha, confete · \"Mais um alerta\"",
       "formato": "reels",
-      "arquivo": "quadros/reels-caos.jpg"
+      "arquivo": "quadros/reels-caos-2.jpg"
     },
     {
-      "id": "noite",
-      "t": 9.62,
+      "id": "noite-2",
+      "t": 13.12,
       "nome": "A noite: o silêncio depois do caos",
       "texto": "Todo dia surge algo novo · Nenhum pra você viver melhor · Todas pra te prender mais",
       "formato": "reels",
-      "arquivo": "quadros/reels-noite.jpg"
+      "arquivo": "quadros/reels-noite-2.jpg"
     },
     {
-      "id": "sol",
-      "t": 15.48,
+      "id": "sol-2",
+      "t": 21.5,
       "nome": "O sol nasce e vira o logo",
       "texto": "toLive · nasceu pro contrário: pra você viver fora da tela",
       "formato": "reels",
-      "arquivo": "quadros/reels-sol.jpg"
+      "arquivo": "quadros/reels-sol-2.jpg"
     },
     {
-      "id": "rotinas",
-      "t": 18.74,
-      "nome": "As rotinas",
+      "id": "rotinas-2",
+      "t": 25.96,
+      "nome": "As rotinas, na noite",
       "texto": "Dinheiro · Casa · Agendas · Organização",
       "formato": "reels",
-      "arquivo": "quadros/reels-rotinas.jpg"
+      "arquivo": "quadros/reels-rotinas-2.jpg"
     },
     {
-      "id": "cuida",
-      "t": 20.41,
-      "nome": "A gente cuida e você vive",
+      "id": "cuida-2",
+      "t": 28.61,
+      "nome": "A gente cuida e você vive: a família lá fora (foto CC0)",
       "texto": "A gente cuida e você vive",
       "formato": "reels",
-      "arquivo": "quadros/reels-cuida.jpg"
+      "arquivo": "quadros/reels-cuida-2.jpg"
     },
     {
-      "id": "app",
-      "t": 25.62,
+      "id": "app-2",
+      "t": 36,
       "nome": "O Finanças: a decisão pronta, o toque",
       "texto": "Uma coisa é sua · O resto está resolvido · \"Ver a conta\"",
       "formato": "reels",
-      "arquivo": "quadros/reels-app.jpg"
+      "arquivo": "quadros/reels-app-2.jpg"
     },
     {
-      "id": "restante",
-      "t": 29.23,
-      "nome": "O restante deixa conosco",
+      "id": "restante-2",
+      "t": 40.96,
+      "nome": "O restante deixa conosco, na noite",
       "texto": "O restante deixa conosco",
       "formato": "reels",
-      "arquivo": "quadros/reels-restante.jpg"
+      "arquivo": "quadros/reels-restante-2.jpg"
     },
     {
-      "id": "toly",
-      "t": 32.28,
+      "id": "toly-2",
+      "t": 45.32,
       "nome": "O Toly: só chama quando a decisão é sua",
       "texto": "\"Agora não\" → \"Tudo bem. Não pergunto de novo este mês.\"",
       "formato": "reels",
-      "arquivo": "quadros/reels-toly.jpg"
+      "arquivo": "quadros/reels-toly-2.jpg"
     },
     {
-      "id": "sem",
-      "t": 34.09,
+      "id": "sem-2",
+      "t": 47.58,
       "nome": "Sem sequência, sem medalha (o caos riscado)",
       "texto": "Sem sequência · Sem medalha",
       "formato": "reels",
-      "arquivo": "quadros/reels-sem.jpg"
+      "arquivo": "quadros/reels-sem-2.jpg"
     },
     {
-      "id": "fim",
-      "t": 38.52,
-      "nome": "O fim: o logo, a frase, os dias grátis",
-      "texto": "Tecnologia pra você viver · o teste grátis do catálogo · Comece em tolive.app",
+      "id": "fim-2",
+      "t": 53.54,
+      "nome": "O fim: o logo e o mote",
+      "texto": "toLive · Tecnologia feita para não ser usada",
       "formato": "reels",
-      "arquivo": "quadros/reels-fim.jpg"
+      "arquivo": "quadros/reels-fim-2.jpg"
     }
   ]
 }

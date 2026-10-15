@@ -12,22 +12,20 @@
     "Rotinas de dinheiro, da casa, agendas, organização. A gente cuida e você vive (sem nome de app).",
     "Nós começamos pelo dinheiro: você abre, a decisão vem pronta, decide e fecha. É isso. O restante deixa conosco (o celular do site: Uma coisa é sua).",
     "Só te chama quando a decisão é sua (o Toly, o Agora não respeitado); sem sequência, sem medalha (o caos riscado).",
-    "Tecnologia pra você viver. O logo, os dias grátis do catálogo, Comece em tolive.app."
+    "Tecnologia pra você viver (falado e escrito); o logo com o sol e o mote 'Tecnologia feita para não ser usada', só escrito. Sem os dias grátis nem o convite (Sidney, 15/10/2026)."
   ],
   "features": [
     "financas:veredito",
     "financas:excecao",
     "financas:toly"
   ],
-  "usa": [
-    "teste"
-  ],
-  "cta": "Comece em tolive.app (com o teste grátis do catálogo)",
+  "usa": [],
+  "cta": "",
   "status": "rascunho",
   "publicado": [],
-  "notas": "Etapa A fechada em 15/10/2026. Etapa B: a fala e as dez músicas (a escolhida: Light Thought var 1). Etapa C (15/10/2026): a voz do Sidney manda (o texto mudou na gravação: 'bolinha vermelha', três frases na noite, 'Rotinas de dinheiro, da casa, agendas, organização', 'Você abre, nós te trazemos o mais importante pronto pra você decidir, e depois, fecha. É isso. O restante deixa conosco.', a rima dentro da fala do Toly, 'Tecnologia pra você viver' no fim; sem a fala dos dias grátis, que ficam só escritos). O mote 'Tecnologia feita para não ser usada' saiu do fim: a frase da voz ocupa o lugar dele (perguntado ao Sidney na aprovação). A prova é o celular do site ('Uma coisa é sua. O resto está resolvido.') e o cartão do Toly, desmontados (capturar.mjs com pecas). A música entra no silêncio da noite (som.musicaEm) e vira no 'toLive'; o caos é só aviso tocando. Acelerado 4/3: 38,7 s.",
+  "notas": "Etapa A fechada em 15/10/2026. Etapa B: a fala e as dez músicas (a escolhida: Light Thought var 1). Etapa C (15/10/2026): a voz do Sidney manda (o texto mudou na gravação: 'bolinha vermelha', três frases na noite, 'Rotinas de dinheiro, da casa, agendas, organização', 'Você abre, nós te trazemos o mais importante pronto pra você decidir, e depois, fecha. É isso. O restante deixa conosco.', a rima dentro da fala do Toly, 'Tecnologia pra você viver' no fim; sem a fala dos dias grátis, que ficam só escritos). O mote 'Tecnologia feita para não ser usada' saiu do fim: a frase da voz ocupa o lugar dele (perguntado ao Sidney na aprovação). A prova é o celular do site ('Uma coisa é sua. O resto está resolvido.') e o cartão do Toly, desmontados (capturar.mjs com pecas). A música entra no silêncio da noite (som.musicaEm) e vira no 'toLive'; o caos é só aviso tocando. Acelerado 4/3: 38,7 s. Versão 2 (15/10/2026, a v1 ficou 'nota 6': acelerada demais pro tom da voz e da música, pouca câmera e 3D, muito branco, efeitos estourando): sem acelerar (53,7 s), a câmera em toda cena (desenho.filmar), a noite depois do caos (o papel só no caos e no Toly), a foto CC0 de pai e filha no 'você vive' (pedido no quadro), o fim só com o logo e o mote (pedido no quadro), os efeitos em 0,16. Duas prévias na página: Light Thought e I Feel You.",
   "apelido": "Manifesto",
-  "duracao": 33,
+  "duracao": 53.7,
   "formatos": [
     "reels"
   ],
@@ -36,7 +34,12 @@
     "pagina": "https://claude.ai/artifact/2pTyks4gYE7UECRHAf6xPn",
     "aberta_em": "2026-10-15",
     "musica": "light-thought-var-1 (escolhida na página, 15/10/2026)",
-    "quadros": null
+    "quadros": null,
+    "pedidos_v1": {
+      "cuida": "foto de família vivendo fora da tela",
+      "fim": "tirar os dias grátis e o convite, deixar o toLive com o mote",
+      "restante": "muito branco, precisa de movimento"
+    }
   },
   "musica": {
     "arquivo": "assets/musicas/kevin-macleod-light-thought-var-1.mp3",
