@@ -33,13 +33,15 @@
   "aprovacao": {
     "pagina": "https://claude.ai/artifact/2pTyks4gYE7UECRHAf6xPn",
     "aberta_em": "2026-10-15",
-    "musica": "light-thought-var-1 (escolhida na página, 15/10/2026)",
-    "quadros": null,
+    "musica": "light-thought-var-1",
+    "quadros": "v2 aprovados sem comentário (os pedidos da v1 aplicados)",
     "pedidos_v1": {
       "cuida": "foto de família vivendo fora da tela",
       "fim": "tirar os dias grátis e o convite, deixar o toLive com o mote",
       "restante": "muito branco, precisa de movimento"
-    }
+    },
+    "final": "2026-10-15: \"Prévia A aprovada. Manda ver na versão final!\" (Sidney)",
+    "registrado_em": "2026-10-15T02:55:29.498Z"
   },
   "musica": {
     "arquivo": "assets/musicas/kevin-macleod-light-thought-var-1.mp3",
