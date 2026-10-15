@@ -1,7 +1,7 @@
 # Roteiro de locução · Tecnologia feita para não ser usada
 
 Gerado de `filme.mjs` (`node estudio/narracao.mjs videos/2026-10-14-financas-proposito`): não edite à mão; mude a fala no filme.
-11 falas, 92 palavras em 42,8 s. A fala diz o que a tela escreve, na hora em que ela escreve.
+11 falas, 92 palavras em 31,0 s. A fala diz o que a tela escreve, na hora em que ela escreve.
 
 ## A gravação
 
@@ -31,14 +31,14 @@ a voz fala.
 
 | Arquivo | Janela (s) | Fala | Palavras / cabe | Na tela, junto |
 | --- | --- | --- | --- | --- |
-| `01-abertura.mp3` | 0,0–4,4 |  Boleto, fatura, extrato, planilha, lembrete. | 6 / 10 | gravada |
-| `02-frase.mp3` | 4,4–7,9 |  Cada um pede um pedaço de você. | 8 / 7 ⚠ | gravada |
-| `03-promessa.mp3` | 7,9–12,1 |  toLive Finanças, nosso app que te devolve tempo para viver. | 11 / 9 ⚠ | gravada |
-| `04-contas.mp3` | 12,1–16,4 |  Ele conecta e lê seus bancos pelo Open Finance. | 10 / 9 ⚠ | gravada |
-| `05-aprovar.mp3` | 16,4–20,5 |  Organiza seus lançamentos aprendendo com você. | 7 / 9 | gravada |
-| `06-mes.mp3` | 20,5–24,6 |  Avisa antes quando o mês vai estourar. | 8 / 9 | gravada |
-| `07-projecao.mp3` | 24,6–28,6 |  Projeta seu ano antecipando os seus próximos 12 meses. | 10 / 9 ⚠ | gravada |
-| `08-patrimonio.mp3` | 28,6–32,8 |  Acompanhe todo o seu patrimônio em um lugar só. | 10 / 9 ⚠ | gravada |
-| `09-fecha.mp3` | 32,8–35,4 |  E pode fechar o app. | 6 / 5 ⚠ | gravada |
-| `10-mote.mp3` | 35,4–38,9 |  toLive, tecnologia feita para não ser usada. | 8 / 7 ⚠ | gravada |
-| `11-teste.mp3` | 38,9–42,8 |  30 dias grátis com até duas conexões. | 8 / 8 | gravada |
+| `01-abertura.mp3` | 0,0–3,3 |  Boleto, fatura, extrato, planilha, lembrete. | 6 / 7 | gravada |
+| `02-frase.mp3` | 3,3–5,9 |  Cada um pede um pedaço de você. | 8 / 5 ⚠ | gravada |
+| `03-promessa.mp3` | 5,9–9,1 |  toLive Finanças, nosso app que te devolve tempo para viver. | 11 / 6 ⚠ | gravada |
+| `04-contas.mp3` | 9,1–12,3 |  Ele conecta e lê seus bancos pelo Open Finance. | 10 / 7 ⚠ | gravada |
+| `05-aprovar.mp3` | 12,3–15,4 |  Organiza seus lançamentos aprendendo com você. | 7 / 6 ⚠ | gravada |
+| `06-mes.mp3` | 15,4–18,4 |  Avisa antes quando o mês vai estourar. | 8 / 6 ⚠ | gravada |
+| `07-projecao.mp3` | 18,4–21,5 |  Projeta seu ano antecipando os seus próximos 12 meses. | 10 / 6 ⚠ | gravada |
+| `08-patrimonio.mp3` | 21,5–24,6 |  Acompanhe todo o seu patrimônio em um lugar só. | 10 / 6 ⚠ | gravada |
+| `09-fecha.mp3` | 24,6–26,4 |  E pode fechar o app. | 6 / 3 ⚠ | gravada |
+| `10-mote.mp3` | 26,4–28,1 |  toLive, tecnologia feita para não ser usada. | 8 / 3 ⚠ | gravada e cortada: o mote fica só escrito |
+| `11-teste.mp3` | 28,1–31,0 |  30 dias grátis com até duas conexões. | 8 / 6 ⚠ | gravada |

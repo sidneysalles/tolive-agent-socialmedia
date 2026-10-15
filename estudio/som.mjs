@@ -71,7 +71,7 @@ function reverb(entrada, mistura = 0.22) {
 
 /**
  * Sintetiza a trilha e os sons de interface: { estilo: 'inspiradora' | 'calma' | 'nenhuma', bpm, duracao,
- * progressao (um acorde por compasso), secoes (inspiradora), sons: [{ t, tipo }] }. Devolve [esquerda, direita]
+ * progressao (um acorde por compasso), secoes (inspiradora), sons: [{ t, tipo, vol, pan }] }. Devolve [esquerda, direita]
  * em SR, com pico em −1 dBFS. 'nenhuma': só os sons (pra mixar com uma música trazida).
  */
 export function sintetizar({ estilo = 'calma', sons = [], seed = 7, ...op }) {
@@ -80,11 +80,12 @@ export function sintetizar({ estilo = 'calma', sons = [], seed = 7, ...op }) {
     : estilo === 'nenhuma' ? [new Float32Array(n), new Float32Array(n)]
       : (m => [m, Float32Array.from(m)])(sintetizarCalma(op));
   const r = semente(seed), V = vozes(r);
-  for (const { t: tc, tipo } of sons) {
+  // cada som com o volume dele (vol) e o lado (pan, −1 esquerda … 1 direita: o celular que entra pela direita soa da direita)
+  for (const { t: tc, tipo, vol = 1, pan = 0 } of sons) {
     const voz = V[tipo];
     if (!voz) throw new Error(`som desconhecido: ${tipo} (use ${Object.keys(V).join(', ')})`);
-    const [dur, fn] = voz, inicio = Math.floor(tc * SR);
-    for (let i = 0; i < dur * SR && inicio + i < n; i++) { const v = fn(i / SR); E[inicio + i] += v; D[inicio + i] += v; }
+    const [dur, fn] = voz, inicio = Math.floor(tc * SR), gE = vol * Math.min(1, 1 - pan), gD = vol * Math.min(1, 1 + pan);
+    for (let i = 0; i < dur * SR && inicio + i < n; i++) { const v = fn(i / SR); E[inicio + i] += v * gE; D[inicio + i] += v * gD; }
   }
   let pico = 0;
   for (let i = 0; i < n; i++) pico = Math.max(pico, Math.abs(E[i]), Math.abs(D[i]));
@@ -193,7 +194,8 @@ export async function somDoVideo(pasta) {
     entradas.push('-i', resolve(raiz, n.arquivo));
     n.falas.forEach((f, k) => {
       const atraso = Math.round(f.em * 1000);
-      filtro += `[2:a]atrim=start=${f.de}:end=${f.ate},asetpts=PTS-STARTPTS,aresample=${SR},afade=t=in:d=0.02,afade=t=out:st=${(f.ate - f.de - 0.03).toFixed(3)}:d=0.03,adelay=${atraso}:all=1[v${k}];`;
+      const dur = (f.ate - f.de) / (n.tempo ?? 1); // com o filme acelerado, a voz também (atempo: mais rápida, mesmo tom)
+      filtro += `[2:a]atrim=start=${f.de}:end=${f.ate},asetpts=PTS-STARTPTS,${n.tempo && n.tempo !== 1 ? `atempo=${n.tempo},` : ''}aresample=${SR},afade=t=in:d=0.02,afade=t=out:st=${(dur - 0.03).toFixed(3)}:d=0.03,adelay=${atraso}:all=1[v${k}];`;
     });
     filtro += `${n.falas.map((_, k) => `[v${k}]`).join('')}amix=inputs=${n.falas.length}:normalize=0,volume=${n.volume ?? 1},apad=whole_dur=${som.duracao},aformat=channel_layouts=stereo,asplit=2[voz][chave];`;
     filtro += `[m0][chave]sidechaincompress=threshold=${n.limiar ?? 0.03}:ratio=${n.razao ?? 5}:attack=25:release=450:makeup=1[m];`;

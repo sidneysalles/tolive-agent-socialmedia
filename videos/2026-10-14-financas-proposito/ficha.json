@@ -23,12 +23,12 @@
     "teste"
   ],
   "cta": "Comece em tolive.app (com o teste grátis do catálogo)",
-  "duracao": 42.76,
-  "status": "aprovado",
+  "duracao": 31.01,
+  "status": "entregue",
   "publicado": [],
-  "notas": "Versão 3 (14/10/2026): a música licenciada no lugar da trilha sintetizada, cortada pela análise (virada da música na primeira feature, o fim dela no logo), e as telas do app de verdade (npm run local do tolive-financas, dados simulados, nomes trocados). As versões 1 e 2 (trilha sintetizada, cartões do site) ficaram no histórico do git. Versão 4 (14/10/2026): as telas do app se constroem peça por peça (as camadas), a música lida de musica.json, e a primeira aprovação antes do render (a página). Versão 5 (14/10/2026): a música Inspired (aprovada na página), dois compassos por feature com plano de câmera (ângulo de entrada, app inteiro, foco), o toque e a confirmação do app (capturas de antes e depois), a projeção subindo (o cartão do site), a tela que apaga no lugar do manifesto reprovado, os dias grátis em destaque; o conserto das peças que sumiam e das que passavam por cima da borda do celular. Versão 5.1 (14/10/2026): o \"Susto no dia 30\" saiu (outro problema, outro vídeo) e a promessa depois dos problemas virou \"Tecnologia que te devolve tempo de vida\"; o mote fica só no fim. Versão 5.2: o símbolo vira o logo inteiro na promessa, que passou a \"A tecnologia precisa nos devolver tempo de vida\"; o roteiro de locução (narracao.md). Versão 6 (14/10/2026): a narração do Sidney manda na linha do tempo (cada palavra da abertura troca a tela, as frases se escrevem com a voz, o texto da feature fica compacto no foco em vez de sumir); os textos da tela passaram a ser os da voz; a música começa um compasso antes e baixa sob a voz; 42,8 s.",
+  "notas": "Versão 3 (14/10/2026): a música licenciada no lugar da trilha sintetizada, cortada pela análise (virada da música na primeira feature, o fim dela no logo), e as telas do app de verdade (npm run local do tolive-financas, dados simulados, nomes trocados). As versões 1 e 2 (trilha sintetizada, cartões do site) ficaram no histórico do git. Versão 4 (14/10/2026): as telas do app se constroem peça por peça (as camadas), a música lida de musica.json, e a primeira aprovação antes do render (a página). Versão 5 (14/10/2026): a música Inspired (aprovada na página), dois compassos por feature com plano de câmera (ângulo de entrada, app inteiro, foco), o toque e a confirmação do app (capturas de antes e depois), a projeção subindo (o cartão do site), a tela que apaga no lugar do manifesto reprovado, os dias grátis em destaque; o conserto das peças que sumiam e das que passavam por cima da borda do celular. Versão 5.1 (14/10/2026): o \"Susto no dia 30\" saiu (outro problema, outro vídeo) e a promessa depois dos problemas virou \"Tecnologia que te devolve tempo de vida\"; o mote fica só no fim. Versão 5.2: o símbolo vira o logo inteiro na promessa, que passou a \"A tecnologia precisa nos devolver tempo de vida\"; o roteiro de locução (narracao.md). Versão 6 (14/10/2026): a narração do Sidney manda na linha do tempo (cada palavra da abertura troca a tela, as frases se escrevem com a voz, o texto da feature fica compacto no foco em vez de sumir); os textos da tela passaram a ser os da voz; a música começa um compasso antes e baixa sob a voz; 42,8 s. Versão 7 (15/10/2026): o texto sai quando a câmera vai ao detalhe, o mote só escrito (a voz só nos dias grátis), o filme 4/3 mais rápido (estudio/acelerar.mjs; a voz com atempo, a música no andamento dela começando 6 batidas adiante) e o som de cada movimento; 31 s.",
   "catalogo": {
-    "lido_em": "2026-10-14T23:35:23.028Z",
+    "lido_em": "2026-10-15T00:16:31.056Z",
     "menorPreco": "R$ 14,90 por mês",
     "teste": "30 dias grátis com até duas conexões"
   },
@@ -36,7 +36,7 @@
     "stories",
     "feed"
   ],
-  "renderizado_em": "2026-10-14T23:54:39.846Z",
+  "renderizado_em": "2026-10-15T00:31:10.611Z",
   "musica": {
     "arquivo": "assets/musicas/kevin-macleod-inspired.mp3",
     "licenca": "CC BY 4.0",

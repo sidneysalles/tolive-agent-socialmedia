@@ -123,6 +123,12 @@ o `narracao.json` no filme: `EM[id]` é a hora da fala no filme, `W(id, k)` a da
 palavra dele. A pessoa muda o texto ao gravar: a tela passa a escrever o que a voz disse. `som.narracao` mistura a voz e
 baixa a música (`volumeMusica` uns 4 dB abaixo, sidechain sob a voz). O Propósito é a referência.
 
+## Mais rápido sem refazer as cenas
+
+`export default acelerar(filme, k, { musicaInicio })` (`estudio/acelerar.mjs`): tudo k vezes mais rápido, a voz junto
+(mesmo tom). Escolha k pra os cortes continuarem na batida da música (que não acelera): com features de dois compassos,
+4/3. E dê a cada movimento o seu som (`som.sons`: `{ t, tipo, vol, pan }`; o lado do pan é o lado de onde a coisa vem).
+
 ## 4. Animar
 
 O `filme.mjs` (o modelo já renderiza): `cenas` com `de/ate` e `desenhar(g, t, ctx, tGlobal)`, mais `quadros` (os

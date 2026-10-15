@@ -172,8 +172,8 @@ O Propósito saiu aprovado depois de seis versões; comparando o processo que ro
   não autor orgulhoso").
 - **O animatic (os portões do passo 10).** Pulamos dos quadros parados pra prévia em qualidade quase final (6 min).
   Agora é o `render.mjs --rascunho` (meia resolução, JPEG, sem borrão, três páginas): o filme inteiro em ~20 s.
-- **O desenho de som (passo 9: "picos → efeitos").** São quatro sons de interface, baixos, debaixo da música e da voz;
-  cada mudança de estado (a peça que pousa, o toque, a câmera que anda) pode ter o seu. O vídeo do SFX v2 da ElevenLabs
+- **O desenho de som (passo 9: "picos → efeitos").** Eram quatro sons de interface, baixos, debaixo da música e da voz.
+  Na versão 7 do Propósito cada movimento ganhou o seu (com volume e lado: `som.sons` com `vol` e `pan`). O vídeo do SFX v2 da ElevenLabs
   era a referência disso e ainda não foi usado.
 - **O número que prova (o roteiro do passo 4).** Gancho → o produto se monta → três features com o cursor → **um
   número** → logo e convite. O Propósito tem cinco features e nenhum número (o "Faltam dez → nove" chega perto).

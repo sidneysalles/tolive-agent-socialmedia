@@ -20,7 +20,7 @@ no mesmo dia com o segundo (`videos/2026-10-14-financas-proposito`), depois das 
 | 6 | O mote no lugar dele (Propósito, 14/10/2026) | "Tecnologia feita para não ser usada" **só no fim**, depois do produto se provar (e do "Pode fechar o app"): logo depois dos problemas ficou "nada a ver". Ali vai a resposta aos problemas: **"A tecnologia precisa nos devolver tempo de vida."**, com o logo inteiro (o símbolo sozinho "não conecta") |
 | 7 | O manifesto | "O melhor elogio: esqueci que tinha o app" foi reprovado ("pensa em outra coisa"). Ficou a tela que apaga: "Pode fechar o app". |
 | 8 | Os dias grátis | No fim, **chamativos**: em letra de veredito, grande, do catálogo, nunca escritos à mão. |
-| 9 | A narração | **A fala e a imagem conectadas**: a voz diz o que a tela escreve, na hora em que escreve. Roteiro de locução gerado do filme (`estudio/narracao.mjs`), um arquivo por fala; os cortes seguem a voz. |
+| 9 | A narração | **A fala e a imagem conectadas**: a voz diz o que a tela escreve, na hora em que escreve. **Mas o texto pode sair** quando a câmera vai ao detalhe (Sidney, 15/10/2026: "o áudio precisa acompanhar a fala, o texto pode sumir se estamos dando zoom"): o app toma o quadro e a voz continua. E **o mote não se diz**: "Tecnologia feita para não ser usada", falado no fim, "ficou sem sentido"; fica só escrito. Roteiro de locução gerado do filme (`estudio/narracao.mjs`), um arquivo por fala; os cortes seguem a voz. |
 | 10 | O processo | **Roteiro primeiro**, numa conversa de vendas (quem, dor, desejo, objeção, prova, oferta); depois a fala pra gravar com IA e dez músicas; só então as telas e o vídeo. O Propósito, narrado, foi aprovado como versão final assim ("ficou excelente"). |
 
 

@@ -1,12 +1,12 @@
 {
-  "em": "2026-10-14T23:26:19.243Z",
+  "em": "2026-10-15T00:15:51.952Z",
   "formatos": [
     "stories"
   ],
   "quadros": [
     {
       "id": "peso-n",
-      "t": 1.4,
+      "t": 1.05,
       "nome": "O peso: uma palavra por fala",
       "texto": "Boleto · Fatura · Extrato · Planilha · Lembrete",
       "formato": "stories",
@@ -14,7 +14,7 @@
     },
     {
       "id": "frase-n",
-      "t": 6.52,
+      "t": 4.89,
       "nome": "A frase, linha por linha com a voz",
       "texto": "Cada um pede um pedaço de você",
       "formato": "stories",
@@ -22,7 +22,7 @@
     },
     {
       "id": "promessa-n",
-      "t": 12,
+      "t": 9,
       "nome": "O sol nasce, o logo se forma com \"toLive\": a promessa",
       "texto": "toLive Finanças · Nosso app que te devolve tempo para viver",
       "formato": "stories",
@@ -30,7 +30,7 @@
     },
     {
       "id": "f1-inteiro-n",
-      "t": 13.75,
+      "t": 10.31,
       "nome": "Conecta: o app inteiro",
       "texto": "Conecta. E lê seus bancos pelo Open Finance.",
       "formato": "stories",
@@ -38,7 +38,7 @@
     },
     {
       "id": "f1-foco-n",
-      "t": 16.03,
+      "t": 12.03,
       "nome": "Conecta: o toque e a confirmação do app, com o texto compacto",
       "texto": "Toque em \"Rafael\"",
       "formato": "stories",
@@ -46,7 +46,7 @@
     },
     {
       "id": "f2-inteiro-n",
-      "t": 17.83,
+      "t": 13.38,
       "nome": "Organiza: o app inteiro",
       "texto": "Organiza. Seus lançamentos, aprendendo com você.",
       "formato": "stories",
@@ -54,7 +54,7 @@
     },
     {
       "id": "f2-foco-n",
-      "t": 20.12,
+      "t": 15.09,
       "nome": "Organiza: o toque e a confirmação do app, com o texto compacto",
       "texto": "Toque em \"Certo\"",
       "formato": "stories",
@@ -62,7 +62,7 @@
     },
     {
       "id": "f3-inteiro-n",
-      "t": 21.92,
+      "t": 16.44,
       "nome": "Avisa antes: o app inteiro",
       "texto": "Avisa antes. Quando o mês vai estourar.",
       "formato": "stories",
@@ -70,7 +70,7 @@
     },
     {
       "id": "f3-foco-n",
-      "t": 24.2,
+      "t": 18.15,
       "nome": "Avisa antes: o detalhe, com o texto compacto",
       "texto": "",
       "formato": "stories",
@@ -78,7 +78,7 @@
     },
     {
       "id": "f4-inteiro-n",
-      "t": 26,
+      "t": 19.5,
       "nome": "Projeta seu ano: o app inteiro",
       "texto": "Projeta seu ano. Antecipando os seus próximos 12 meses.",
       "formato": "stories",
@@ -86,7 +86,7 @@
     },
     {
       "id": "f4-foco-n",
-      "t": 28.28,
+      "t": 21.21,
       "nome": "Projeta seu ano: o gráfico subindo, com o texto compacto",
       "texto": "",
       "formato": "stories",
@@ -94,7 +94,7 @@
     },
     {
       "id": "f5-inteiro-n",
-      "t": 30.08,
+      "t": 22.56,
       "nome": "Acompanhe: o app inteiro",
       "texto": "Acompanhe. Todo o seu patrimônio em um lugar só.",
       "formato": "stories",
@@ -102,7 +102,7 @@
     },
     {
       "id": "f5-foco-n",
-      "t": 32.37,
+      "t": 24.27,
       "nome": "Acompanhe: o detalhe, com o texto compacto",
       "texto": "",
       "formato": "stories",
@@ -110,7 +110,7 @@
     },
     {
       "id": "fecha-n",
-      "t": 34.37,
+      "t": 25.77,
       "nome": "A tela apaga: e pode fechar o app",
       "texto": "E pode fechar o app",
       "formato": "stories",
@@ -118,7 +118,7 @@
     },
     {
       "id": "fim-n",
-      "t": 42.56,
+      "t": 30.86,
       "nome": "O fim: o logo, o mote, os dias grátis e o convite",
       "texto": "toLive Finanças · Tecnologia feita para não ser usada · o teste grátis do catálogo, grande · Comece em tolive.app",
       "formato": "stories",

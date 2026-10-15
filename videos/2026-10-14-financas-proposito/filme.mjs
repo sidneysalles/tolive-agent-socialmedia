@@ -11,6 +11,7 @@
 import musica from './musica.json' with { type: 'json' };
 import narr from './narracao.json' with { type: 'json' };
 import { assetsDasCamadas } from '../../estudio/camadas.mjs';
+import { acelerar } from '../../estudio/acelerar.mjs';
 import camContas from '../../assets/capturas/camadas/app-contas/camadas.json' with { type: 'json' };
 import camContasDepois from '../../assets/capturas/camadas/app-contas-depois/camadas.json' with { type: 'json' };
 import camAprovar from '../../assets/capturas/camadas/app-aprovar/camadas.json' with { type: 'json' };
@@ -60,7 +61,7 @@ const FEATURES = [
 // a promessa logo depois dos problemas responde a eles, com o logo inteiro (o símbolo vira o "o" de toLive na hora em
 // que a voz diz "toLive"); o mote "Tecnologia feita para não ser usada" fica só no fim
 const PROMESSA = [['Nosso app que', 2], ['te devolve', 5], ['tempo para viver', 7]];
-const MOTE = [['Tecnologia feita', 1], ['para não ser usada', 3]];
+const MOTE = ['Tecnologia feita', 'para não ser usada'];
 const COMPASSOS_POR_FEATURE = 2;
 
 // a linha do tempo: a abertura e a promessa seguem a voz; das features em diante, a grade da música (a virada no
@@ -77,9 +78,10 @@ T.fecha = inicioFeature(FEATURES.length);   // a última tela fica de frente, ap
 EM.fecha = T.fecha + 0.1;
 T.apaga = FIM('fecha') + 0.05;              // a tela apaga logo depois do "app"
 T.folha = T.fecha + B(5);                   // a noite que era a tela apagada: o fim
-EM.mote = T.folha + 0.15;                   // "toLive" com o logo
-T.logo = T.folha; T.solFim = T.folha + 0.3;
-EM.teste = FIM('mote') + 0.25;
+// o mote só escrito, sem voz (Sidney, 15/10/2026: dito no fim ficava sem sentido); a voz volta nos dias grátis
+EM.mote = T.folha;                          // a fala gravada fica fora da mistura (som.narracao)
+T.logo = T.folha; T.solFim = T.folha + 0.3; T.mote = T.folha + 0.95;
+EM.teste = T.mote + 1.3;
 T.teste = EM.teste; T.cta = FIM('teste') + 0.15;
 const DURACAO = +(FIM('teste') + 1.9).toFixed(2); // o fim parado: o logo, o mote, os dias grátis e o convite
 // dentro de uma feature (tempo local): a câmera vai ao detalhe, o dedo aperta na batida 5, o app confirma
@@ -105,7 +107,12 @@ function enquadrar(L, f, topoLivre, livreFoco) {
   return { w, s, h, inteiro, foco, entra };
 }
 
-export default {
+// o filme acelerado (Sidney, 15/10/2026: "dava pra renderizar acelerando em 1,25×"): 4/3 em vez de 1,25 porque, com
+// a música no andamento dela, só 4/3 põe cada corte de feature numa batida (dois compassos viram um e meio); a música
+// começa mais adiante pra a virada continuar na primeira feature
+const VELOCIDADE = 4 / 3;
+
+const filme = {
   id: '2026-10-14-financas-proposito',
   titulo: 'Tecnologia feita para não ser usada',
   produto: 'financas',
@@ -118,11 +125,11 @@ export default {
   // o trecho com movimento que vai pra aprovação (aprovacao.mjs previa): o filme inteiro, com a música e a voz
   previa: {
     de: 0, ate: DURACAO, titulo: 'O filme inteiro, com a sua voz',
-    texto: 'Em qualidade de prévia (menor, mais leve). A narração manda: cada palavra da abertura troca a tela, a frase se escreve linha por linha com a voz, o símbolo vira o logo quando a voz diz "toLive", e cada feature escreve o que a voz diz (o título na palavra dele, a frase embaixo; quando a câmera vai ao detalhe, o texto fica compacto no topo em vez de sumir). A tela apaga logo depois do "app", e o fim mostra o mote e os dias grátis enquanto a voz os diz. A música começa um compasso antes, pra a promessa caber antes da virada, e baixa enquanto a voz fala.',
+    texto: 'Em qualidade de rascunho (meia resolução, sai em segundos). Agora 1,33× mais rápido, a voz junto (mesmo tom); 1,33 e não 1,25 porque é a velocidade em que cada corte de feature continua caindo numa batida da música, que segue no andamento dela. E o som de cada movimento (o passo do curso que tinha ficado pra trás): o celular que chega soa do lado de onde vem, a câmera que vai ao detalhe, o gráfico que se desenha, cada barra da projeção, a confirmação do app que pousa, o logo que se forma. O filme ficou com 31 s.',
   },
   // a narração gravada (narracao.json, medida no áudio): cada fala, a hora em que entra no filme e o que a tela
   // escreve com ela. estudio/narracao.mjs escreve o narracao.md a partir daqui.
-  narracao: narr.falas.map((f, k, todas) => ({ id: f.id, de: +EM[f.id].toFixed(2), ate: +(k + 1 < todas.length ? EM[todas[k + 1].id] : DURACAO).toFixed(2), texto: f.texto, nota: 'gravada' })),
+  narracao: narr.falas.map((f, k, todas) => ({ id: f.id, de: +EM[f.id].toFixed(2), ate: +(k + 1 < todas.length ? EM[todas[k + 1].id] : DURACAO).toFixed(2), texto: f.texto, nota: f.id === 'mote' ? 'gravada e cortada: o mote fica só escrito' : 'gravada' })),
   // os quadros-chave que vão pra aprovação antes do render (estudio/aprovacao.mjs): cada cena já assentada. As
   // features têm dois: o app inteiro e o detalhe (depois do toque, quando há). Id novo = quadro novo na página.
   quadros: [
@@ -145,14 +152,28 @@ export default {
     musica: musica.arquivo,
     inicio: musica.inicio,
     fimDe: 2.2, // a música some no fim parado (ela não termina sozinha neste corte)
-    volumeEfeitos: 0.35,
+    volumeEfeitos: 0.45,
     volumeMusica: 0.6, // com a voz: a música uns 4 dB abaixo, e mais ~6 dB enquanto a voz fala (a voz e a música mediam o mesmo)
     // a voz: cada fala cortada no arquivo e posta na hora dela; a música baixa sob a voz
-    narracao: { arquivo: narr.arquivo, falas: narr.falas.map(f => ({ de: f.de, ate: f.ate, em: +(EM[f.id] - (f.palavras[0].i - f.de)).toFixed(3) })) },
+    narracao: { arquivo: narr.arquivo, falas: narr.falas.filter(f => f.id !== 'mote').map(f => ({ de: f.de, ate: f.ate, em: +(EM[f.id] - (f.palavras[0].i - f.de)).toFixed(3) })) },
     sons: [
       ...PALAVRAS.map((_, i) => ({ t: W('abertura', i), tipo: 'bate' })),
       ...FEATURES.slice(1).map((_, i) => ({ t: inicioFeature(i + 1) - 0.05, tipo: 'passa' })),
       ...FEATURES.flatMap((f, i) => (f.depois ? [{ t: inicioFeature(i) + TOQUE, tipo: 'toque' }, { t: inicioFeature(i) + TOQUE + 0.4, tipo: 'entra' }] : [])),
+      // o som de cada movimento (o passo 9 do curso): o celular que chega (do lado de onde vem), a câmera que vai ao
+      // detalhe, o gráfico que se desenha, cada barra que sobe, a confirmação que pousa, o logo que se forma, o mote
+      ...FEATURES.flatMap((f, i) => {
+        const ini = inicioFeature(i), lado = Math.max(-1, Math.min(1, f.entra.dx ?? 0));
+        return [
+          { t: ini - 0.1, tipo: 'entra', vol: 0.6, pan: lado },
+          { t: ini + FOCO - 0.05, tipo: 'passa', vol: 0.4 },
+          ...(f.graficos ? [{ t: ini + GRAFICO, tipo: 'troca', vol: 0.45 }] : []),
+          ...(f.barras ? f.cam.pecas.map(p => ({ t: W(f.apelido, f.fala[1]) + p.i * (B(1) / 3), tipo: 'toque', vol: 0.5, pan: (p.x / f.cam.largura) * 1.2 - 0.6 })) : []),
+          ...(f.depois ? [{ t: ini + TOQUE + 0.75, tipo: 'assenta', vol: 0.55 }] : []),
+        ];
+      }),
+      { t: EM.promessa - 0.05, tipo: 'assenta', vol: 0.8 },
+      { t: T.mote, tipo: 'assenta', vol: 0.45 },
       { t: T.apaga, tipo: 'toque' },
       { t: T.folha - 0.45, tipo: 'passa' },
       { t: T.teste, tipo: 'bate' },
@@ -223,24 +244,20 @@ export default {
           g.save(); g.translate(entra + sai, 0);
           d.fundo(g, L, COR.papel);
           const tl = tg - ini; // negativo enquanto a cena ainda está entrando
-          // o texto escreve o que a voz diz: o título na palavra dele, a prova na palavra em que ela começa; quando a
-          // câmera vai ao detalhe, o texto fica compacto no topo (c = 0 → 1) em vez de sumir: a voz ainda o está dizendo
+          // o texto escreve o que a voz diz: o título entra na palavra dele e a prova logo junto (fica mais tempo na tela
+          // pra quem vê sem som); quando a câmera vai ao detalhe, o texto sai e o app toma o quadro (Sidney, 15/10/2026:
+          // a voz acompanha a fala; o texto pode sumir quando o zoom pede)
           const c = m.anima(tl, FOCO - 0.05, 0.6, m.CURVA.empurra);
-          const medida = cc => {
-            const tamTit = m.mix(170, 92, cc) * u, yTit = S.y + m.mix(150, 92, cc) * u, tamProva = m.mix(42, 32, cc) * u;
-            const titH = f.titulo.length * tamTit * 0.92, yProva = yTit + titH - tamTit * 0.92 + m.mix(80, 52, cc) * u;
-            const linhas = d.quebrar(g, f.prova, S.w, { tam: tamProva, peso: 500 }).length;
-            return { tamTit, yTit, tamProva, yProva, fundo: yProva + (linhas - 1) * tamProva * 1.25 + tamProva * 0.35 };
-          };
-          const agora = medida(c), largo = medida(0), compacto = medida(1);
-          const saiTit = ultima ? m.anima(tg, T.fecha - 0.25, m.FILME.revela, m.CURVA.empurra) * 1.2 : 0; // a última sai pro "E pode fechar"
+          const sobe = m.anima(tl, FOCO - 0.05, m.FILME.revela, m.CURVA.empurra);
           const tTit = W(f.apelido, f.fala[0]) - 0.1;
-          const desloc = f.titulo.map((_, k) => m.revela(tg, tTit + k * 0.06) - saiTit);
-          d.textoRevelado(g, f.titulo, S.x, agora.yTit, desloc, { tam: agora.tamTit, maxW: S.w, ponto: true, pontoEscala: m.anima(tg, tTit + 0.35, m.DUR.padrao, m.CURVA.forte) });
-          const ep = m.anima(tg, W(f.apelido, f.fala[1]) - 0.08, m.DUR.entrada, m.CURVA.forte) * (1 - m.anima(tg, T.fecha - 0.3, 0.2, m.CURVA.saida) * (ultima ? 1 : 0));
-          d.paragrafo(g, f.prova, S.x, agora.yProva + (1 - ep) * 20 * u, { tam: agora.tamProva, peso: 500, cor: COR.tinta2, alfa: ep, maxW: S.w, entrelinha: 1.25 });
+          const desloc = f.titulo.map((_, k) => m.revela(tg, tTit + k * 0.06) - sobe * 1.2);
+          const tit = d.textoRevelado(g, f.titulo, S.x, S.y + 150 * u, desloc, { tam: 170 * u, maxW: S.w, ponto: true, pontoEscala: m.anima(tg, tTit + 0.35, m.DUR.padrao, m.CURVA.forte) });
+          const yProva = S.y + 150 * u + tit.h - tit.tam * 0.92 + 80 * u;
+          const ep = m.anima(tg, tTit + 0.15, m.DUR.entrada, m.CURVA.forte) * (1 - m.anima(tl, FOCO - 0.1, 0.2, m.CURVA.saida));
+          const prova = d.paragrafo(g, f.prova, S.x, yProva + (1 - ep) * 20 * u, { tam: 42 * u, peso: 500, cor: COR.tinta2, alfa: ep, maxW: S.w, entrelinha: 1.25 });
+          const fundoTexto = yProva + prova.h - 42 * u * 0.9;
           // o plano: chega pelo ângulo dele, o app inteiro, o detalhe; na última, de frente e pra dentro da tela
-          const q = enquadrar(L, f, largo.fundo + 30 * u, compacto.fundo + 30 * u);
+          const q = enquadrar(L, f, fundoTexto + 30 * u, 0);
           const chaves = [[-1, q.entra], [-0.05, q.inteiro, 1.2, m.CURVA.forte], [FOCO, q.foco, 0.6]];
           if (ultima) {
             const frente = { rx: 0, ry: 0, escala: q.inteiro.escala * 0.92, x: S.cx, y: L.H * 0.6, fx: f.cam.largura / 2, fy: f.cam.altura / 2 };
@@ -254,10 +271,10 @@ export default {
             const dl = linhas.map(([, k]) => m.revela(tg, W('fecha', k) - 0.08));
             d.textoRevelado(g, linhas.map(l => l[0]), S.x, S.y + 150 * u, dl, { tam: 150 * u, maxW: S.w, ponto: true, pontoEscala: m.anima(tg, T.apaga + 0.2, m.DUR.padrao, m.CURVA.forte) });
           }
-          // o aparelho fica embaixo do texto (recortado nele); na última, só depois que ela chega de frente (sem o
-          // recorte no meio da volta, o celular ainda de perto cobria o topo por um quadro)
-          const recorta = !(ultima && tg > T.fecha + 0.5);
-          if (recorta) { g.save(); g.beginPath(); g.rect(-L.W, agora.fundo + 12 * u, L.W * 3, L.H * 2); g.clip(); }
+          // enquanto o texto está na tela, o aparelho fica embaixo dele (recortado na linha); a linha sobe junto com o
+          // texto saindo, até o app tomar o quadro
+          const linha = m.mix(fundoTexto + 12 * u, -20 * u, c);
+          g.save(); g.beginPath(); g.rect(-L.W, linha, L.W * 3, L.H * 2); g.clip();
           d.app3d(g, L, {
             cam: f.cam, img: ctx.img, apelido: f.apelido, w: q.w, t: tl + 0.05, pose,
             toque: f.depois ? { em: TOQUE } : undefined,
@@ -266,13 +283,13 @@ export default {
             barras: f.barras ? { em: W(f.apelido, f.fala[1]) - ini, passo: B(1) / 3, dur: 0.45 } : undefined, // sobem com o "antecipando"
             apaga: ultima ? m.anima(tg, T.apaga, 0.12, m.CURVA.troca) : 0,
           });
-          if (recorta) g.restore();
+          g.restore();
           g.restore();
         });
       },
     },
-    { // o fim: a tela apagada virou a noite; o sol nasce no logo quando a voz diz "toLive", o mote linha por linha com
-      // a voz, os dias grátis em letra grande, o convite. A música termina aqui
+    { // o fim: a tela apagada virou a noite; o logo com o sol nascendo, o mote escrito, os dias grátis em letra grande
+      // com a voz, o convite. A música termina aqui
       de: T.folha, ate: DURACAO, desenhar(g, t, ctx, tg) {
         const { L, d, m, COR, dominio, catalogo } = ctx, u = L.u, S = L.seguro;
         d.fundo(g, L, COR.noite);
@@ -287,10 +304,10 @@ export default {
         d.logoComSol(g, ctx.img.logo, S.cx, yLogo + (1 - eLogo) * 20 * u, hLogo, { alfa: eLogo, sol: m.anima(tg, T.solFim, m.FILME.sol * 1.3, m.CURVA.forte), corSol: COR.noiteSinal, alinhar: 'center' });
         const eNome = m.anima(tg, T.solFim + 0.4, m.DUR.entrada, m.CURVA.forte);
         d.texto(g, 'Finanças', S.cx, yLogo + hLogo + 80 * u + (1 - eNome) * 14 * u, { tam: 38 * u, peso: 700, letra: 0.12, caixaAlta: true, cor: dominio('financas').horizonte, alinhar: 'center', alfa: eNome });
-        // o mote, agora dito: em letra de veredito, com a voz
+        // o mote, só escrito (sem voz), em letra de veredito, logo depois do logo
         const yMote = yLogo + hLogo + 80 * u + 120 * u + tamMote * 0.8;
-        const dm = MOTE.map(([, k]) => m.revela(tg, W('mote', k) - 0.08));
-        const rm = d.textoRevelado(g, MOTE.map(l => l[0]), S.cx, yMote, dm, { tam: tamMote, cor: COR.noiteTinta, alinhar: 'center', maxW: S.w });
+        const dm = MOTE.map((_, k) => m.revela(tg, T.mote + k * 0.12));
+        const rm = d.textoRevelado(g, MOTE, S.cx, yMote, dm, { tam: tamMote, cor: COR.noiteTinta, alinhar: 'center', maxW: S.w });
         // os dias grátis: a frase grande do fim (o pedido do Sidney: "precisa ser mais chamativo"), do catálogo
         let yCta = yMote + rm.h + 40 * u;
         if (td) {
@@ -310,3 +327,5 @@ export default {
     },
   ],
 };
+
+export default acelerar(filme, VELOCIDADE, { musicaInicio: +(musica.inicio + T.virada * (1 - 1 / VELOCIDADE)).toFixed(3) });
