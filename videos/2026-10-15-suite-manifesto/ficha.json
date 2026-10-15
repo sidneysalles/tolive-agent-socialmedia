@@ -21,11 +21,11 @@
   ],
   "usa": [],
   "cta": "",
-  "status": "rascunho",
+  "status": "entregue",
   "publicado": [],
-  "notas": "Etapa A fechada em 15/10/2026. Etapa B: a fala e as dez músicas (a escolhida: Light Thought var 1). Etapa C (15/10/2026): a voz do Sidney manda (o texto mudou na gravação: 'bolinha vermelha', três frases na noite, 'Rotinas de dinheiro, da casa, agendas, organização', 'Você abre, nós te trazemos o mais importante pronto pra você decidir, e depois, fecha. É isso. O restante deixa conosco.', a rima dentro da fala do Toly, 'Tecnologia pra você viver' no fim; sem a fala dos dias grátis, que ficam só escritos). O mote 'Tecnologia feita para não ser usada' saiu do fim: a frase da voz ocupa o lugar dele (perguntado ao Sidney na aprovação). A prova é o celular do site ('Uma coisa é sua. O resto está resolvido.') e o cartão do Toly, desmontados (capturar.mjs com pecas). A música entra no silêncio da noite (som.musicaEm) e vira no 'toLive'; o caos é só aviso tocando. Acelerado 4/3: 38,7 s. Versão 2 (15/10/2026, a v1 ficou 'nota 6': acelerada demais pro tom da voz e da música, pouca câmera e 3D, muito branco, efeitos estourando): sem acelerar (53,7 s), a câmera em toda cena (desenho.filmar), a noite depois do caos (o papel só no caos e no Toly), a foto CC0 de pai e filha no 'você vive' (pedido no quadro), o fim só com o logo e o mote (pedido no quadro), os efeitos em 0,16. Duas prévias na página: Light Thought e I Feel You.",
+  "notas": "Etapa A fechada em 15/10/2026. Etapa B: a fala e as dez músicas (a escolhida: Light Thought var 1). Etapa C (15/10/2026): a voz do Sidney manda (o texto mudou na gravação: 'bolinha vermelha', três frases na noite, 'Rotinas de dinheiro, da casa, agendas, organização', 'Você abre, nós te trazemos o mais importante pronto pra você decidir, e depois, fecha. É isso. O restante deixa conosco.', a rima dentro da fala do Toly, 'Tecnologia pra você viver' no fim; sem a fala dos dias grátis, que ficam só escritos). O mote 'Tecnologia feita para não ser usada' saiu do fim: a frase da voz ocupa o lugar dele (perguntado ao Sidney na aprovação). A prova é o celular do site ('Uma coisa é sua. O resto está resolvido.') e o cartão do Toly, desmontados (capturar.mjs com pecas). A música entra no silêncio da noite (som.musicaEm) e vira no 'toLive'; o caos é só aviso tocando. Acelerado 4/3: 38,7 s. Versão 2 (15/10/2026, a v1 ficou 'nota 6': acelerada demais pro tom da voz e da música, pouca câmera e 3D, muito branco, efeitos estourando): sem acelerar (53,7 s), a câmera em toda cena (desenho.filmar), a noite depois do caos (o papel só no caos e no Toly), a foto CC0 de pai e filha no 'você vive' (pedido no quadro), o fim só com o logo e o mote (pedido no quadro), os efeitos em 0,16. Duas prévias na página: Light Thought e I Feel You. Final (15/10/2026): reels 1080×1920, 8 subquadros, −14,0 LUFS, 53,7 s (render de 28 min). A foto em 960×640 (a original não chegou): suave em tela cheia.",
   "apelido": "Manifesto",
-  "duracao": 53.7,
+  "duracao": 53.73,
   "formatos": [
     "reels"
   ],
@@ -52,5 +52,11 @@
     "arquivo": "assets/narracao/2026-10-15-suite-manifesto/narracao.mp3",
     "voz": "enviada pelo Sidney (15/10/2026), com o texto mudado na gravação",
     "diz_o_teste": null
-  }
+  },
+  "catalogo": {
+    "lido_em": "2026-10-15T03:15:55.776Z",
+    "menorPreco": "R$ 14,90 por mês",
+    "teste": "30 dias grátis com até duas conexões"
+  },
+  "renderizado_em": "2026-10-15T03:43:47.713Z"
 }
