@@ -34,7 +34,8 @@ export function cobertura(lista, catalogo) {
   const contam = lista.filter(f => f.status === 'entregue' || f.status === 'publicado');
   return Object.fromEntries(Object.entries(catalogo).map(([chave, p]) => {
     const deste = contam.filter(f => f.produto === chave);
-    const vezes = id => deste.filter(f => (f.features ?? []).includes(id)).length;
+    // a feature conta também quando outro vídeo (o da marca) a usa como prova: "financas:veredito"
+    const vezes = id => deste.filter(f => (f.features ?? []).includes(id)).length + contam.filter(f => (f.features ?? []).includes(`${chave}:${id}`)).length;
     const features = Object.keys(p.features).map(id => ({ id, nome: p.features[id].nome, vezes: vezes(id) }));
     const angulos = Object.keys(p.angulos).map(id => ({ id, vezes: deste.filter(f => f.angulo === id).length }));
     return [chave, {

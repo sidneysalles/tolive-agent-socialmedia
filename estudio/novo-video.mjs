@@ -21,9 +21,11 @@ export function criarVideo({ produto, angulo, formato = 'stories', features, pal
   if (!p) throw new Error(`produto desconhecido: ${produto} (use ${Object.keys(catalogo).join(', ')})`);
   if (!p.angulos[angulo]) throw new Error(`ângulo desconhecido pra ${produto}: ${angulo} (use ${Object.keys(p.angulos).join(', ')}, ou acrescente em conhecimento/produtos.json)`);
   const ids = features ? features.split(',').map(f => f.trim()) : Object.keys(p.features).filter(id => p.features[id].captura.length).slice(0, 3);
+  // um vídeo da marca prova com a feature de um app: "financas:veredito"
   const escolhidas = ids.map(id => {
-    const f = p.features[id];
-    if (!f) throw new Error(`feature desconhecida pra ${produto}: ${id}`);
+    const [de, fid] = id.includes(':') ? id.split(':') : [produto, id];
+    const f = catalogo[de]?.features[fid];
+    if (!f) throw new Error(`feature desconhecida pra ${de}: ${fid}`);
     if (!f.captura.length) throw new Error(`a feature ${id} não tem captura (acrescente em estudio/capturas.json e em produtos.json)`);
     const titulo = f.curto.split(' ').length > 2 ? [f.curto.split(' ').slice(0, -1).join(' '), f.curto.split(' ').at(-1)] : [f.curto];
     return { titulo, prova: f.linha, img: f.captura[0] };

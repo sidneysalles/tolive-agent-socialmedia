@@ -39,6 +39,13 @@ test('a cobertura conta só o que foi entregue, e acha o que nunca foi dito', ()
   assert.ok(!c.angulosLivres.includes('antes-depois'));
 });
 
+test('a feature usada como prova num vídeo da marca conta no app dela', () => {
+  const lista = [{ id: 'm', data: '2026-10-15', produto: 'suite', angulo: 'manifesto', features: ['financas:toly'], status: 'entregue' }];
+  const c = cobertura(lista, produtos());
+  assert.ok(!c.financas.nunca.includes('toly'));
+  assert.ok(!c.suite.angulosLivres.includes('manifesto'));
+});
+
 test('vídeo com teste grátis velho aparece pra refazer', () => {
   const hoje = oQueDizer(CONTA);
   const lista = [
@@ -66,7 +73,10 @@ test('todo vídeo do repositório tem ficha válida, filme que carrega e texto n
   for (const f of fichas(raiz)) {
     assert.ok(catalogo[f.produto], `${f.id}: produto ${f.produto}`);
     assert.ok(!f.angulo || catalogo[f.produto].angulos[f.angulo], `${f.id}: ângulo ${f.angulo}`);
-    for (const id of f.features ?? []) assert.ok(catalogo[f.produto].features[id], `${f.id}: feature ${id}`);
+    for (const id of f.features ?? []) {
+      const [de, fid] = id.includes(':') ? id.split(':') : [f.produto, id];
+      assert.ok(catalogo[de]?.features[fid], `${f.id}: feature ${id}`);
+    }
     assert.ok(['rascunho', 'entregue', 'publicado', 'reprovado'].includes(f.status), `${f.id}: status ${f.status}`);
     if (f.status === 'reprovado') assert.ok(f.reprovado?.motivo, `${f.id}: reprovado sem o motivo (é o que a próxima pauta aprende)`);
     const filme = (await import(`../videos/${f.id}/filme.mjs`)).default;
@@ -148,6 +158,10 @@ test('a busca de música descarta o que não combina com a marca e ouve o pedido
   assert.equal(notaDoCatalogo({ ...base, instruments: 'Bagpipes, Drums' }), -Infinity);
   assert.equal(notaDoCatalogo({ ...base, bpm: '170' }), -Infinity);
   assert.equal(notaDoCatalogo({ ...base, length: '00:00:40' }), -Infinity);
+  assert.equal(notaDoCatalogo({ ...base, instruments: 'Solo Female Voice, Strings' }), -Infinity, 'voz cantada briga com a narração');
+  assert.equal(notaDoCatalogo({ ...base, title: 'Jingle Bells' }), -Infinity);
+  assert.equal(notaDoCatalogo({ ...base, title: 'Devonshire Waltz Allegretto' }), -Infinity, 'valsa não cabe em compasso de quatro');
+  assert.equal(notaDoCatalogo({ ...base, description: 'Electro-acoustic rendering of the famous American folk song.' }), -Infinity);
   assert.ok(notaDoCatalogo(base, 'mais piano') > notaDoCatalogo(base, 'mais guitarra'));
 });
 

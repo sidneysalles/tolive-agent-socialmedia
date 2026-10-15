@@ -16,6 +16,7 @@ import { execFileSync } from 'node:child_process';
 import { join, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { estimarBatidas, lerAudio, melhoresTrechos } from './batidas.mjs';
+import { fichas } from './historico.mjs';
 
 const RAIZ = fileURLToPath(new URL('..', import.meta.url));
 const CATALOGO = 'https://incompetech.com/music/royalty-free/pieces.json';
@@ -28,19 +29,25 @@ const segundos = t => String(t ?? '').split(':').reduce((a, n) => a * 60 + Numbe
 
 // o que combina com a marca (calma, propósito, inspiração) e o que não combina (humor, terror, medieval, exótico)
 const BOM = { uplifting: 3, bright: 1, driving: 1, calming: 0.5, relaxed: 0.3, epic: 0.5 };
-const RUIM = /humorous|dark|eerie|unnerving|somber|aggressive|mysterious|suspenseful|medieval|ren faire|mystical/i;
+const RUIM = /humorous|dark|eerie|unnerving|somber|aggressive|mysterious|suspenseful|medieval|ren faire|mystical|intense/i;
 const INSTRUMENTO_FORA = /bagpipe|banjo|accordion|steel drum|tuba|ukulele|kazoo|harmonica|didgeridoo|sitar|guzheng|theremin|bassoon|log drum/i;
 const INSTRUMENTO_BOM = /piano|strings|violin|cello|synth|guitar|bells|glockenspiel/i;
+// voz cantada briga com a narração; música de festa, folclore e ópera conhecidas puxam outra lembrança (o Manifesto,
+// out/2026: a busca trouxe Jingle Bells, Comin' Round the Mountain e a Habanera de Carmen)
+const CANTADA = /voice|vocal|choir|singer/i;
+const VALSA = /waltz|valse|minuet/i; // em três: o filme corta em compassos de quatro
+const CONHECIDA = /holiday|christmas|xmas|jingle|carol|folk song|aria|opera|nursery|lullaby|band program|anthem|wedding/i;
 
 /** A nota de uma faixa só pelos dados do catálogo, e o pedido de quem aprova (palavras soltas: "piano", "calmo"…). */
 export function notaDoCatalogo(p, clima = '') {
   const feel = (p.feel ?? '').toLowerCase(), texto = `${p.title} ${p.description ?? ''} ${p.instruments ?? ''} ${feel}`.toLowerCase();
   const bpm = Number(p.bpm) || 0, dur = segundos(p.length);
   if (bpm < 96 || bpm > 136 || dur < 75 || RUIM.test(feel) || INSTRUMENTO_FORA.test(p.instruments ?? '')) return -Infinity;
+  if (CANTADA.test(p.instruments ?? '') || CONHECIDA.test(`${p.title} ${p.description ?? ''}`) || VALSA.test(`${p.title} ${p.description ?? ''}`)) return -Infinity;
   let nota = Object.entries(BOM).reduce((a, [k, v]) => a + (feel.includes(k) ? v : 0), 0);
   if (/inspir|hope|motivat|optimis|journey|begin|rise|rising|dream/.test(texto)) nota += 1.5;
   if (INSTRUMENTO_BOM.test(p.instruments ?? '')) nota += 1;
-  if (/bouncy/.test(feel)) nota -= 1; // saltitante puxa pro infantil
+  if (/bouncy/.test(feel)) nota -= 3; // saltitante puxa pro infantil (o Manifesto, out/2026: com -1, metade das dez)
   const sinonimos = { calmo: 'calming relaxed', calma: 'calming relaxed', energia: 'driving', animada: 'driving bright', piano: 'piano', cordas: 'strings violin cello', violao: 'guitar', guitarra: 'guitar', eletronica: 'synth', epica: 'epic', inspiradora: 'uplifting inspir' };
   for (const palavra of clima.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').split(/[^a-z]+/).filter(Boolean)) {
     for (const termo of (sinonimos[palavra] ?? palavra).split(' ')) if (texto.includes(termo)) nota += 2;
@@ -73,10 +80,13 @@ export async function sugerir(pasta, { quantas = 10, clima = '' } = {}) {
   const { antes = 5, depois = 6, compassos = 13 } = filme.musica ?? {};
   const dir = join(pasta, 'aprovacao'), arq = join(dir, 'musicas.json');
   const estado = lerJson(arq, { rodadas: [], escolhida: null });
+  // nem a já oferecida aqui, nem a música de outro vídeo (cada filme com a sua)
+  const outras = fichas().filter(f => f.musica?.arquivo && !pasta.endsWith(f.id)).map(f => f.musica.arquivo);
   const ja = new Set(estado.rodadas.flatMap(r => r.faixas.map(f => f.id)));
+  const deOutro = id => outras.some(a => a.endsWith(`-${id}.mp3`) || a.endsWith(`/${id}.mp3`));
   const lista = (await catalogo())
     .map(p => ({ p, nota: notaDoCatalogo(p, clima) }))
-    .filter(x => Number.isFinite(x.nota) && !ja.has(slug(x.p.title)))
+    .filter(x => Number.isFinite(x.nota) && !ja.has(slug(x.p.title)) && !deOutro(slug(x.p.title)))
     .sort((a, b) => b.nota - a.nota || a.p.title.localeCompare(b.p.title))
     .slice(0, quantas * 3);
   const medidas = [];

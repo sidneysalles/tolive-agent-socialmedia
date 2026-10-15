@@ -177,3 +177,7 @@ node estudio/historico.mjs                            # a memória
   ambiente. (out/2026)
 - O preço de exemplo do site ("Streaming parado, R$ 39,90 por mês") não é preço da toLive; o `texto.mjs` só reprova os
   preços que a conta cobra e "a partir de R$" / "N dias grátis". (out/2026)
+- Vídeo da marca (`suite`) prova com a feature de um app: `--features financas:veredito` (a ficha guarda assim, e a
+  memória conta a feature no app dela). E a busca de música (o Manifesto, out/2026) trouxe Jingle Bells, uma ária
+  cantada e duas valsas: voz cantada briga com a narração, valsa não cabe em compasso de quatro, e a música de outro
+  vídeo não volta (cada filme com a sua). (out/2026)

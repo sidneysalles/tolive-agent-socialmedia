@@ -99,7 +99,7 @@ export async function pagina(pasta) {
     atualNaPagina = { id: 'atual', titulo: atual.titulo, autor: 'Kevin MacLeod', bpm: Math.round(atual.bpm), clima: 'a que está no vídeo hoje', instrumentos: '', virada: atual.virada, trecho: dur, licenca: 'CC BY 4.0', arquivo: 'musicas/atual.mp3', atual: true };
   }
   const dados = {
-    video: ficha.titulo ?? filme.titulo, apelido: ficha.apelido ?? ficha.titulo ?? filme.titulo, id: filme.id, produto: ficha.produto ?? filme.produto, duracao: filme.duracao,
+    video: ficha.titulo ?? filme.titulo, apelido: ficha.apelido ?? ficha.titulo ?? filme.titulo, id: filme.id, produto: ficha.produto ?? filme.produto, duracao: ficha.duracao ?? filme.duracao,
     rodada: rodada?.n ?? 0, gerada: new Date().toISOString(), previa: prev && { de: prev.de, ate: prev.ate, arquivo: prev.arquivo, titulo: filme.previa?.titulo, texto: filme.previa?.texto },
     atual: atual && { titulo: atual.titulo, bpm: atual.bpm },
     faixas: [...(atualNaPagina ? [atualNaPagina] : []), ...(rodada?.faixas ?? []).map(paraPagina)],
@@ -201,7 +201,7 @@ details.rodadas .musicas { margin-top: 12px; }
   <header>
     <p class="rotulo">Estúdio toLive · aprovação antes do render</p>
     <h1>${esc(dados.video)}<span class="ponto" aria-hidden="true"></span></h1>
-    <p class="apoio">toLive ${esc(dados.produto === 'financas' ? 'Finanças' : dados.produto)} · ${String(dados.duracao).replace('.', ',')} s. Primeiro a música, porque os cortes caem na batida dela; depois os quadros. O vídeo só é renderizado com os dois aprovados.</p>
+    <p class="apoio">${esc({ financas: 'toLive Finanças', fe: 'toLive Fé', suite: 'toLive' }[dados.produto] ?? dados.produto)} · ${String(dados.duracao).replace('.', ',')} s. Primeiro a música, porque os cortes caem na batida dela; depois os quadros. O vídeo só é renderizado com os dois aprovados.</p>
     <div class="estado" id="estado"></div>
   </header>
 

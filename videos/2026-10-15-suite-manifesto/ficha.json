@@ -1,0 +1,40 @@
+{
+  "data": "2026-10-15",
+  "produto": "suite",
+  "titulo": "Tecnologia pra você viver melhor",
+  "serie": null,
+  "angulo": "manifesto",
+  "gancho": "Quase toda tecnologia foi feita pra te prender.",
+  "mensagens": [
+    "Quase toda tecnologia foi feita pra te prender: mais um alerta, mais um motivo pra voltar (o caos de notificações, sequências e medalhas, só nos primeiros segundos).",
+    "Todo dia surge um app novo; quase nenhum pra você viver melhor (o silêncio antes da virada).",
+    "A toLive nasceu pro contrário: pra você viver fora da tela (o sol nasce e vira o logo).",
+    "Dinheiro, casa, saúde, fé: a gente cuida da rotina, você fica com a vida (os pilares como partes da vida, nunca como apps).",
+    "Começamos pelo dinheiro: abre, lê uma frase, fecha; só chama quando a decisão é sua (o Finanças, Tudo em ordem e o Toly).",
+    "Sem sequência. Sem medalha. Tecnologia pra você viver melhor (as peças do caos voltam riscadas). O mote só escrito; os dias grátis do catálogo."
+  ],
+  "features": [
+    "financas:veredito",
+    "financas:excecao",
+    "financas:toly"
+  ],
+  "usa": [
+    "teste"
+  ],
+  "cta": "Comece em tolive.app (com o teste grátis do catálogo)",
+  "status": "rascunho",
+  "publicado": [],
+  "notas": "Etapa A fechada com o Sidney em 15/10/2026 (roteiro em roteiro.md). Etapa B: a fala (narracao.md) e as dez músicas na página de aprovação; esperando a voz e a escolha.",
+  "apelido": "Manifesto",
+  "duracao": 33,
+  "formatos": [
+    "reels"
+  ],
+  "publico": "Famílias, de 30 a 50 anos. Orgânico, no perfil.",
+  "aprovacao": {
+    "pagina": "https://claude.ai/artifact/2pTyks4gYE7UECRHAf6xPn",
+    "aberta_em": "2026-10-15",
+    "musica": null,
+    "quadros": null
+  }
+}
